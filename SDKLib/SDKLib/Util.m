@@ -19,29 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#import "Util.h"
 
-#import "DgApp.h"
-#import "DgMainWindow.h"
+@implementation Util
 
-@implementation DgApp {
-   NSArray *mpTopLevelNibObjs;
-   NSWindowController *mpCtrlMainWindow;
-   DgMainWindow *mpDgMainWindow;
-}
 
-- (id)init {
-   mpTopLevelNibObjs = NULL;
-   mpCtrlMainWindow = [[NSWindowController alloc] init];
-   mpDgMainWindow = [[DgMainWindow alloc] init];
-   return self;
-}
-
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-   NSLog(@"Hello");
-   
-   mpCtrlMainWindow = [mpCtrlMainWindow initWithWindowNibName:@"MainWindow"];
-   NSWindow *pWindow = [mpCtrlMainWindow window];
-   [pWindow setDelegate:mpDgMainWindow];
-}
 
 @end

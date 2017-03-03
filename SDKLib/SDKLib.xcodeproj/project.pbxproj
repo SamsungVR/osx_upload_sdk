@@ -9,12 +9,22 @@
 /* Begin PBXBuildFile section */
 		254A54791E64C5A500BFAC55 /* VR.h in Headers */ = {isa = PBXBuildFile; fileRef = 254A54781E64C5A500BFAC55 /* VR.h */; };
 		254A547B1E64C5A500BFAC55 /* VR.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A547A1E64C5A500BFAC55 /* VR.m */; };
+		254A54B61E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 254A54B41E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h */; };
+		254A54B71E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54B51E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.m */; };
+		254A54BA1E67961100BFAC55 /* HttpPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 254A54B91E67961100BFAC55 /* HttpPlugin.h */; };
+		254A54BD1E679F8400BFAC55 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 254A54BB1E679F8300BFAC55 /* Util.h */; };
+		254A54BE1E679F8400BFAC55 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54BC1E679F8400BFAC55 /* Util.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		254A54781E64C5A500BFAC55 /* VR.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VR.h; path = SDKLib/VR.h; sourceTree = "<group>"; };
 		254A547A1E64C5A500BFAC55 /* VR.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VR.m; path = SDKLib/VR.m; sourceTree = "<group>"; };
 		254A54AD1E67572400BFAC55 /* libSDKLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSDKLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		254A54B41E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HttpPlugin_RequestFactory_Impl.h; path = SDKLib/HttpPlugin_RequestFactory_Impl.h; sourceTree = "<group>"; };
+		254A54B51E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HttpPlugin_RequestFactory_Impl.m; path = SDKLib/HttpPlugin_RequestFactory_Impl.m; sourceTree = "<group>"; };
+		254A54B91E67961100BFAC55 /* HttpPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HttpPlugin.h; path = SDKLib/HttpPlugin.h; sourceTree = "<group>"; };
+		254A54BB1E679F8300BFAC55 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = SDKLib/Util.h; sourceTree = "<group>"; };
+		254A54BC1E679F8400BFAC55 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Util.m; path = SDKLib/Util.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +41,11 @@
 		254A546C1E64C5A500BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				254A54BB1E679F8300BFAC55 /* Util.h */,
+				254A54BC1E679F8400BFAC55 /* Util.m */,
+				254A54B91E67961100BFAC55 /* HttpPlugin.h */,
+				254A54B41E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h */,
+				254A54B51E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.m */,
 				254A547A1E64C5A500BFAC55 /* VR.m */,
 				254A54781E64C5A500BFAC55 /* VR.h */,
 				254A54AD1E67572400BFAC55 /* libSDKLib.a */,
@@ -44,7 +59,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				254A54B61E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h in Headers */,
 				254A54791E64C5A500BFAC55 /* VR.h in Headers */,
+				254A54BD1E679F8400BFAC55 /* Util.h in Headers */,
+				254A54BA1E67961100BFAC55 /* HttpPlugin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +123,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				254A54B71E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.m in Sources */,
 				254A547B1E64C5A500BFAC55 /* VR.m in Sources */,
+				254A54BE1E679F8400BFAC55 /* Util.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +222,7 @@
 		254A547F1E64C5A500BFAC55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -211,7 +231,7 @@
 		254A54801E64C5A500BFAC55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

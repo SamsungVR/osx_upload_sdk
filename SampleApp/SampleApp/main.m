@@ -15,9 +15,6 @@ int main(int argc, const char * argv[]) {
    
    NSApplication *pApp = [NSApplication sharedApplication];
    [pApp setDelegate:pDgApp];
-   [pApp performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:YES];
-   [pApp release];
-   [pDgApp release];
-   
+   [pApp performSelectorOnMainThread:@selector(run) withObject:nil waitUntilDone:YES];   
    return EXIT_SUCCESS;
 }

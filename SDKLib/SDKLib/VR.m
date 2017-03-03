@@ -21,7 +21,23 @@
  */
 
 #import "VR.h"
+#import "HttpPlugin.h"
+
 
 @implementation VR
+    
+static VR *sVR = nil;
+static NSObject *sLock = nil;
+
++ (void)initialize {
+    sLock = [[NSObject alloc] init];
+    sVR = [[VR alloc] init];
+    
+}
+
++ (bool)init {
+    return true;
+}
+
 
 @end	

@@ -20,28 +20,11 @@
  * THE SOFTWARE.
  */
 
-#import "DgApp.h"
-#import "DgMainWindow.h"
+#import <HttpPlugin.h>
 
-@implementation DgApp {
-   NSArray *mpTopLevelNibObjs;
-   NSWindowController *mpCtrlMainWindow;
-   DgMainWindow *mpDgMainWindow;
-}
+@interface HttpPlugin_RequestFactory_Impl : NSObject<HttpPlugin_RequestFactory>
 
-- (id)init {
-   mpTopLevelNibObjs = NULL;
-   mpCtrlMainWindow = [[NSWindowController alloc] init];
-   mpDgMainWindow = [[DgMainWindow alloc] init];
-   return self;
-}
+- (void)init;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-   NSLog(@"Hello");
-   
-   mpCtrlMainWindow = [mpCtrlMainWindow initWithWindowNibName:@"MainWindow"];
-   NSWindow *pWindow = [mpCtrlMainWindow window];
-   [pWindow setDelegate:mpDgMainWindow];
-}
 
 @end
