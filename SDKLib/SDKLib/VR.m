@@ -32,10 +32,14 @@ static NSObject *sLock = nil;
 + (void)initialize {
     sLock = [[NSObject alloc] init];
     sVR = [[VR alloc] init];
-    
 }
 
-+ (bool)init {
++ (bool)initWithEndpoint:(NSString *)endPoint apiKey:(NSString *)apiKey factory:(id<HttpPlugin_RequestFactory>)factory
+                 handler:(NSOperationQueue *)handler closure:(Object)closure {
+    @synchronized (sLock) {
+        
+    }
+    VR_Result_Status x = VR_RESULT_STATUS_INVALID_USER_ID;
     return true;
 }
 

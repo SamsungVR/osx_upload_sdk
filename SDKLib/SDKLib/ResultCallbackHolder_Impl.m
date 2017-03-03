@@ -20,40 +20,40 @@
  * THE SOFTWARE.
  */
 
-#import <Foundation/Foundation.h>
 #import "ResultCallbackHolder.h"
 
-@interface Util : NSObject
 
+@implementation ResultCallbackHolder_Impl {
+    Object mCallbackWeakRef;
+    Handler mHandlerWeakRef;
+    Object mClosure;
+}
 
-@end
+- (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure {
+    mCallbackWeakRef = callback;
+    mHandlerWeakRef = handler;
+    mClosure = closure;
+    return self;
+}
 
-@interface Util_CallbackNotifier : NSOperation<ResultCallbackHolder>
+- (id)setNoLock:(id<ResultCallbackHolder>)other {
+    return [self setNoLock:[other getCallbackNoLock] handler:[other getHandlerNoLock] closure:[other getClosureNoLock]];
+}
 
-- (id)init;
-- (void)notify:(Object)callback closure:(Object)closure;
-- (bool)post;
+- (id)clearNoLock {
+    return [self setNoLock:NULL handler:NULL closure:NULL];
+}
 
-@end
+- (Object)getClosureNoLock {
+    return mClosure;
+}
 
+- (Object)getCallbackNoLock {
+    return mCallbackWeakRef;
+}
 
-@interface Util_SuccessCallbackNotifier : Util_CallbackNotifier
-@end
+- (Handler)getHandlerNoLock {
+    return mHandlerWeakRef;
+}
 
-@interface Util_SuccessWithResultCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithRef:(Object)ref;
-
-@end
-
-@interface Util_FailureCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithStatus:(NSInteger)status;
-
-@end
-
-@interface Util_CancelledCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_ExceptionCallbackNotifier : Util_CallbackNotifier
 @end

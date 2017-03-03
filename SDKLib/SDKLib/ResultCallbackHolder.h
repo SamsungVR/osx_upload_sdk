@@ -20,40 +20,21 @@
  * THE SOFTWARE.
  */
 
+
 #import <Foundation/Foundation.h>
-#import "ResultCallbackHolder.h"
+#import "Compat_Defs.h"
 
-@interface Util : NSObject
+@protocol ResultCallbackHolder
 
-
-@end
-
-@interface Util_CallbackNotifier : NSOperation<ResultCallbackHolder>
-
-- (id)init;
-- (void)notify:(Object)callback closure:(Object)closure;
-- (bool)post;
+- (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure;
+- (id)setNoLock:(id<ResultCallbackHolder>)other;
+- (id)clearNoLock;
+- (Object)getClosureNoLock;
+- (Handler)getHandlerNoLock;
+- (Object)getCallbackNoLock;
 
 @end
 
 
-@interface Util_SuccessCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_SuccessWithResultCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithRef:(Object)ref;
-
-@end
-
-@interface Util_FailureCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithStatus:(NSInteger)status;
-
-@end
-
-@interface Util_CancelledCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_ExceptionCallbackNotifier : Util_CallbackNotifier
+@interface ResultCallbackHolder_Impl : NSObject<ResultCallbackHolder>
 @end

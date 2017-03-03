@@ -19,10 +19,137 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+#import "VR.h"
 #import "Util.h"
+#import "ResultCallbackHolder.h"
 
 @implementation Util
 
+@end
 
+@implementation Util_CallbackNotifier {
+    ResultCallbackHolder_Impl *mRCHImpl;
+}
+
+- (id)init {
+    mRCHImpl = [[ResultCallbackHolder_Impl alloc] init];
+    return [super init];
+}
+
+- (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure {
+    [mRCHImpl setNoLock:callback handler:handler closure:closure];
+    return self;
+}
+
+- (id)setNoLock:(id<ResultCallbackHolder>)other {
+    [mRCHImpl setNoLock:[other getCallbackNoLock] handler:[other getHandlerNoLock] closure:[other getClosureNoLock]];
+    return self;
+}
+
+- (id)clearNoLock {
+    [mRCHImpl setNoLock:NULL handler:NULL closure:NULL];
+    return self;
+}
+
+- (Object)getClosureNoLock {
+    return [mRCHImpl getClosureNoLock];
+}
+
+- (Object)getCallbackNoLock {
+    return [mRCHImpl getCallbackNoLock];
+}
+
+- (Handler)getHandlerNoLock {
+    return [mRCHImpl getHandlerNoLock];
+}
+
+- (void)notify:(Object)callback closure:(Object)closure {
+}
+
+- (void)main {
+    Object callback = [self getCallbackNoLock];
+    if (!callback) {
+        return;
+    }
+    [self notify:callback closure:[self getClosureNoLock]];
+}
+
+- (bool)post {
+    Handler handler = [self getHandlerNoLock];
+    if (handler) {
+        [handler addOperation:self];
+    }
+    return true;
+}
+
+@end
+
+@implementation Util_SuccessCallbackNotifier
+
+- (void)notify:(Object)callback closure:(Object)closure {
+    id<VR_Result_SuccessCallback> pCasted = callback;
+    [pCasted onSuccess:closure];
+}
+
+@end
+
+@implementation Util_SuccessWithResultCallbackNotifier {
+    Object mRef;
+}
+
+- (id)initWithRef:(Object)ref {
+    mRef = ref;
+    return [super init];
+}
+
+- (void)notify:(Object)callback closure:(Object)closure {
+    id<VR_Result_SuccessWithResultCallback> pCasted = callback;
+    [pCasted onSuccess:closure result:mRef];
+}
+
+@end
+
+
+@implementation Util_FailureCallbackNotifier {
+    NSInteger mStatus;
+}
+
+- (id)initWithStatus:(NSInteger)status {
+    mStatus = status;
+    return [super init];
+}
+
+- (void)notify:(Object)callback closure:(Object)closure {
+    id<VR_Result_FailureCallback> pCasted = callback;
+    [pCasted onFailure:closure status:mStatus];
+}
+
+@end
+
+
+@implementation Util_CancelledCallbackNotifier
+
+
+- (void)notify:(Object)callback closure:(Object)closure {
+    id<VR_Result_BaseCallback> pCasted = callback;
+    [pCasted onCancelled:closure];
+}
+
+@end
+
+@implementation Util_ExceptionCallbackNotifier {
+    NSException *mException;
+}
+
+- (id)initWithException:(NSException *)exception {
+    mException = exception;
+    return [super init];
+}
+
+- (void)notify:(Object)callback closure:(Object)closure {
+    id<VR_Result_BaseCallback> pCasted = callback;
+    [pCasted onException:closure ex:mException];
+}
 
 @end

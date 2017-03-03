@@ -20,40 +20,38 @@
  * THE SOFTWARE.
  */
 
-#import <Foundation/Foundation.h>
-#import "ResultCallbackHolder.h"
+#import "APIClient.h"
+#import "Util.h"
 
-@interface Util : NSObject
+@interface APIClient_Impl : NSObject<APIClient>
+@end
 
+@implementation APIClient_Impl {
+    AsyncWorkQueue *mAsyncWorkQueue;
+    AsyncWorkQueue *mAsyncUploadQueue;
+}
+
+- (id)initInternal:(NSString *)endPoint apiKey:(NSString *)apiKey
+    httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory {
+    
+    mAsyncWorkQueue = [[AsyncWorkQueue alloc] init];
+    mAsyncUploadQueue = [[AsyncWorkQueue alloc] init];
+    return self;
+}
 
 @end
 
-@interface Util_CallbackNotifier : NSOperation<ResultCallbackHolder>
+@implementation APIClient_Factory
 
-- (id)init;
-- (void)notify:(Object)callback closure:(Object)closure;
-- (bool)post;
++ (bool)newInstance:(NSString *)endPoint apiKey:(NSString *)apiKey
+          httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory
+                    callback:(id<APIClient_Result_Init>)callback handler:(NSOperationQueue *)handler
+                     closure:(Object)closure {
+    id<APIClient> result = [[APIClient_Impl alloc] initInternal:endPoint apiKey:apiKey httpRequestFactory:httpRequestFactory];
+    if (callback) {
+        [[[[Util_SuccessWithResultCallbackNotifier alloc] initWithRef:result] setNoLock:callback handler:handler closure:closure] post];
+    }
+    return true;
+}
 
-@end
-
-
-@interface Util_SuccessCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_SuccessWithResultCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithRef:(Object)ref;
-
-@end
-
-@interface Util_FailureCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithStatus:(NSInteger)status;
-
-@end
-
-@interface Util_CancelledCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_ExceptionCallbackNotifier : Util_CallbackNotifier
 @end

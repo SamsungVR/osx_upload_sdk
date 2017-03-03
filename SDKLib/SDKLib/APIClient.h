@@ -21,39 +21,35 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ResultCallbackHolder.h"
 
-@interface Util : NSObject
+#import "VR.h"
+#import "HttpPlugin.h"
+#import "AsyncWorkQueue.h"
+
+@protocol APIClient_Result_Init <VR_Result_SuccessWithResultCallback, VR_Result_FailureCallback>
+@end
+
+@protocol APIClient_Result_Destroy <VR_Result_SuccessCallback, VR_Result_FailureCallback>
+@end
+
+@protocol APIClient
+
+- (bool)newUser:(NSString *)name email:(NSString *)email password:(NSString *)password
+        callback:(id<VR_Result_NewUser>)callback handler:(NSOperationQueue *)handler
+        closure:(Object)closure;
+
+- (AsyncWorkQueue *)getAsyncWorkQueue;
+- (AsyncWorkQueue *)getAsyncUploadQueue;
 
 
 @end
 
-@interface Util_CallbackNotifier : NSOperation<ResultCallbackHolder>
 
-- (id)init;
-- (void)notify:(Object)callback closure:(Object)closure;
-- (bool)post;
+@interface APIClient_Factory : NSObject
 
-@end
++ (bool)newInstance:(NSString *)endPoint apiKey:(NSString *)apiKey
+        httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory
+        callback:(id<APIClient_Result_Init>)callback handler:(NSOperationQueue *)handler
+        closure:(Object)closure;
 
-
-@interface Util_SuccessCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_SuccessWithResultCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithRef:(Object)ref;
-
-@end
-
-@interface Util_FailureCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithStatus:(NSInteger)status;
-
-@end
-
-@interface Util_CancelledCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_ExceptionCallbackNotifier : Util_CallbackNotifier
 @end

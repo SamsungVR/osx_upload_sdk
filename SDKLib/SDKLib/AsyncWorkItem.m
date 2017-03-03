@@ -19,41 +19,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#import "AsyncWorkItem.h"
 
-#import <Foundation/Foundation.h>
-#import "ResultCallbackHolder.h"
+@implementation AsyncWorkItem
 
-@interface Util : NSObject
+- (void)main {
+    
+}
 
-
-@end
-
-@interface Util_CallbackNotifier : NSOperation<ResultCallbackHolder>
-
-- (id)init;
-- (void)notify:(Object)callback closure:(Object)closure;
-- (bool)post;
-
-@end
-
-
-@interface Util_SuccessCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_SuccessWithResultCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithRef:(Object)ref;
-
-@end
-
-@interface Util_FailureCallbackNotifier : Util_CallbackNotifier
-
-- (id)initWithStatus:(NSInteger)status;
-
-@end
-
-@interface Util_CancelledCallbackNotifier : Util_CallbackNotifier
-@end
-
-@interface Util_ExceptionCallbackNotifier : Util_CallbackNotifier
 @end
