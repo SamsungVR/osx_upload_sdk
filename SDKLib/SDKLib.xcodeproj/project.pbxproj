@@ -42,6 +42,7 @@
 		254A54C91E69F82F00BFAC55 /* AsyncWorkItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncWorkItem.m; path = SDKLib/AsyncWorkItem.m; sourceTree = "<group>"; };
 		254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultCallbackHolder.h; path = SDKLib/ResultCallbackHolder.h; sourceTree = "<group>"; };
 		254A54CD1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResultCallbackHolder_Impl.m; path = SDKLib/ResultCallbackHolder_Impl.m; sourceTree = "<group>"; };
+		254A54D01E6A2DC500BFAC55 /* APIClient_Impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = APIClient_Impl.h; path = SDKLib/APIClient_Impl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 		254A546C1E64C5A500BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				254A54D01E6A2DC500BFAC55 /* APIClient_Impl.h */,
 				254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder.h */,
 				254A54CD1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m */,
 				254A54C81E69F82F00BFAC55 /* AsyncWorkItem.h */,

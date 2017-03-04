@@ -31,15 +31,16 @@
 
 - (id)init {
    mpTopLevelNibObjs = NULL;
-   mpCtrlMainWindow = [[NSWindowController alloc] init];
+   mpCtrlMainWindow = NULL;
    mpDgMainWindow = [[DgMainWindow alloc] init];
-   return self;
+   return [super init];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
    NSLog(@"Hello");
-   
-   mpCtrlMainWindow = [mpCtrlMainWindow initWithWindowNibName:@"MainWindow"];
+   NSViewController *loginViewController = [[NSViewController alloc] initWithNibName:@"LoginView" bundle:nil];
+   [mpDgMainWindow setSubViewController:loginViewController];
+   mpCtrlMainWindow = [[NSWindowController alloc] initWithWindowNibName:@"MainWindow"];
    NSWindow *pWindow = [mpCtrlMainWindow window];
    [pWindow setDelegate:mpDgMainWindow];
 }

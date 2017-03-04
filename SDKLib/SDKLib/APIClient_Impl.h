@@ -20,10 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import <Cocoa/Cocoa.h>
+#import "APIClient.h"
 
-@interface DgMainWindow : NSObject<NSWindowDelegate>
-
-- (void)setSubViewController:(NSViewController *)controller;
-
+@interface APIClient_Impl : NSObject<APIClient>
 @end

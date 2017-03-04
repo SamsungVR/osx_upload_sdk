@@ -20,11 +20,8 @@
  * THE SOFTWARE.
  */
 
-#import "APIClient.h"
+#import "APIClient_Impl.h"
 #import "Util.h"
-
-@interface APIClient_Impl : NSObject<APIClient>
-@end
 
 @implementation APIClient_Impl {
     AsyncWorkQueue *mAsyncWorkQueue;

@@ -22,11 +22,44 @@
 
 #import "DgMainWindow.h"
 
-@implementation DgMainWindow
+@implementation DgMainWindow {
+   NSViewController *mSubViewController;
+   NSWindow *mMainWindow;
+}
 
+- (id)init {
+   mSubViewController = NULL;
+   return [super init];
+}
 
-- (void)windowDidBecomeMain:(NSNotification *)apNotification {
-   NSLog(@"windowDidBecomeMain");
+- (void)windowDidBecomeMain:(NSNotification *)notification {
+   mMainWindow = notification.object;
+   [self setSubViewController:mSubViewController];
+   NSLog(@"windowDidBecomeMain %@", mMainWindow);
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+   NSLog(@"windowWillClose %@", mMainWindow);
+   [NSApp terminate:nil];
+}
+
+- (void)setSubViewController:(NSViewController *)subViewController {
+   if (mSubViewController) {
+      NSView *subView = [mSubViewController view];
+      if (subView) {
+         [subView removeFromSuperview];
+      }
+   }
+   mSubViewController = subViewController;
+   if (mMainWindow && mSubViewController) {
+      NSView *subView = [mSubViewController view];
+      if (subView) {
+         [[mMainWindow contentView] addSubview:subView];
+         NSSize controlSize = subView.frame.size;
+         NSLog(@"Control size %@ %f %f", subView, controlSize.width, controlSize.height);
+         [mMainWindow setContentSize:controlSize];
+      }
+   }
 }
 
 @end
