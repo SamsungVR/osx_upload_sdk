@@ -21,28 +21,28 @@
  */
 
 #import "DgApp.h"
-#import "DgMainWindow.h"
+#import "DgFormMain.h"
+#import "CtFormLogin.h"
 
 @implementation DgApp {
-   NSArray *mpTopLevelNibObjs;
-   NSWindowController *mpCtrlMainWindow;
-   DgMainWindow *mpDgMainWindow;
+   NSArray *mTopLevelNibObjs;
+   NSWindowController *mCtFormMain;
+   DgFormMain *mDgFormMain;
 }
 
 - (id)init {
-   mpTopLevelNibObjs = NULL;
-   mpCtrlMainWindow = NULL;
-   mpDgMainWindow = [[DgMainWindow alloc] init];
+   mTopLevelNibObjs = NULL;
+   mCtFormMain = NULL;
+   mDgFormMain = [[DgFormMain alloc] init];
    return [super init];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-   NSLog(@"Hello");
-   NSViewController *loginViewController = [[NSViewController alloc] initWithNibName:@"LoginView" bundle:nil];
-   [mpDgMainWindow setSubViewController:loginViewController];
-   mpCtrlMainWindow = [[NSWindowController alloc] initWithWindowNibName:@"MainWindow"];
-   NSWindow *pWindow = [mpCtrlMainWindow window];
-   [pWindow setDelegate:mpDgMainWindow];
+   NSViewController *loginViewController = [[CtFormLogin alloc] initWithNibName:@"FormLogin" bundle:nil];
+   [mDgFormMain setSubViewController:loginViewController];
+   mCtFormMain = [[NSWindowController alloc] initWithWindowNibName:@"FormMain"];
+   NSWindow *pWindow = [mCtFormMain window];
+   [pWindow setDelegate:mDgFormMain];
 }
 
 @end

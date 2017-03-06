@@ -20,8 +20,32 @@
  * THE SOFTWARE.
  */
 
-#import <Cocoa/Cocoa.h>
+#import "AppUtil.h"
 
-@interface DgApp : NSObject<NSApplicationDelegate>
+@implementation AppUtil
+
++ (NSView *)findViewById:(NSView *)root id:(NSString *)identifier {
+   NSMutableArray *stack = [[NSMutableArray alloc] init];
+   NSView *currView = root;
+   while (currView) {
+      if ([identifier isEqualToString:[currView identifier]]) {
+         return currView;
+      }
+      NSArray *childViews = [currView subviews];
+      for (NSView *childView in childViews) {
+         if ([identifier isEqualToString:[childView identifier]]) {
+            return childView;
+         }
+         [stack addObject:childView];
+      }
+      if ([stack count] > 0) {
+         currView = [stack objectAtIndex:0];
+         [stack removeObjectAtIndex:0];
+      } else {
+         currView = nil;
+      }
+   }
+   return nil;
+}
 
 @end

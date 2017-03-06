@@ -24,7 +24,7 @@
 
 @interface HttpPlugin_RequestFactory_Impl : NSObject<HttpPlugin_RequestFactory>
 
-- (void)init;
+- (id)init;
 
 
 @end

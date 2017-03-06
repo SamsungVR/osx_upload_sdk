@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Compat_Defs.h"
+#import "HttpPlugin.h"
 
 /**
  * These status codes are common across all requests.  Some of them, for example
@@ -234,5 +235,14 @@ typedef NS_ENUM(NSInteger, VR_Result_Status_NewUser) {
 @end
 
 @interface VR : NSObject
+
++ (bool)initAsync:(NSString *)endPoint apiKey:(NSString *)apiKey
+    factory:(id<HttpPlugin_RequestFactory>)factory
+    callback:(id<VR_Result_Init>)callback
+    handler:(NSOperationQueue *)handler closure:(Object)closure;
+
++ (bool)initAsync:(NSString *)endPoint apiKey:(NSString *)apiKey
+    callback:(id<VR_Result_Init>)callback
+    handler:(NSOperationQueue *)handler closure:(Object)closure;
 
 @end

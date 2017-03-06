@@ -31,7 +31,7 @@
 
 - (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure {
     mCallbackWeakRef = callback;
-    mHandlerWeakRef = handler;
+    mHandlerWeakRef = handler == NULL ? [NSOperationQueue mainQueue] : handler;
     mClosure = closure;
     return self;
 }

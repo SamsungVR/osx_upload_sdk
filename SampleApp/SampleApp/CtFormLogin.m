@@ -20,8 +20,54 @@
  * THE SOFTWARE.
  */
 
-#import <Cocoa/Cocoa.h>
+#import "CtFormLogin.h"
+#import "AppUtil.h"
+#import <SDKLib/VR.h>
 
-@interface DgApp : NSObject<NSApplicationDelegate>
+@interface CallbackInit : NSObject<VR_Result_Init>
+
+@end
+
+@implementation CallbackInit
+
+- (void)onFailure:(Object)closure status:(NSInteger)status {
+   NSLog(@"VR Init failure");
+}
+
+- (void)onSuccess:(Object)closure {
+   NSLog(@"VR Init success %@", closure);
+}
+
+@end
+
+@implementation CtFormLogin {
+   NSButton *mLoginButton;
+   CallbackInit *mCallbackInit;
+}
+
+- (void)onLoginClick {
+   NSLog(@"onLoginClick");
+   [VR initAsync:@"https://stage.milkvr.com/api" apiKey:@"5870120fe38ac0000c71d239.X_LgDNKfRz9pmP1XYo_5Y5UCjR2ooFwu6b63M5aZmQc"
+        callback:mCallbackInit handler:nil closure:nil];
+}
+
+- (void)viewDidAppear {
+   [super viewDidAppear];
+
+   mCallbackInit = [[CallbackInit alloc] init];
+   NSView *root = [self view];
+   mLoginButton = (NSButton *)[AppUtil findViewById:root id:@"Login"];
+   [mLoginButton setTarget:self];
+   [mLoginButton setAction:@selector(onLoginClick)];
+
+}
+
+- (void)viewDidDisappear {
+   [super viewWillDisappear];
+   mCallbackInit = NULL;
+   mLoginButton = NULL;
+}
+
+
 
 @end

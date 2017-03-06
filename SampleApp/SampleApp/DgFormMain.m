@@ -20,9 +20,9 @@
  * THE SOFTWARE.
  */
 
-#import "DgMainWindow.h"
+#import "DgFormMain.h"
 
-@implementation DgMainWindow {
+@implementation DgFormMain {
    NSViewController *mSubViewController;
    NSWindow *mMainWindow;
 }

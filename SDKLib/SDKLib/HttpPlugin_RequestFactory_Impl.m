@@ -173,9 +173,10 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     NSURLSession *mSession;
 }
 
-- (void)init {
+- (id)init {
     NSURLSessionConfiguration *ephemeralConfiguration = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     mSession = [NSURLSession sessionWithConfiguration:ephemeralConfiguration delegate:nil delegateQueue:nil];
+    return [super init];
 }
 
 - (id<HttpPlugin_GetRequest>)newGetRequest:(NSString *)url headers:(NSString * __autoreleasing *)headers {

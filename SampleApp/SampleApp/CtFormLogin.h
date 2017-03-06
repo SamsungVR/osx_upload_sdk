@@ -20,10 +20,9 @@
  * THE SOFTWARE.
  */
 
+
 #import <Cocoa/Cocoa.h>
 
-@interface DgMainWindow : NSObject<NSWindowDelegate>
-
-- (void)setSubViewController:(NSViewController *)controller;
+@interface CtFormLogin : NSViewController
 
 @end

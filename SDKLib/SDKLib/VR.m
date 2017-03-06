@@ -23,13 +23,13 @@
 #import "VR.h"
 #import "HttpPlugin.h"
 #import "APIClient_Impl.h"
+#import "HttpPlugin_RequestFactory_Impl.h"
 
 static APIClient_Impl *sAPIClient = NULL;
 static NSObject *sLock = NULL;
 
 static id<VR_Result_Init> sInitCallbackApp = nil;
 static id<APIClient_Result_Init> sInitCallbackApi = nil;
-
 
 @interface APIClient_Result_Init_Impl : NSObject<APIClient_Result_Init>
 
@@ -71,23 +71,28 @@ static id<APIClient_Result_Init> sInitCallbackApi = nil;
     sLock = [[NSObject alloc] init];
 }
 
+
 + (bool)initAsync:(NSString *)endPoint apiKey:(NSString *)apiKey
         factory:(id<HttpPlugin_RequestFactory>)factory
         callback:(id<VR_Result_Init>)callback
         handler:(NSOperationQueue *)handler closure:(Object)closure {
     
     @synchronized (sLock) {
-        @synchronized (sLock) {
-            if (sAPIClient || sInitCallbackApi) {
-                return false;
-            }
-            sInitCallbackApp = callback;
-            sInitCallbackApi = [[APIClient_Result_Init_Impl alloc] init];
-            return [APIClient_Factory newInstance:endPoint apiKey:apiKey httpRequestFactory:factory
-                                         callback:sInitCallbackApi handler:handler closure:closure];
+        if (sAPIClient || sInitCallbackApi) {
+            return false;
         }
+        sInitCallbackApp = callback;
+        sInitCallbackApi = [[APIClient_Result_Init_Impl alloc] init];
+        return [APIClient_Factory newInstance:endPoint apiKey:apiKey httpRequestFactory:factory
+                                     callback:sInitCallbackApi handler:handler closure:closure];
     }
 }
 
++ (bool)initAsync:(NSString *)endPoint apiKey:(NSString *)apiKey
+         callback:(id<VR_Result_Init>)callback
+          handler:(NSOperationQueue *)handler closure:(Object)closure {
+    return [self initAsync:endPoint apiKey:apiKey factory:[[HttpPlugin_RequestFactory_Impl alloc] init]
+                  callback:callback handler:handler closure:closure];
+}
 
 @end	

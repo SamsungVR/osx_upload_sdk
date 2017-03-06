@@ -22,6 +22,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface DgApp : NSObject<NSApplicationDelegate>
+@interface AppUtil : NSObject
+
++ (NSView *)findViewById:(NSView *)root id:(NSString *)identifier;
 
 @end

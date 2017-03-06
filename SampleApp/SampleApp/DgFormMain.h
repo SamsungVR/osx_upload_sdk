@@ -22,6 +22,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface DgApp : NSObject<NSApplicationDelegate>
+@interface DgFormMain : NSObject<NSWindowDelegate>
+
+- (void)setSubViewController:(NSViewController *)controller;
 
 @end

@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="NSViewController">
+        <customObject id="-2" userLabel="File's Owner" customClass="CtLoginView">
             <connections>
                 <outlet property="view" destination="c22-O7-iKe" id="Ngw-af-uLl"/>
             </connections>
@@ -60,7 +60,7 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhb-zw-JCd">
+                            <button identifier="Login" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhb-zw-JCd">
                                 <rect key="frame" x="159" y="4" width="81" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SWt-8R-7ji">
@@ -96,14 +96,14 @@
             <rect key="frame" x="0.0" y="0.0" width="240" height="135"/>
             <autoresizingMask key="autoresizingMask"/>
             <clipView key="contentView" id="dZc-P1-vMY">
-                <rect key="frame" x="1" y="1" width="238" height="133"/>
+                <rect key="frame" x="1" y="1" width="223" height="133"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <textView importsGraphics="NO" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="7ca-3I-6Pq">
-                        <rect key="frame" x="0.0" y="0.0" width="238" height="133"/>
+                        <rect key="frame" x="0.0" y="0.0" width="223" height="133"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <size key="minSize" width="238" height="133"/>
+                        <size key="minSize" width="223" height="133"/>
                         <size key="maxSize" width="463" height="10000000"/>
                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                     </textView>
@@ -115,7 +115,7 @@
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="jvE-lk-J87">
-                <rect key="frame" x="223" y="1" width="16" height="133"/>
+                <rect key="frame" x="224" y="1" width="15" height="133"/>
                 <autoresizingMask key="autoresizingMask"/>
             </scroller>
             <point key="canvasLocation" x="191" y="439"/>
