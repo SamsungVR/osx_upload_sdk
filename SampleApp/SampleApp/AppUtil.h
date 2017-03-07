@@ -24,7 +24,8 @@
 
 @interface AppUtil : NSObject
 
-+ (NSView *)findViewById:(NSView *)root id:(NSString *)identifier;
++ (NSView *)findViewById:(NSView *)root identifier:(NSString *)identifier;
 + (NSControl *)setActionHandler:(NSView *)root identifier:(NSString *)identifier target:(id)target action:(SEL)action;
++ (NSURL *)showFileSaveDialog;
 
 @end

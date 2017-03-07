@@ -26,17 +26,27 @@
 #import "CtFormLogin.h"
 
 @implementation CtFormEndPointConfig {
-   NSControl *mCtrlBack;
+   NSControl *mCtrlBack, *mCtrlCfgSelect;
+   NSTextField *mCtrlCfgFile;
 }
 
 - (void)onCtrlBackClick {
    [[DgApp getDgInstance] showForm:[CtFormLogin alloc] nibName:@"FormLogin"];
 }
 
+- (void)onCtrlCfgSelect {
+   NSURL *pResult = [AppUtil showFileSaveDialog];
+   if (pResult) {
+      [mCtrlCfgFile setStringValue:[pResult absoluteString]];
+   }
+}
+
 - (void)onLoad {
    [super onLoad];
    NSView *root = [self view];
    mCtrlBack = [AppUtil setActionHandler:root identifier:@"ctrlBack" target:self action:@selector(onCtrlBackClick)];
+   mCtrlCfgSelect = [AppUtil setActionHandler:root identifier:@"ctrlCfgSelect" target:self action:@selector(onCtrlCfgSelect)];
+   mCtrlCfgFile = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlCfgFile"];
 }
 
 - (void)onUnload {

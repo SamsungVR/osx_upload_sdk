@@ -21,38 +21,32 @@
  */
 
 #import "DgApp.h"
-#import "DgFormMain.h"
+#import "CtFormMain.h"
 #import "CtFormLogin.h"
 
 static DgApp *sInstance = NULL;
 
 @implementation DgApp {
    NSArray *mTopLevelNibObjs;
-   NSWindowController *mCtFormMain;
-   DgFormMain *mDgFormMain;
+   CtFormMain *mCtFormMain;
 }
 
 - (id)init {
    mTopLevelNibObjs = NULL;
    mCtFormMain = NULL;
-   mDgFormMain = NULL;
    return [super init];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-   mDgFormMain = [[DgFormMain alloc] init];
-   mCtFormMain = [[NSWindowController alloc] initWithWindowNibName:@"FormMain"];
-   NSWindow *pWindow = [mCtFormMain window];
-   [pWindow setDelegate:mDgFormMain];
-   
-   [self showForm:[CtFormLogin alloc] nibName:@"FormLogin"];
+   mCtFormMain = [[CtFormMain alloc] initWithWindowNibName:@"FormMain"];
+   [mCtFormMain showWindow:nil];
 }
 
 - (bool)showForm:(CtForm *)form {
-   if (!mDgFormMain) {
+   if (!mCtFormMain) {
       return false;
    }
-   [mDgFormMain setForm:form];
+   [mCtFormMain setForm:form];
    return true;
 }
 

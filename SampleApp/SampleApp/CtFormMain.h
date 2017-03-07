@@ -20,57 +20,10 @@
  * THE SOFTWARE.
  */
 
-#import "DgFormMain.h"
-#import "DgApp.h"
+#import "CtForm.h"
 
-@implementation DgFormMain {
-   CtForm *mForm;
-   NSWindow *mMainWindow;
-}
+@interface CtFormMain : NSWindowController<NSWindowDelegate>
 
-- (id)init {
-   mForm = NULL;
-   return [super init];
-}
-
-- (void)windowDidBecomeMain:(NSNotification *)notification {
-   mMainWindow = notification.object;
-   if (mForm) {
-      [self setForm:mForm];
-   }
-}
-
-- (void)unloadCurrentForm {
-   if (mForm) {
-      [mForm onUnload];
-      
-      NSView *subView = [mForm view];
-      if (subView) {
-         [subView removeFromSuperview];
-      }
-      mForm = NULL;
-   }
-}
-
-- (void)windowWillClose:(NSNotification *)notification {
-   [self unloadCurrentForm];
-   [[DgApp getDgInstance] onMainFormClosed];
-}
-
-- (void)setForm:(CtForm *)form {
-   [self unloadCurrentForm];
-   
-   mForm = form;
-   if (mMainWindow && mForm) {
-      NSView *subView = [mForm view];
-      if (subView) {
-         [[mMainWindow contentView] addSubview:subView];
-         NSSize controlSize = subView.frame.size;
-         NSLog(@"Control size %@ %f %f", subView, controlSize.width, controlSize.height);
-         [mMainWindow setContentSize:controlSize];
-         [mForm onLoad];
-      }
-   }
-}
+- (void)setForm:(CtForm *)form;
 
 @end

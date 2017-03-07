@@ -57,4 +57,14 @@
    return found;
 }
 
++ (NSURL *)showFileSaveDialog {
+   NSSavePanel *panel = [NSSavePanel savePanel];
+   if (NSFileHandlingPanelOKButton == [panel runModal]) {
+      return [panel URL];
+   }
+   return NULL;
+}
+
+
+
 @end
