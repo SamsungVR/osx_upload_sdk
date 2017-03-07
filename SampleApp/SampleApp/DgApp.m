@@ -24,6 +24,8 @@
 #import "DgFormMain.h"
 #import "CtFormLogin.h"
 
+static DgApp *sInstance = NULL;
+
 @implementation DgApp {
    NSArray *mTopLevelNibObjs;
    NSWindowController *mCtFormMain;
@@ -33,16 +35,41 @@
 - (id)init {
    mTopLevelNibObjs = NULL;
    mCtFormMain = NULL;
-   mDgFormMain = [[DgFormMain alloc] init];
+   mDgFormMain = NULL;
    return [super init];
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-   NSViewController *loginViewController = [[CtFormLogin alloc] initWithNibName:@"FormLogin" bundle:nil];
-   [mDgFormMain setSubViewController:loginViewController];
+   mDgFormMain = [[DgFormMain alloc] init];
    mCtFormMain = [[NSWindowController alloc] initWithWindowNibName:@"FormMain"];
    NSWindow *pWindow = [mCtFormMain window];
    [pWindow setDelegate:mDgFormMain];
+   
+   [self showForm:[CtFormLogin alloc] nibName:@"FormLogin"];
+}
+
+- (bool)showForm:(CtForm *)form {
+   if (!mDgFormMain) {
+      return false;
+   }
+   [mDgFormMain setForm:form];
+   return true;
+}
+
+- (bool)showForm:(CtForm *)form nibName:(NSString *)nibName {
+   CtForm *result = [form initWithNibName:nibName bundle:nil];
+   return [self showForm:result];
+}
+
+- (void)onMainFormClosed {
+   [NSApp terminate:nil];
+}
+
++ (DgApp *)getDgInstance {
+   if (!sInstance) {
+      sInstance = [[DgApp alloc] init];
+   }
+   return sInstance;
 }
 
 @end

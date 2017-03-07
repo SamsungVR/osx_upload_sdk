@@ -20,10 +20,28 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
+#import "CtFormEndPointConfig.h"
+#import "AppUtil.h"
+#import "DgApp.h"
+#import "CtFormLogin.h"
 
-@interface DgFormMain : NSObject<NSWindowDelegate>
+@implementation CtFormEndPointConfig {
+   NSControl *mCtrlBack;
+}
 
-- (void)setForm:(CtForm *)form;
+- (void)onCtrlBackClick {
+   [[DgApp getDgInstance] showForm:[CtFormLogin alloc] nibName:@"FormLogin"];
+}
+
+- (void)onLoad {
+   [super onLoad];
+   NSView *root = [self view];
+   mCtrlBack = [AppUtil setActionHandler:root identifier:@"ctrlBack" target:self action:@selector(onCtrlBackClick)];
+}
+
+- (void)onUnload {
+   [super onUnload];
+   mCtrlBack = NULL;
+}
 
 @end

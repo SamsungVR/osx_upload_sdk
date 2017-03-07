@@ -20,7 +20,9 @@
  * THE SOFTWARE.
  */
 
+#import "DgApp.h"
 #import "CtFormLogin.h"
+#import "CtFormEndPointConfig.h"
 #import "AppUtil.h"
 #import <SDKLib/VR.h>
 
@@ -41,31 +43,33 @@
 @end
 
 @implementation CtFormLogin {
-   NSButton *mLoginButton;
+   NSControl *mCtrlLogin, *mCtrlEndPoint;
    CallbackInit *mCallbackInit;
 }
 
-- (void)onLoginClick {
-   NSLog(@"onLoginClick");
+- (void)onCtrlEndPointClick {
+   [[DgApp getDgInstance] showForm:[CtFormEndPointConfig alloc] nibName:@"FormEndPointConfig"];
+}
+
+- (void)onCtrlLoginClick {
    [VR initAsync:@"https://stage.milkvr.com/api" apiKey:@"5870120fe38ac0000c71d239.X_LgDNKfRz9pmP1XYo_5Y5UCjR2ooFwu6b63M5aZmQc"
         callback:mCallbackInit handler:nil closure:nil];
 }
 
-- (void)viewDidAppear {
-   [super viewDidAppear];
+- (void)onLoad {
+   [super onLoad];
 
    mCallbackInit = [[CallbackInit alloc] init];
    NSView *root = [self view];
-   mLoginButton = (NSButton *)[AppUtil findViewById:root id:@"Login"];
-   [mLoginButton setTarget:self];
-   [mLoginButton setAction:@selector(onLoginClick)];
+   mCtrlLogin = [AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
+   mCtrlEndPoint = [AppUtil setActionHandler:root identifier:@"ctrlEndPoint" target:self action:@selector(onCtrlEndPointClick)];
 
 }
 
-- (void)viewDidDisappear {
-   [super viewWillDisappear];
+- (void)onUnload {
+   [super onUnload];
    mCallbackInit = NULL;
-   mLoginButton = NULL;
+   mCtrlLogin = NULL;
 }
 
 

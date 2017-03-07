@@ -21,43 +21,54 @@
  */
 
 #import "DgFormMain.h"
+#import "DgApp.h"
 
 @implementation DgFormMain {
-   NSViewController *mSubViewController;
+   CtForm *mForm;
    NSWindow *mMainWindow;
 }
 
 - (id)init {
-   mSubViewController = NULL;
+   mForm = NULL;
    return [super init];
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)notification {
    mMainWindow = notification.object;
-   [self setSubViewController:mSubViewController];
-   NSLog(@"windowDidBecomeMain %@", mMainWindow);
+   if (mForm) {
+      [self setForm:mForm];
+   }
 }
 
-- (void)windowWillClose:(NSNotification *)notification {
-   NSLog(@"windowWillClose %@", mMainWindow);
-   [NSApp terminate:nil];
-}
-
-- (void)setSubViewController:(NSViewController *)subViewController {
-   if (mSubViewController) {
-      NSView *subView = [mSubViewController view];
+- (void)unloadCurrentForm {
+   if (mForm) {
+      [mForm onUnload];
+      
+      NSView *subView = [mForm view];
       if (subView) {
          [subView removeFromSuperview];
       }
+      mForm = NULL;
    }
-   mSubViewController = subViewController;
-   if (mMainWindow && mSubViewController) {
-      NSView *subView = [mSubViewController view];
+}
+
+- (void)windowWillClose:(NSNotification *)notification {
+   [self unloadCurrentForm];
+   [[DgApp getDgInstance] onMainFormClosed];
+}
+
+- (void)setForm:(CtForm *)form {
+   [self unloadCurrentForm];
+   
+   mForm = form;
+   if (mMainWindow && mForm) {
+      NSView *subView = [mForm view];
       if (subView) {
          [[mMainWindow contentView] addSubview:subView];
          NSSize controlSize = subView.frame.size;
          NSLog(@"Control size %@ %f %f", subView, controlSize.width, controlSize.height);
          [mMainWindow setContentSize:controlSize];
+         [mForm onLoad];
       }
    }
 }

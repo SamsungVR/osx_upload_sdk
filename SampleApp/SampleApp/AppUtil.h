@@ -25,5 +25,6 @@
 @interface AppUtil : NSObject
 
 + (NSView *)findViewById:(NSView *)root id:(NSString *)identifier;
++ (NSControl *)setActionHandler:(NSView *)root identifier:(NSString *)identifier target:(id)target action:(SEL)action;
 
 @end

@@ -20,8 +20,14 @@
  * THE SOFTWARE.
  */
 
-#import <Cocoa/Cocoa.h>
+#import "CtForm.h"
 
 @interface DgApp : NSObject<NSApplicationDelegate>
+
++ (DgApp *)getDgInstance;
+
+- (bool)showForm:(CtForm *)form;
+- (bool)showForm:(CtForm *)form nibName:(NSString *)nibName;
+- (void)onMainFormClosed;
 
 @end

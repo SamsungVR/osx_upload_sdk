@@ -20,10 +20,11 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
+#import <Cocoa/Cocoa.h>
 
-@interface DgFormMain : NSObject<NSWindowDelegate>
+@interface CtForm : NSViewController
 
-- (void)setForm:(CtForm *)form;
+- (void) onLoad;
+- (void) onUnload;
 
 @end

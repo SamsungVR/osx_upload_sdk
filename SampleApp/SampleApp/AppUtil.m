@@ -24,7 +24,7 @@
 
 @implementation AppUtil
 
-+ (NSView *)findViewById:(NSView *)root id:(NSString *)identifier {
++ (NSView *)findViewById:(NSView *)root identifier:(NSString *)identifier {
    NSMutableArray *stack = [[NSMutableArray alloc] init];
    NSView *currView = root;
    while (currView) {
@@ -46,6 +46,15 @@
       }
    }
    return nil;
+}
+
++ (NSControl *)setActionHandler:(NSView *)root identifier:(NSString *)identifier target:(id)target action:(SEL)action {
+   NSControl *found = (NSControl *)[AppUtil findViewById:root identifier:identifier];
+   if (found) {
+      found.target = target;
+      found.action = action;
+   }
+   return found;
 }
 
 @end

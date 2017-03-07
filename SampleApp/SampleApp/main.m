@@ -26,7 +26,7 @@
 
 int main(int argc, const char * argv[]) {
    
-   DgApp *pDgApp = [[DgApp alloc] init];
+   DgApp *pDgApp = [DgApp getDgInstance];
    
    NSApplication *pApp = [NSApplication sharedApplication];
    [pApp setDelegate:pDgApp];

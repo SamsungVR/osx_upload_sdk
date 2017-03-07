@@ -22,8 +22,13 @@
 
 #import "CtForm.h"
 
-@interface DgFormMain : NSObject<NSWindowDelegate>
 
-- (void)setForm:(CtForm *)form;
+@implementation CtForm
+
+- (void)onLoad {
+}
+
+- (void)onUnload {
+}
 
 @end

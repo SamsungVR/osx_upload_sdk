@@ -21,8 +21,8 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
+#import "CtForm.h"
 
-@interface CtFormLogin : NSViewController
+@interface CtFormLogin : CtForm
 
 @end
