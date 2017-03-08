@@ -20,22 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import "EndPointConfig.h"
-
-@class DgApp;
-
-@interface EndPointConfigManager : NSObject
-
-- (id)initWithApp:(DgApp *)app;
-- (NSArray *)getList;
-- (bool)loadJsonConfig:(NSURL *)cfgFileUrl saveURLtoSettings:(bool)saveURLToSettings;
-- (bool)loadJsonConfig:(NSURL *)cfgFileUrl;
-- (EndPointConfig *)getSelectedConfig;
-- (EndPointConfig *)getConfig:(NSString *)identifier;
-- (void)selectConfig:(NSString *)argId;
-- (void)deleteConfig:(NSString *)argId;
-- (bool)addOrUpdateConfig:(EndPointConfig *)config;
-- (NSUInteger)getCount;
-- (NSURL *)getCurrentCfgURL;
-
-@end
+"FileOpenSaveDialogTitle"="Open/Save";
+"FileOpenSaveDialogMsg"="Open or Save";
+"Success"="Success";
+"Failure"="Failure";

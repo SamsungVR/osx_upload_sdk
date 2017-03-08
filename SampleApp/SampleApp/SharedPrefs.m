@@ -11,6 +11,10 @@
    NSString *bundlePath = [[NSBundle mainBundle] bundlePath];
    mPath = [NSString stringWithFormat:@"%@/%@.prefs", bundlePath, name];
    mDict = [[NSMutableDictionary alloc] initWithContentsOfFile:mPath];
+   if (!mDict) {
+      mDict = [[NSMutableDictionary alloc] init];
+      [self save];
+   }
    return [super init];
 }
 

@@ -111,6 +111,10 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
    return mConfigList;
 }
 
+- (NSUInteger)getCount {
+   return [mConfigList count];
+}
+
 - (bool)loadJsonConfig:(NSURL *)cfgFileUrl saveURLtoSettings:(bool)saveURLToSettings {
    [mConfigList removeAllObjects];
    mSelectedId = NULL;
@@ -195,7 +199,7 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
 
 - (void)deleteConfig:(NSString *)argId {
    NSUInteger len = [mConfigList count];
-   for (NSUInteger i = len - 1; i >= 0; i -= 1) {
+   for (NSInteger i = len - 1; i >= 0; i -= 1) {
       EndPointConfig *epCfg = [mConfigList objectAtIndex:i];
       NSString *identifier = [epCfg getId];
       if ([identifier isEqualToString:argId]) {

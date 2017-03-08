@@ -7,54 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		254A54921E64CBDE00BFAC55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54911E64CBDE00BFAC55 /* main.m */; };
-		254A54941E64CBDE00BFAC55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 254A54931E64CBDE00BFAC55 /* Assets.xcassets */; };
-		254A549F1E64EA5800BFAC55 /* FormMain.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254A549E1E64EA5800BFAC55 /* FormMain.xib */; };
-		254A54A11E64EEC400BFAC55 /* FormLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 254A54A01E64EEC400BFAC55 /* FormLogin.xib */; };
-		254A54A61E64FAAE00BFAC55 /* DgApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54A51E64FAAE00BFAC55 /* DgApp.m */; };
-		254A54AC1E665FF200BFAC55 /* CtFormMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54AB1E665FF200BFAC55 /* CtFormMain.m */; };
-		254A54B01E67574000BFAC55 /* libSDKLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 254A54AF1E67574000BFAC55 /* libSDKLib.a */; };
-		25CE06041E6DE87B00A0C8DE /* CtFormLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE06031E6DE87B00A0C8DE /* CtFormLogin.m */; };
-		25CE06071E6DF0AF00A0C8DE /* AppUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE06061E6DF0AF00A0C8DE /* AppUtil.m */; };
-		25CE060B1E6E145A00A0C8DE /* FormEndPointConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25CE060A1E6E145A00A0C8DE /* FormEndPointConfig.xib */; };
-		25CE060E1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE060D1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m */; };
-		25CE06111E6E2ACF00A0C8DE /* CtForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE06101E6E2ACF00A0C8DE /* CtForm.m */; };
-		25CE06161E6F4B1100A0C8DE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 25CE06141E6F4B1100A0C8DE /* Localizable.strings */; };
-		25CE06181E6F520D00A0C8DE /* FormEndPointConfigItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25CE06171E6F520D00A0C8DE /* FormEndPointConfigItem.xib */; };
-		25CE061B1E6F614200A0C8DE /* EndPointConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE061A1E6F614200A0C8DE /* EndPointConfigManager.m */; };
-		25CE06201E6F688E00A0C8DE /* SharedPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE061F1E6F688E00A0C8DE /* SharedPrefs.m */; };
-		25CE06231E6F74EC00A0C8DE /* EndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE06221E6F74EC00A0C8DE /* EndPointConfig.m */; };
+		25AB69891E709B94002A69B7 /* AppUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69761E709B94002A69B7 /* AppUtil.m */; };
+		25AB698A1E709B94002A69B7 /* CtForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69781E709B94002A69B7 /* CtForm.m */; };
+		25AB698B1E709B94002A69B7 /* CtFormEndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB697A1E709B94002A69B7 /* CtFormEndPointConfig.m */; };
+		25AB698C1E709B94002A69B7 /* CtFormLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB697C1E709B94002A69B7 /* CtFormLogin.m */; };
+		25AB698D1E709B94002A69B7 /* CtFormMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB697E1E709B94002A69B7 /* CtFormMain.m */; };
+		25AB698E1E709B94002A69B7 /* DgApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69801E709B94002A69B7 /* DgApp.m */; };
+		25AB698F1E709B94002A69B7 /* EndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69821E709B94002A69B7 /* EndPointConfig.m */; };
+		25AB69901E709B94002A69B7 /* EndPointConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69841E709B94002A69B7 /* EndPointConfigManager.m */; };
+		25AB69911E709B94002A69B7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25AB69851E709B94002A69B7 /* Info.plist */; };
+		25AB69921E709B94002A69B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69861E709B94002A69B7 /* main.m */; };
+		25AB69931E709B94002A69B7 /* SharedPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69881E709B94002A69B7 /* SharedPrefs.m */; };
+		25AB69951E709B9E002A69B7 /* libSDKLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25AB69941E709B9E002A69B7 /* libSDKLib.a */; };
+		25AB699C1E709BB0002A69B7 /* FormEndPointConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25AB69961E709BB0002A69B7 /* FormEndPointConfig.xib */; };
+		25AB699D1E709BB0002A69B7 /* FormLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25AB69981E709BB0002A69B7 /* FormLogin.xib */; };
+		25AB699E1E709BB0002A69B7 /* FormMain.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25AB699A1E709BB0002A69B7 /* FormMain.xib */; };
+		25AB69A41E709BD1002A69B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 25AB69A21E709BD1002A69B7 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		254A54911E64CBDE00BFAC55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SampleApp/main.m; sourceTree = "<group>"; };
-		254A54931E64CBDE00BFAC55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = SampleApp/Assets.xcassets; sourceTree = "<group>"; };
-		254A54981E64CBDE00BFAC55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = SampleApp/Info.plist; sourceTree = "<group>"; };
-		254A549E1E64EA5800BFAC55 /* FormMain.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormMain.xib; path = SampleApp/FormMain.xib; sourceTree = "<group>"; };
-		254A54A01E64EEC400BFAC55 /* FormLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormLogin.xib; path = SampleApp/FormLogin.xib; sourceTree = "<group>"; };
-		254A54A41E64FAAE00BFAC55 /* DgApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DgApp.h; path = SampleApp/DgApp.h; sourceTree = "<group>"; };
-		254A54A51E64FAAE00BFAC55 /* DgApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DgApp.m; path = SampleApp/DgApp.m; sourceTree = "<group>"; };
-		254A54AA1E665FF200BFAC55 /* CtFormMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormMain.h; path = SampleApp/CtFormMain.h; sourceTree = "<group>"; };
-		254A54AB1E665FF200BFAC55 /* CtFormMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormMain.m; path = SampleApp/CtFormMain.m; sourceTree = "<group>"; };
-		254A54AF1E67574000BFAC55 /* libSDKLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDKLib.a; path = ../SDKLib/build/Debug/libSDKLib.a; sourceTree = "<group>"; };
-		254A54B81E6795BE00BFAC55 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		25CE06021E6DE87B00A0C8DE /* CtFormLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormLogin.h; path = SampleApp/CtFormLogin.h; sourceTree = "<group>"; };
-		25CE06031E6DE87B00A0C8DE /* CtFormLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormLogin.m; path = SampleApp/CtFormLogin.m; sourceTree = "<group>"; };
-		25CE06051E6DF0AF00A0C8DE /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtil.h; path = SampleApp/AppUtil.h; sourceTree = "<group>"; };
-		25CE06061E6DF0AF00A0C8DE /* AppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtil.m; path = SampleApp/AppUtil.m; sourceTree = "<group>"; };
-		25CE060A1E6E145A00A0C8DE /* FormEndPointConfig.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormEndPointConfig.xib; path = SampleApp/FormEndPointConfig.xib; sourceTree = "<group>"; };
-		25CE060C1E6E1B3A00A0C8DE /* CtFormEndPointConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormEndPointConfig.h; path = SampleApp/CtFormEndPointConfig.h; sourceTree = "<group>"; };
-		25CE060D1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormEndPointConfig.m; path = SampleApp/CtFormEndPointConfig.m; sourceTree = "<group>"; };
-		25CE060F1E6E2ACF00A0C8DE /* CtForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtForm.h; path = SampleApp/CtForm.h; sourceTree = "<group>"; };
-		25CE06101E6E2ACF00A0C8DE /* CtForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtForm.m; path = SampleApp/CtForm.m; sourceTree = "<group>"; };
-		25CE06151E6F4B1100A0C8DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SampleApp/en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		25CE06171E6F520D00A0C8DE /* FormEndPointConfigItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormEndPointConfigItem.xib; path = SampleApp/FormEndPointConfigItem.xib; sourceTree = "<group>"; };
-		25CE06191E6F614200A0C8DE /* EndPointConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EndPointConfigManager.h; path = SampleApp/EndPointConfigManager.h; sourceTree = "<group>"; };
-		25CE061A1E6F614200A0C8DE /* EndPointConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EndPointConfigManager.m; path = SampleApp/EndPointConfigManager.m; sourceTree = "<group>"; };
-		25CE061E1E6F688E00A0C8DE /* SharedPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedPrefs.h; path = SampleApp/SharedPrefs.h; sourceTree = "<group>"; };
-		25CE061F1E6F688E00A0C8DE /* SharedPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedPrefs.m; path = SampleApp/SharedPrefs.m; sourceTree = "<group>"; };
-		25CE06211E6F74EC00A0C8DE /* EndPointConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EndPointConfig.h; path = SampleApp/EndPointConfig.h; sourceTree = "<group>"; };
-		25CE06221E6F74EC00A0C8DE /* EndPointConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EndPointConfig.m; path = SampleApp/EndPointConfig.m; sourceTree = "<group>"; };
+		25AB693A1E70967F002A69B7 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25AB69751E709B94002A69B7 /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtil.h; path = SampleApp/AppUtil.h; sourceTree = "<group>"; };
+		25AB69761E709B94002A69B7 /* AppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtil.m; path = SampleApp/AppUtil.m; sourceTree = "<group>"; };
+		25AB69771E709B94002A69B7 /* CtForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtForm.h; path = SampleApp/CtForm.h; sourceTree = "<group>"; };
+		25AB69781E709B94002A69B7 /* CtForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtForm.m; path = SampleApp/CtForm.m; sourceTree = "<group>"; };
+		25AB69791E709B94002A69B7 /* CtFormEndPointConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormEndPointConfig.h; path = SampleApp/CtFormEndPointConfig.h; sourceTree = "<group>"; };
+		25AB697A1E709B94002A69B7 /* CtFormEndPointConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormEndPointConfig.m; path = SampleApp/CtFormEndPointConfig.m; sourceTree = "<group>"; };
+		25AB697B1E709B94002A69B7 /* CtFormLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormLogin.h; path = SampleApp/CtFormLogin.h; sourceTree = "<group>"; };
+		25AB697C1E709B94002A69B7 /* CtFormLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormLogin.m; path = SampleApp/CtFormLogin.m; sourceTree = "<group>"; };
+		25AB697D1E709B94002A69B7 /* CtFormMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormMain.h; path = SampleApp/CtFormMain.h; sourceTree = "<group>"; };
+		25AB697E1E709B94002A69B7 /* CtFormMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormMain.m; path = SampleApp/CtFormMain.m; sourceTree = "<group>"; };
+		25AB697F1E709B94002A69B7 /* DgApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DgApp.h; path = SampleApp/DgApp.h; sourceTree = "<group>"; };
+		25AB69801E709B94002A69B7 /* DgApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DgApp.m; path = SampleApp/DgApp.m; sourceTree = "<group>"; };
+		25AB69811E709B94002A69B7 /* EndPointConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EndPointConfig.h; path = SampleApp/EndPointConfig.h; sourceTree = "<group>"; };
+		25AB69821E709B94002A69B7 /* EndPointConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EndPointConfig.m; path = SampleApp/EndPointConfig.m; sourceTree = "<group>"; };
+		25AB69831E709B94002A69B7 /* EndPointConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EndPointConfigManager.h; path = SampleApp/EndPointConfigManager.h; sourceTree = "<group>"; };
+		25AB69841E709B94002A69B7 /* EndPointConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EndPointConfigManager.m; path = SampleApp/EndPointConfigManager.m; sourceTree = "<group>"; };
+		25AB69851E709B94002A69B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SampleApp/Info.plist; sourceTree = "<group>"; };
+		25AB69861E709B94002A69B7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SampleApp/main.m; sourceTree = "<group>"; };
+		25AB69871E709B94002A69B7 /* SharedPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedPrefs.h; path = SampleApp/SharedPrefs.h; sourceTree = "<group>"; };
+		25AB69881E709B94002A69B7 /* SharedPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedPrefs.m; path = SampleApp/SharedPrefs.m; sourceTree = "<group>"; };
+		25AB69941E709B9E002A69B7 /* libSDKLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDKLib.a; path = "../../../../Library/Developer/Xcode/DerivedData/osx_upload_sdk-frkvsfbceejmxberzxhrfkmkxxag/Build/Products/Debug/libSDKLib.a"; sourceTree = "<group>"; };
+		25AB69971E709BB0002A69B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = SampleApp/Base.lproj/FormEndPointConfig.xib; sourceTree = "<group>"; };
+		25AB69991E709BB0002A69B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = SampleApp/Base.lproj/FormLogin.xib; sourceTree = "<group>"; };
+		25AB699B1E709BB0002A69B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = SampleApp/Base.lproj/FormMain.xib; sourceTree = "<group>"; };
+		25AB69A31E709BD1002A69B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SampleApp/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		25AB69A81E709CFA002A69B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = SampleApp/Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		25AB69A91E709D95002A69B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SampleApp/en.lproj/FormLogin.strings; sourceTree = "<group>"; };
+		25AB69AA1E709DA0002A69B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SampleApp/en.lproj/FormEndPointConfig.strings; sourceTree = "<group>"; };
+		25AB69AB1E709DA7002A69B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SampleApp/en.lproj/FormMain.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254A54B01E67574000BFAC55 /* libSDKLib.a in Frameworks */,
+				25AB69951E709B9E002A69B7 /* libSDKLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,34 +73,32 @@
 		254A54811E64CBDE00BFAC55 = {
 			isa = PBXGroup;
 			children = (
-				25CE06211E6F74EC00A0C8DE /* EndPointConfig.h */,
-				25CE06221E6F74EC00A0C8DE /* EndPointConfig.m */,
-				25CE061E1E6F688E00A0C8DE /* SharedPrefs.h */,
-				25CE061F1E6F688E00A0C8DE /* SharedPrefs.m */,
-				25CE06191E6F614200A0C8DE /* EndPointConfigManager.h */,
-				25CE061A1E6F614200A0C8DE /* EndPointConfigManager.m */,
-				25CE06171E6F520D00A0C8DE /* FormEndPointConfigItem.xib */,
-				25CE06141E6F4B1100A0C8DE /* Localizable.strings */,
-				25CE060F1E6E2ACF00A0C8DE /* CtForm.h */,
-				25CE06101E6E2ACF00A0C8DE /* CtForm.m */,
-				25CE060C1E6E1B3A00A0C8DE /* CtFormEndPointConfig.h */,
-				25CE060D1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m */,
-				25CE060A1E6E145A00A0C8DE /* FormEndPointConfig.xib */,
-				25CE06051E6DF0AF00A0C8DE /* AppUtil.h */,
-				25CE06061E6DF0AF00A0C8DE /* AppUtil.m */,
-				25CE06021E6DE87B00A0C8DE /* CtFormLogin.h */,
-				25CE06031E6DE87B00A0C8DE /* CtFormLogin.m */,
-				254A54911E64CBDE00BFAC55 /* main.m */,
-				254A54931E64CBDE00BFAC55 /* Assets.xcassets */,
-				254A54981E64CBDE00BFAC55 /* Info.plist */,
-				254A549E1E64EA5800BFAC55 /* FormMain.xib */,
-				254A54A01E64EEC400BFAC55 /* FormLogin.xib */,
-				254A54A41E64FAAE00BFAC55 /* DgApp.h */,
-				254A54A51E64FAAE00BFAC55 /* DgApp.m */,
-				254A54AA1E665FF200BFAC55 /* CtFormMain.h */,
-				254A54AB1E665FF200BFAC55 /* CtFormMain.m */,
+				25AB69A21E709BD1002A69B7 /* Localizable.strings */,
+				25AB69961E709BB0002A69B7 /* FormEndPointConfig.xib */,
+				25AB69981E709BB0002A69B7 /* FormLogin.xib */,
+				25AB699A1E709BB0002A69B7 /* FormMain.xib */,
+				25AB69751E709B94002A69B7 /* AppUtil.h */,
+				25AB69761E709B94002A69B7 /* AppUtil.m */,
+				25AB69771E709B94002A69B7 /* CtForm.h */,
+				25AB69781E709B94002A69B7 /* CtForm.m */,
+				25AB69791E709B94002A69B7 /* CtFormEndPointConfig.h */,
+				25AB697A1E709B94002A69B7 /* CtFormEndPointConfig.m */,
+				25AB697B1E709B94002A69B7 /* CtFormLogin.h */,
+				25AB697C1E709B94002A69B7 /* CtFormLogin.m */,
+				25AB697D1E709B94002A69B7 /* CtFormMain.h */,
+				25AB697E1E709B94002A69B7 /* CtFormMain.m */,
+				25AB697F1E709B94002A69B7 /* DgApp.h */,
+				25AB69801E709B94002A69B7 /* DgApp.m */,
+				25AB69811E709B94002A69B7 /* EndPointConfig.h */,
+				25AB69821E709B94002A69B7 /* EndPointConfig.m */,
+				25AB69831E709B94002A69B7 /* EndPointConfigManager.h */,
+				25AB69841E709B94002A69B7 /* EndPointConfigManager.m */,
+				25AB69851E709B94002A69B7 /* Info.plist */,
+				25AB69861E709B94002A69B7 /* main.m */,
+				25AB69871E709B94002A69B7 /* SharedPrefs.h */,
+				25AB69881E709B94002A69B7 /* SharedPrefs.m */,
 				254A54AE1E67574000BFAC55 /* Frameworks */,
-				254A54B81E6795BE00BFAC55 /* SampleApp.app */,
+				25AB693A1E70967F002A69B7 /* SampleApp.app */,
 			);
 			indentWidth = 3;
 			sourceTree = "<group>";
@@ -108,7 +107,7 @@
 		254A54AE1E67574000BFAC55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				254A54AF1E67574000BFAC55 /* libSDKLib.a */,
+				25AB69941E709B9E002A69B7 /* libSDKLib.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -130,7 +129,7 @@
 			);
 			name = SampleApp;
 			productName = SampleApp;
-			productReference = 254A54B81E6795BE00BFAC55 /* SampleApp.app */;
+			productReference = 25AB693A1E70967F002A69B7 /* SampleApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -139,6 +138,9 @@
 		254A54821E64CBDE00BFAC55 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Samsung;
 				TargetAttributes = {
@@ -171,12 +173,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25CE06161E6F4B1100A0C8DE /* Localizable.strings in Resources */,
-				254A549F1E64EA5800BFAC55 /* FormMain.xib in Resources */,
-				254A54941E64CBDE00BFAC55 /* Assets.xcassets in Resources */,
-				25CE06181E6F520D00A0C8DE /* FormEndPointConfigItem.xib in Resources */,
-				254A54A11E64EEC400BFAC55 /* FormLogin.xib in Resources */,
-				25CE060B1E6E145A00A0C8DE /* FormEndPointConfig.xib in Resources */,
+				25AB69A41E709BD1002A69B7 /* Localizable.strings in Resources */,
+				25AB699C1E709BB0002A69B7 /* FormEndPointConfig.xib in Resources */,
+				25AB69911E709B94002A69B7 /* Info.plist in Resources */,
+				25AB699E1E709BB0002A69B7 /* FormMain.xib in Resources */,
+				25AB699D1E709BB0002A69B7 /* FormLogin.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,26 +188,54 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254A54A61E64FAAE00BFAC55 /* DgApp.m in Sources */,
-				25CE06201E6F688E00A0C8DE /* SharedPrefs.m in Sources */,
-				254A54921E64CBDE00BFAC55 /* main.m in Sources */,
-				254A54AC1E665FF200BFAC55 /* CtFormMain.m in Sources */,
-				25CE06111E6E2ACF00A0C8DE /* CtForm.m in Sources */,
-				25CE061B1E6F614200A0C8DE /* EndPointConfigManager.m in Sources */,
-				25CE06041E6DE87B00A0C8DE /* CtFormLogin.m in Sources */,
-				25CE06071E6DF0AF00A0C8DE /* AppUtil.m in Sources */,
-				25CE06231E6F74EC00A0C8DE /* EndPointConfig.m in Sources */,
-				25CE060E1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m in Sources */,
+				25AB698E1E709B94002A69B7 /* DgApp.m in Sources */,
+				25AB698C1E709B94002A69B7 /* CtFormLogin.m in Sources */,
+				25AB698A1E709B94002A69B7 /* CtForm.m in Sources */,
+				25AB69891E709B94002A69B7 /* AppUtil.m in Sources */,
+				25AB69901E709B94002A69B7 /* EndPointConfigManager.m in Sources */,
+				25AB69931E709B94002A69B7 /* SharedPrefs.m in Sources */,
+				25AB698F1E709B94002A69B7 /* EndPointConfig.m in Sources */,
+				25AB698B1E709B94002A69B7 /* CtFormEndPointConfig.m in Sources */,
+				25AB69921E709B94002A69B7 /* main.m in Sources */,
+				25AB698D1E709B94002A69B7 /* CtFormMain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		25CE06141E6F4B1100A0C8DE /* Localizable.strings */ = {
+		25AB69961E709BB0002A69B7 /* FormEndPointConfig.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				25CE06151E6F4B1100A0C8DE /* en */,
+				25AB69971E709BB0002A69B7 /* Base */,
+				25AB69AA1E709DA0002A69B7 /* en */,
+			);
+			name = FormEndPointConfig.xib;
+			sourceTree = "<group>";
+		};
+		25AB69981E709BB0002A69B7 /* FormLogin.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25AB69991E709BB0002A69B7 /* Base */,
+				25AB69A91E709D95002A69B7 /* en */,
+			);
+			name = FormLogin.xib;
+			sourceTree = "<group>";
+		};
+		25AB699A1E709BB0002A69B7 /* FormMain.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25AB699B1E709BB0002A69B7 /* Base */,
+				25AB69AB1E709DA7002A69B7 /* en */,
+			);
+			name = FormMain.xib;
+			sourceTree = "<group>";
+		};
+		25AB69A21E709BD1002A69B7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25AB69A31E709BD1002A69B7 /* en */,
+				25AB69A81E709CFA002A69B7 /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -218,7 +247,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -265,7 +299,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
+				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -304,7 +343,6 @@
 		254A549C1E64CBDE00BFAC55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../SDKLib";
@@ -320,7 +358,6 @@
 		254A549D1E64CBDE00BFAC55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../SDKLib";

@@ -89,7 +89,7 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
         for (int i = 0; headers[i]; i += 1) {
             NSString *pAttr = headers[i, 0];
             NSString *pValue = headers[i, 1];
-            [mRequest setValue:pAttr forHTTPHeaderField:pValue];
+            [	mRequest setValue:pAttr forHTTPHeaderField:pValue];
         }
     }
     return self;

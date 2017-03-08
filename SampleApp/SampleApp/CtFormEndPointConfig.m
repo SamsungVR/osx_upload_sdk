@@ -24,11 +24,47 @@
 #import "AppUtil.h"
 #import "DgApp.h"
 #import "CtFormLogin.h"
+#import "EndPointConfigManager.h"
+
+@interface CtFormEndPointViewAdapter : NSObject<NSTableViewDataSource>
+@end
+
+@implementation CtFormEndPointViewAdapter {
+   EndPointConfigManager *mCfgMgr;
+}
+
+- (id)init {
+   mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
+   return [super init];
+}
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+   return [mCfgMgr getCount];
+}
+
+- (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn
+            row:(NSInteger)row {
+   NSArray *items = [mCfgMgr getList];
+   if (items && row >= 0 && row < [items count]) {
+      EndPointConfig *cfg = [items objectAtIndex:row];
+      NSString *colId = [tableColumn identifier];
+      if ([@"tableColumnURL" isEqualToString:colId]) {
+         return [cfg getUrl];
+      }
+      if ([@"tableColumnAPIKey" isEqualToString:colId]) {
+         return [cfg getApiKey];
+      }
+   }
+   return nil;
+}
+
+@end
 
 @implementation CtFormEndPointConfig {
    NSControl *mCtrlBack, *mCtrlCfgSelect, *mCtrlCfgLoad;
    NSTextField *mCtrlCfgURL, *mCtrlStatus;
-   NSStackView *mCtrlConfigList;
+   NSTableView *mCtrlConfigList;
+   CtFormEndPointViewAdapter *mEndPointViewAdapter;
 }
 
 - (void)onCtrlBackClick {
@@ -49,27 +85,9 @@
    }
 }
 
-- (NSView *)setEndPointCfgOnForm:(NSView *)root epCfg:(EndPointConfig *)epCfg {
-   NSTextField *url = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlUrl"];
-   NSTextField *apiKey = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlAPIKey"];
-   [url setStringValue:[epCfg getUrl]];
-   [apiKey setStringValue:[epCfg getApiKey]];
-   return root;
-}
 
 - (void)updateUI {
-   EndPointConfigManager *pCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
-   
-   [AppUtil removeAllSubViews:mCtrlConfigList];
-   EndPointConfig *selected = [pCfgMgr getSelectedConfig];
-   NSArray *endPoints = [pCfgMgr getList];
-   NSUInteger len = [endPoints count];
-   for (int i = 0; i < len; i += 1) {
-      EndPointConfig *epCfg = [endPoints objectAtIndex:i];
-      NSView *view = [[[NSViewController alloc] initWithNibName:@"FormEndPointConfigItem" bundle:nil] view];
-      [self setEndPointCfgOnForm:view epCfg:epCfg];
-      [mCtrlConfigList addView:view inGravity:NSStackViewGravityCenter];
-   }
+   [mCtrlConfigList reloadData];
 }
 
 - (void)onCtrlCfgLoadClick {
@@ -89,11 +107,17 @@
 - (void)onLoad {
    [super onLoad];
    NSView *root = [self view];
+   
+   EndPointConfigManager *cfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
+   mEndPointViewAdapter = [[CtFormEndPointViewAdapter alloc] init];
    mCtrlBack = [AppUtil setActionHandler:root identifier:@"ctrlBack" target:self action:@selector(onCtrlBackClick)];
    mCtrlCfgSelect = [AppUtil setActionHandler:root identifier:@"ctrlCfgSelect" target:self action:@selector(onCtrlCfgSelectClick)];
    mCtrlCfgURL = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlCfgURL"];
+   [mCtrlCfgURL setStringValue:[[cfgMgr getCurrentCfgURL] absoluteString]];
+   
    mCtrlCfgLoad = [AppUtil setActionHandler:root identifier:@"ctrlCfgLoad" target:self action:@selector(onCtrlCfgLoadClick)];
-   mCtrlConfigList = (NSStackView *)[AppUtil findViewById:root identifier:@"ctrlConfigList"];
+   mCtrlConfigList = (NSTableView *)[AppUtil findViewById:root identifier:@"ctrlConfigList"];
+   mCtrlConfigList.dataSource = mEndPointViewAdapter;
    mCtrlStatus = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlStatus"];
 }
 
@@ -103,8 +127,10 @@
    mCtrlCfgSelect = NULL;
    mCtrlCfgURL = NULL;
    mCtrlCfgLoad = NULL;
+   mCtrlConfigList.dataSource = NULL;
    mCtrlConfigList = NULL;
    mCtrlStatus = NULL;
+   mEndPointViewAdapter = NULL;
 }
 
 @end

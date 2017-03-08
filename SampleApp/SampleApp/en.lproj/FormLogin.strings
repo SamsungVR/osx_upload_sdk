@@ -1,0 +1,15 @@
+
+/* Class = "NSButtonCell"; title = "Login"; ObjectID = "SWt-8R-7ji"; */
+"SWt-8R-7ji.title" = "Login";
+
+/* Class = "NSTextFieldCell"; title = "Username (Email)"; ObjectID = "Wl7-W4-0UL"; */
+"Wl7-W4-0UL.title" = "Username (Email)";
+
+/* Class = "NSButtonCell"; title = "Endpoing Config"; ObjectID = "YPh-yM-ycJ"; */
+"YPh-yM-ycJ.title" = "Endpoing Config";
+
+/* Class = "NSTextFieldCell"; title = "Password"; ObjectID = "axj-aw-lHS"; */
+"axj-aw-lHS.title" = "Password";
+
+/* Class = "NSBox"; title = "Credentials"; ObjectID = "cQ4-kj-IBV"; */
+"cQ4-kj-IBV.title" = "Credentials";

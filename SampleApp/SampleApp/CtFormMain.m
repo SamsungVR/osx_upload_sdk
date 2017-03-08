@@ -35,25 +35,34 @@
    [self setForm:[[CtFormLogin alloc] initWithNibName:@"FormLogin" bundle:nil]];
 }
 
-- (void)unloadCurrentForm {
+- (bool)unloadCurrentForm:(NSSize *)size {
+   bool result = false;
+   
    if (mForm) {
       [mForm onUnload];
       
       NSView *subView = [mForm view];
       if (subView) {
+         if (size) {
+            *size = subView.frame.size;
+         }
          [subView removeFromSuperview];
+         result = true;
       }
       mForm = NULL;
    }
+   return result;
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-   [self unloadCurrentForm];
+   [self unloadCurrentForm:nil];
    [[DgApp getDgInstance] onMainFormClosed];
 }
 
 - (void)setForm:(CtForm *)form {
-   [self unloadCurrentForm];
+   NSSize prevSize;
+   
+   bool hadEarlierForm = [self unloadCurrentForm:&prevSize];
    
    mForm = form;
    if (mMainWindow && mForm) {
@@ -63,6 +72,14 @@
          NSSize controlSize = subView.frame.size;
          NSLog(@"Control size %@ %f %f", subView, controlSize.width, controlSize.height);
          [mMainWindow setContentSize:controlSize];
+         if (hadEarlierForm) {
+            NSPoint currentLoc = mMainWindow.frame.origin;
+            int dx = prevSize.width - controlSize.width;
+            int dy = prevSize.height - controlSize.height;
+            currentLoc.x += dx / 2;
+            currentLoc.y += dy / 2;
+            [mMainWindow setFrameOrigin:currentLoc];
+         }
          [mForm onLoad];
       }
    }

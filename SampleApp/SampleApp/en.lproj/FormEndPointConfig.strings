@@ -1,0 +1,48 @@
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "Cln-Qw-Pc0"; */
+"Cln-Qw-Pc0.title" = "Box";
+
+/* Class = "NSTextFieldCell"; title = "Url"; ObjectID = "D0E-wy-EsQ"; */
+"D0E-wy-EsQ.title" = "Url";
+
+/* Class = "NSButtonCell"; title = "Apply"; ObjectID = "Fwc-k5-nAB"; */
+"Fwc-k5-nAB.title" = "Apply";
+
+/* Class = "NSButtonCell"; title = "Back to Login"; ObjectID = "H45-if-hA9"; */
+"H45-if-hA9.title" = "Back to Login";
+
+/* Class = "NSButtonCell"; title = "Load"; ObjectID = "VDB-bB-nsi"; */
+"VDB-bB-nsi.title" = "Load";
+
+/* Class = "NSTableColumn"; headerCell.title = "URL"; ObjectID = "Ver-Mu-ONf"; */
+"Ver-Mu-ONf.headerCell.title" = "URL";
+
+/* Class = "NSButtonCell"; title = "Select"; ObjectID = "W8T-Xh-4Gi"; */
+"W8T-Xh-4Gi.title" = "Select";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "YJY-Yl-Aw0"; */
+"YJY-Yl-Aw0.title" = "Save";
+
+/* Class = "NSButtonCell"; title = "Add"; ObjectID = "ZQI-Vi-nuI"; */
+"ZQI-Vi-nuI.title" = "Add";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "dPj-ja-C9G"; */
+"dPj-ja-C9G.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "fkn-gm-eMp"; */
+"fkn-gm-eMp.title" = "Text Cell";
+
+/* Class = "NSTableColumn"; headerCell.title = "API Key"; ObjectID = "jBx-HG-XEI"; */
+"jBx-HG-XEI.headerCell.title" = "API Key";
+
+/* Class = "NSBox"; title = "Config File"; ObjectID = "kM2-4C-SPh"; */
+"kM2-4C-SPh.title" = "Config File";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "qqn-Jy-cjb"; */
+"qqn-Jy-cjb.title" = "Cancel";
+
+/* Class = "NSTextFieldCell"; title = "API Key"; ObjectID = "u5T-xH-Xab"; */
+"u5T-xH-Xab.title" = "API Key";
+
+/* Class = "NSTextFieldCell"; title = "ctrlStatus"; ObjectID = "vXU-Nr-bPD"; */
+"vXU-Nr-bPD.title" = "ctrlStatus";
