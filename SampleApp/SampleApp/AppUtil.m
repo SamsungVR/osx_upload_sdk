@@ -57,12 +57,29 @@
    return found;
 }
 
-+ (NSURL *)showFileSaveDialog {
++ (NSURL *)showFileOpenOrSaveDialog {
    NSSavePanel *panel = [NSSavePanel savePanel];
+
+   [panel setPrompt:NSLocalizedString(@"FileOpenSaveDialogTitle", nil)];
+   [panel setTitle:NSLocalizedString(@"FileOpenSaveDialogTitle", nil)];
+   [panel setMessage:NSLocalizedString(@"FileOpenSaveDialogMsg", nil)];
+   
    if (NSFileHandlingPanelOKButton == [panel runModal]) {
       return [panel URL];
    }
    return NULL;
+}
+
+
++ (void)removeAllSubViews:(NSView *)view {
+   do {
+      NSArray *subViews = [view subviews];
+      if ([subViews count] < 1) {
+         return;
+      }
+      [[subViews objectAtIndex:0] removeFromSuperview];
+   }
+   while (true);
 }
 
 

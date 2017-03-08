@@ -21,6 +21,8 @@
  */
 
 #import "CtForm.h"
+#import "SharedPrefs.h"
+#import "EndPointConfigManager.h"
 
 @interface DgApp : NSObject<NSApplicationDelegate>
 
@@ -29,5 +31,7 @@
 - (bool)showForm:(CtForm *)form;
 - (bool)showForm:(CtForm *)form nibName:(NSString *)nibName;
 - (void)onMainFormClosed;
+- (SharedPrefs *)getAppPrefs;
+- (EndPointConfigManager *)getEndPointCfgMgr;
 
 @end

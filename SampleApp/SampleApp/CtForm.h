@@ -26,5 +26,6 @@
 
 - (void) onLoad;
 - (void) onUnload;
+- (bool) isLoaded;
 
 @end

@@ -20,23 +20,40 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
+#import "EndPointConfig.h"
 
-
-@implementation CtForm {
-   bool mIsLoaded;
+@implementation EndPointConfig {
+   NSString *mIdentifier, *mUrl, *mApiKey;
 }
 
-- (void)onLoad {
-   mIsLoaded = true;
+- (id)initWithId:(NSString *)identifier {
+   mIdentifier = identifier;
+   return [super init];
 }
 
-- (void)onUnload {
-   mIsLoaded = false;
+- (id)initWithAutoId {
+   mIdentifier = [[NSUUID UUID] UUIDString];
+   return [super init];
 }
 
-- (bool)isLoaded {
-   return mIsLoaded;
+- (void)setUrl:(NSString *)url {
+   mUrl = url;
+}
+
+- (void)setApiKey:(NSString *)apiKey {
+   mApiKey = apiKey;
+}
+
+- (NSString *)getId {
+   return mIdentifier;
+}
+
+- (NSString *)getUrl {
+   return mUrl;
+}
+
+- (NSString *)getApiKey {
+   return mApiKey;
 }
 
 @end

@@ -20,23 +20,13 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
+#import <Foundation/Foundation.h>
 
+@interface SharedPrefs : NSObject
 
-@implementation CtForm {
-   bool mIsLoaded;
-}
-
-- (void)onLoad {
-   mIsLoaded = true;
-}
-
-- (void)onUnload {
-   mIsLoaded = false;
-}
-
-- (bool)isLoaded {
-   return mIsLoaded;
-}
+- (id)initWithName:(NSString *)name;
+- (NSString *)get:(NSString *)attr def:(NSString*)def;
+- (void)set:(NSString *)attr value:(NSString *)value;
+- (void)save;
 
 @end

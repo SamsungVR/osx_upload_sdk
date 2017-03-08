@@ -20,23 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
-
-
-@implementation CtForm {
-   bool mIsLoaded;
-}
-
-- (void)onLoad {
-   mIsLoaded = true;
-}
-
-- (void)onUnload {
-   mIsLoaded = false;
-}
-
-- (bool)isLoaded {
-   return mIsLoaded;
-}
-
-@end
+"FileOpenSaveDialogTitle"="Open/Save";
+"FileOpenSaveDialogMsg"="Open or Save";
+"Success"="Success";
+"Failure"="Failure";

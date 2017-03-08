@@ -20,23 +20,20 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
+#import "EndPointConfig.h"
 
+@class DgApp;
 
-@implementation CtForm {
-   bool mIsLoaded;
-}
+@interface EndPointConfigManager : NSObject
 
-- (void)onLoad {
-   mIsLoaded = true;
-}
-
-- (void)onUnload {
-   mIsLoaded = false;
-}
-
-- (bool)isLoaded {
-   return mIsLoaded;
-}
+- (id)initWithApp:(DgApp *)app;
+- (NSArray *)getList;
+- (bool)loadJsonConfig:(NSURL *)cfgFileUrl saveURLtoSettings:(bool)saveURLToSettings;
+- (bool)loadJsonConfig:(NSURL *)cfgFileUrl;
+- (EndPointConfig *)getSelectedConfig;
+- (EndPointConfig *)getConfig:(NSString *)identifier;
+- (void)selectConfig:(NSString *)argId;
+- (void)deleteConfig:(NSString *)argId;
+- (bool)addOrUpdateConfig:(EndPointConfig *)config;
 
 @end

@@ -19,6 +19,11 @@
 		25CE060B1E6E145A00A0C8DE /* FormEndPointConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25CE060A1E6E145A00A0C8DE /* FormEndPointConfig.xib */; };
 		25CE060E1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE060D1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m */; };
 		25CE06111E6E2ACF00A0C8DE /* CtForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE06101E6E2ACF00A0C8DE /* CtForm.m */; };
+		25CE06161E6F4B1100A0C8DE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 25CE06141E6F4B1100A0C8DE /* Localizable.strings */; };
+		25CE06181E6F520D00A0C8DE /* FormEndPointConfigItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25CE06171E6F520D00A0C8DE /* FormEndPointConfigItem.xib */; };
+		25CE061B1E6F614200A0C8DE /* EndPointConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE061A1E6F614200A0C8DE /* EndPointConfigManager.m */; };
+		25CE06201E6F688E00A0C8DE /* SharedPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE061F1E6F688E00A0C8DE /* SharedPrefs.m */; };
+		25CE06231E6F74EC00A0C8DE /* EndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25CE06221E6F74EC00A0C8DE /* EndPointConfig.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +47,14 @@
 		25CE060D1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormEndPointConfig.m; path = SampleApp/CtFormEndPointConfig.m; sourceTree = "<group>"; };
 		25CE060F1E6E2ACF00A0C8DE /* CtForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtForm.h; path = SampleApp/CtForm.h; sourceTree = "<group>"; };
 		25CE06101E6E2ACF00A0C8DE /* CtForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtForm.m; path = SampleApp/CtForm.m; sourceTree = "<group>"; };
+		25CE06151E6F4B1100A0C8DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = SampleApp/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		25CE06171E6F520D00A0C8DE /* FormEndPointConfigItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormEndPointConfigItem.xib; path = SampleApp/FormEndPointConfigItem.xib; sourceTree = "<group>"; };
+		25CE06191E6F614200A0C8DE /* EndPointConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EndPointConfigManager.h; path = SampleApp/EndPointConfigManager.h; sourceTree = "<group>"; };
+		25CE061A1E6F614200A0C8DE /* EndPointConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EndPointConfigManager.m; path = SampleApp/EndPointConfigManager.m; sourceTree = "<group>"; };
+		25CE061E1E6F688E00A0C8DE /* SharedPrefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharedPrefs.h; path = SampleApp/SharedPrefs.h; sourceTree = "<group>"; };
+		25CE061F1E6F688E00A0C8DE /* SharedPrefs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharedPrefs.m; path = SampleApp/SharedPrefs.m; sourceTree = "<group>"; };
+		25CE06211E6F74EC00A0C8DE /* EndPointConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EndPointConfig.h; path = SampleApp/EndPointConfig.h; sourceTree = "<group>"; };
+		25CE06221E6F74EC00A0C8DE /* EndPointConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EndPointConfig.m; path = SampleApp/EndPointConfig.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +72,14 @@
 		254A54811E64CBDE00BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				25CE06211E6F74EC00A0C8DE /* EndPointConfig.h */,
+				25CE06221E6F74EC00A0C8DE /* EndPointConfig.m */,
+				25CE061E1E6F688E00A0C8DE /* SharedPrefs.h */,
+				25CE061F1E6F688E00A0C8DE /* SharedPrefs.m */,
+				25CE06191E6F614200A0C8DE /* EndPointConfigManager.h */,
+				25CE061A1E6F614200A0C8DE /* EndPointConfigManager.m */,
+				25CE06171E6F520D00A0C8DE /* FormEndPointConfigItem.xib */,
+				25CE06141E6F4B1100A0C8DE /* Localizable.strings */,
 				25CE060F1E6E2ACF00A0C8DE /* CtForm.h */,
 				25CE06101E6E2ACF00A0C8DE /* CtForm.m */,
 				25CE060C1E6E1B3A00A0C8DE /* CtFormEndPointConfig.h */,
@@ -150,8 +171,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25CE06161E6F4B1100A0C8DE /* Localizable.strings in Resources */,
 				254A549F1E64EA5800BFAC55 /* FormMain.xib in Resources */,
 				254A54941E64CBDE00BFAC55 /* Assets.xcassets in Resources */,
+				25CE06181E6F520D00A0C8DE /* FormEndPointConfigItem.xib in Resources */,
 				254A54A11E64EEC400BFAC55 /* FormLogin.xib in Resources */,
 				25CE060B1E6E145A00A0C8DE /* FormEndPointConfig.xib in Resources */,
 			);
@@ -165,16 +188,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				254A54A61E64FAAE00BFAC55 /* DgApp.m in Sources */,
+				25CE06201E6F688E00A0C8DE /* SharedPrefs.m in Sources */,
 				254A54921E64CBDE00BFAC55 /* main.m in Sources */,
 				254A54AC1E665FF200BFAC55 /* CtFormMain.m in Sources */,
 				25CE06111E6E2ACF00A0C8DE /* CtForm.m in Sources */,
+				25CE061B1E6F614200A0C8DE /* EndPointConfigManager.m in Sources */,
 				25CE06041E6DE87B00A0C8DE /* CtFormLogin.m in Sources */,
 				25CE06071E6DF0AF00A0C8DE /* AppUtil.m in Sources */,
+				25CE06231E6F74EC00A0C8DE /* EndPointConfig.m in Sources */,
 				25CE060E1E6E1B3A00A0C8DE /* CtFormEndPointConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		25CE06141E6F4B1100A0C8DE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25CE06151E6F4B1100A0C8DE /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		254A54991E64CBDE00BFAC55 /* Debug */ = {

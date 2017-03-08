@@ -29,12 +29,21 @@ static DgApp *sInstance = NULL;
 @implementation DgApp {
    NSArray *mTopLevelNibObjs;
    CtFormMain *mCtFormMain;
+   EndPointConfigManager *mEndPointCfgMgr;
+   SharedPrefs *mAppPrefs;
 }
 
 - (id)init {
    mTopLevelNibObjs = NULL;
    mCtFormMain = NULL;
+   mAppPrefs = [[SharedPrefs alloc] initWithName:@"AppPrefs"];
+   mEndPointCfgMgr = [[EndPointConfigManager alloc] initWithApp:self];
+   
    return [super init];
+}
+
+- (SharedPrefs *)getAppPrefs {
+   return mAppPrefs;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -57,6 +66,10 @@ static DgApp *sInstance = NULL;
 
 - (void)onMainFormClosed {
    [NSApp terminate:nil];
+}
+
+- (EndPointConfigManager *)getEndPointCfgMgr {
+   return mEndPointCfgMgr;
 }
 
 + (DgApp *)getDgInstance {

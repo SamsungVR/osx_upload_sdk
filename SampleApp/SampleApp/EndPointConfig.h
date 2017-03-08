@@ -20,23 +20,16 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
+#import <Foundation/Foundation.h>
 
+@interface EndPointConfig : NSObject
 
-@implementation CtForm {
-   bool mIsLoaded;
-}
-
-- (void)onLoad {
-   mIsLoaded = true;
-}
-
-- (void)onUnload {
-   mIsLoaded = false;
-}
-
-- (bool)isLoaded {
-   return mIsLoaded;
-}
+- (id)initWithId:(NSString *)identifier;
+- (id)initWithAutoId;
+- (void)setUrl:(NSString *)url;
+- (void)setApiKey:(NSString *)apiKey;
+- (NSString *)getId;
+- (NSString *)getUrl;
+- (NSString *)getApiKey;
 
 @end
