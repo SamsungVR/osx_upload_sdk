@@ -22,6 +22,6 @@
 
 #import "CtForm.h"
 
-@interface CtFormEndPointConfig : CtForm
+@interface CtFormEndPointConfig : CtForm<NSTableViewDataSource, NSTableViewDelegate>
 
 @end

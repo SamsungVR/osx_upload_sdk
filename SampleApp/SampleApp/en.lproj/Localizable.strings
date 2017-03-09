@@ -24,3 +24,4 @@
 "FileOpenSaveDialogMsg"="Open or Save";
 "Success"="Success";
 "Failure"="Failure";
+"NoEPConfigured"="Please configure endpoint";

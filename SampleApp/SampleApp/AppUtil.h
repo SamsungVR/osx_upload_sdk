@@ -28,5 +28,6 @@
 + (NSControl *)setActionHandler:(NSView *)root identifier:(NSString *)identifier target:(id)target action:(SEL)action;
 + (NSURL *)showFileOpenOrSaveDialog;
 + (void)removeAllSubViews:(NSView *)view;
++ (void)setEnabled:(NSView *)root enabled:(bool)enabled;
 
 @end

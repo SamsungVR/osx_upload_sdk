@@ -15,7 +15,6 @@
 		25AB698E1E709B94002A69B7 /* DgApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69801E709B94002A69B7 /* DgApp.m */; };
 		25AB698F1E709B94002A69B7 /* EndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69821E709B94002A69B7 /* EndPointConfig.m */; };
 		25AB69901E709B94002A69B7 /* EndPointConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69841E709B94002A69B7 /* EndPointConfigManager.m */; };
-		25AB69911E709B94002A69B7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25AB69851E709B94002A69B7 /* Info.plist */; };
 		25AB69921E709B94002A69B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69861E709B94002A69B7 /* main.m */; };
 		25AB69931E709B94002A69B7 /* SharedPrefs.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69881E709B94002A69B7 /* SharedPrefs.m */; };
 		25AB69951E709B9E002A69B7 /* libSDKLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25AB69941E709B9E002A69B7 /* libSDKLib.a */; };
@@ -26,7 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		25AB693A1E70967F002A69B7 /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		258E264B1E70C7840006A11F /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SampleApp.app; path = /Users/venky/Work/Git/osx_upload_sdk/SampleApp/build/Debug/SampleApp.app; sourceTree = "<absolute>"; };
 		25AB69751E709B94002A69B7 /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtil.h; path = SampleApp/AppUtil.h; sourceTree = "<group>"; };
 		25AB69761E709B94002A69B7 /* AppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtil.m; path = SampleApp/AppUtil.m; sourceTree = "<group>"; };
 		25AB69771E709B94002A69B7 /* CtForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtForm.h; path = SampleApp/CtForm.h; sourceTree = "<group>"; };
@@ -98,7 +97,6 @@
 				25AB69871E709B94002A69B7 /* SharedPrefs.h */,
 				25AB69881E709B94002A69B7 /* SharedPrefs.m */,
 				254A54AE1E67574000BFAC55 /* Frameworks */,
-				25AB693A1E70967F002A69B7 /* SampleApp.app */,
 			);
 			indentWidth = 3;
 			sourceTree = "<group>";
@@ -129,7 +127,7 @@
 			);
 			name = SampleApp;
 			productName = SampleApp;
-			productReference = 25AB693A1E70967F002A69B7 /* SampleApp.app */;
+			productReference = 258E264B1E70C7840006A11F /* SampleApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -175,7 +173,6 @@
 			files = (
 				25AB69A41E709BD1002A69B7 /* Localizable.strings in Resources */,
 				25AB699C1E709BB0002A69B7 /* FormEndPointConfig.xib in Resources */,
-				25AB69911E709B94002A69B7 /* Info.plist in Resources */,
 				25AB699E1E709BB0002A69B7 /* FormMain.xib in Resources */,
 				25AB699D1E709BB0002A69B7 /* FormLogin.xib in Resources */,
 			);

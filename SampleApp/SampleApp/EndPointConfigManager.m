@@ -57,7 +57,7 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
    return NULL;
 }
 
-- (void)selectConfig:(NSString *)argId {
+- (void)selectConfigById:(NSString *)argId {
    if (argId && [argId isEqualToString:mSelectedId]) {
       return;
    }
@@ -65,11 +65,47 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
    [self onConfigChanged];
 }
 
+- (bool)selectConfigByIndex:(NSInteger)index {
+   if (index < 0 || index >= [mConfigList count]) {
+      return false;
+   }
+   EndPointConfig *cfg = [mConfigList objectAtIndex:index];
+   NSString *cid = [cfg getId];
+   if (mSelectedId && [mSelectedId isEqualToString:cid]) {
+      return false;
+   }
+   mSelectedId = cid;
+   [self onConfigChanged];
+   return true;
+}
+
+
+- (bool)deleteConfigByIndex:(NSInteger)index {
+   if (index >= 0 && index < [mConfigList count]) {
+      [mConfigList removeObjectAtIndex:index];
+      [self onConfigChanged];
+      return true;
+   }
+   return false;
+}
+
 - (EndPointConfig *)getSelectedConfig {
    if (!mSelectedId) {
       return NULL;
    }
    return [self getConfig:mSelectedId];
+}
+
+- (NSInteger)getSelectedIndex {
+   if (mSelectedId) {
+      for (NSInteger i = [mConfigList count] - 1; i >= 0; i -= 1) {
+         EndPointConfig *cfg = [mConfigList objectAtIndex:i];
+         if ([mSelectedId isEqualToString:[cfg getId]]) {
+            return i;
+         }
+      }
+   }
+   return -1;
 }
 
 - (NSURL *)getDefaultCfgURL {
@@ -191,10 +227,15 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
       result[CFG_SELECTED] = matchedSelectedId;
    }
    NSOutputStream *stream = [[NSOutputStream alloc] initWithURL:cfgFileUrl append:NO];
-   if (0 == [NSJSONSerialization writeJSONObject:result toStream:stream options:NSJSONWritingPrettyPrinted error:nil]) {
-      return false;
+   [stream open];
+   bool success = (0 != [NSJSONSerialization writeJSONObject:result toStream:stream options:NSJSONWritingPrettyPrinted error:nil]);
+   [stream close];
+   if (success) {
+      SharedPrefs *appPrefs = [mApp getAppPrefs];
+      [appPrefs set:CFG_FILE_URL value:[cfgFileUrl absoluteString]];
+      [appPrefs save];
    }
-   return true;
+   return success;
 }
 
 - (void)deleteConfig:(NSString *)argId {

@@ -32,10 +32,13 @@
 - (bool)loadJsonConfig:(NSURL *)cfgFileUrl;
 - (EndPointConfig *)getSelectedConfig;
 - (EndPointConfig *)getConfig:(NSString *)identifier;
-- (void)selectConfig:(NSString *)argId;
+- (void)selectConfigById:(NSString *)argId;
 - (void)deleteConfig:(NSString *)argId;
 - (bool)addOrUpdateConfig:(EndPointConfig *)config;
 - (NSUInteger)getCount;
 - (NSURL *)getCurrentCfgURL;
-
+- (bool)deleteConfigByIndex:(NSInteger)index;
+- (bool)selectConfigByIndex:(NSInteger)index;
+- (NSInteger)getSelectedIndex;
+- (bool)saveJsonConfig:(NSURL *)cfgFileUrl;
 @end

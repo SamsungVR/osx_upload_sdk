@@ -48,6 +48,28 @@
    return nil;
 }
 
++ (void)setEnabled:(NSView *)root enabled:(bool)enabled {
+   NSMutableArray *stack = [[NSMutableArray alloc] init];
+   NSView *currView = root;
+   while (currView) {
+      [[currView window] setAcceptsMouseMovedEvents:enabled];
+      if ([currView respondsToSelector:@selector(setEnabled:)]) {
+         [((NSControl *)currView) setEnabled:enabled];
+      }
+      NSArray *childViews = [currView subviews];
+      for (NSView *childView in childViews) {
+         [stack addObject:childView];
+      }
+      if ([stack count] > 0) {
+         currView = [stack objectAtIndex:0];
+         [stack removeObjectAtIndex:0];
+      } else {
+         currView = nil;
+      }
+   }
+   
+}
+
 + (NSControl *)setActionHandler:(NSView *)root identifier:(NSString *)identifier target:(id)target action:(SEL)action {
    NSControl *found = (NSControl *)[AppUtil findViewById:root identifier:identifier];
    if (found) {

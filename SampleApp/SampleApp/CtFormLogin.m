@@ -43,7 +43,9 @@
 @end
 
 @implementation CtFormLogin {
-   NSControl *mCtrlLogin, *mCtrlEndPoint;
+   NSControl *mCtrlLogin;
+   NSButton *mCtrlEndPoint;
+   EndPointConfigManager *mCfgMgr;
    CallbackInit *mCallbackInit;
 }
 
@@ -59,19 +61,21 @@
 - (void)onLoad {
    [super onLoad];
 
+   mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
    mCallbackInit = [[CallbackInit alloc] init];
    NSView *root = [self view];
    mCtrlLogin = [AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
-   mCtrlEndPoint = [AppUtil setActionHandler:root identifier:@"ctrlEndPoint" target:self action:@selector(onCtrlEndPointClick)];
-
+   mCtrlEndPoint = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlEndPoint" target:self action:@selector(onCtrlEndPointClick)];
+   
+   EndPointConfig *cfg = [mCfgMgr getSelectedConfig];
+   NSString *caption = nil;
+   
+   if (cfg) {
+      caption = [cfg getUrl];
+   } else {
+      caption = NSLocalizedString(@"NoEPConfigured", nil);
+   }
+   [mCtrlEndPoint setTitle:caption];
 }
-
-- (void)onUnload {
-   [super onUnload];
-   mCallbackInit = NULL;
-   mCtrlLogin = NULL;
-}
-
-
 
 @end
