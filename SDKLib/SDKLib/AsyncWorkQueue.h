@@ -22,6 +22,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class APIClient_Impl;
+
 @interface AsyncWorkQueue : NSOperationQueue
+
+- (void)destroy;
+- (id)initWithAPIClient:(APIClient_Impl *)apiClient;
 
 @end

@@ -28,25 +28,26 @@
 
 @interface CallbackInit : NSObject<VR_Result_Init>
 
-@end
-
-@implementation CallbackInit
-
-- (void)onFailure:(Object)closure status:(NSInteger)status {
-   NSLog(@"VR Init failure");
-}
-
-- (void)onSuccess:(Object)closure {
-   NSLog(@"VR Init success %@", closure);
-}
+- (id)initWith:(CtFormLogin *)form;
 
 @end
+
+
+@interface CallbackDestroy : NSObject<VR_Result_Destroy>
+
+- (id)initWith:(CtFormLogin *)form;
+
+@end
+
+
 
 @implementation CtFormLogin {
    NSControl *mCtrlLogin;
    NSButton *mCtrlEndPoint;
+   NSTextField *mCtrlStatusMsg;
    EndPointConfigManager *mCfgMgr;
    CallbackInit *mCallbackInit;
+   CallbackDestroy *mCallbackDestroy;
 }
 
 - (void)onCtrlEndPointClick {
@@ -54,28 +55,95 @@
 }
 
 - (void)onCtrlLoginClick {
-   [VR initAsync:@"https://stage.milkvr.com/api" apiKey:@"5870120fe38ac0000c71d239.X_LgDNKfRz9pmP1XYo_5Y5UCjR2ooFwu6b63M5aZmQc"
-        callback:mCallbackInit handler:nil closure:nil];
+   
+}
+
+- (void)setLocalizedStatusMsg:(NSString *)msg {
+   if ([self isLoaded]) {
+      NSString *realMsg = NSLocalizedString(msg, nil);
+      [mCtrlStatusMsg setStringValue:realMsg];
+   }
+}
+
+- (void)initVRLib {
+   EndPointConfig *cfg = [mCfgMgr getSelectedConfig];
+   if (cfg) {
+
+      [mCtrlEndPoint setTitle:[cfg getUrl]];
+      if ([VR destroyAsync:mCallbackDestroy handler:nil closure:nil]) {
+         [self setLocalizedStatusMsg:@"DestroyVRLib"];
+      } else {
+         if ([VR initAsync:[cfg getUrl] apiKey:[cfg getApiKey] callback:mCallbackInit handler:nil closure:nil]) {
+            [self setLocalizedStatusMsg:@"InitVRLib"];
+         } else {
+            [self setLocalizedStatusMsg:@"Failure"];
+         }
+      }
+   } else {
+      [self setLocalizedStatusMsg:@"NoEPConfigured"];
+      [mCtrlEndPoint setTitle:NSLocalizedString(@"NoEPConfigured", nil)];
+   }
+   
 }
 
 - (void)onLoad {
    [super onLoad];
 
    mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
-   mCallbackInit = [[CallbackInit alloc] init];
+   mCallbackInit = [[CallbackInit alloc] initWith:self];
+   mCallbackDestroy = [[CallbackDestroy alloc] initWith:self];
+   
    NSView *root = [self view];
    mCtrlLogin = [AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
+   mCtrlStatusMsg = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlStatusMsg"];
+
    mCtrlEndPoint = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlEndPoint" target:self action:@selector(onCtrlEndPointClick)];
+   [self initVRLib];
+}
+
+@end
+
+
+@implementation CallbackInit {
+   CtFormLogin *mForm;
+}
+
+- (id)initWith:(CtFormLogin *)form {
+   mForm = form;
+   return [super init];
+}
+
+- (void)onFailure:(Object)closure status:(NSInteger)status {
+   NSLog(@"VR Init failure");
+   [mForm setLocalizedStatusMsg:@"Failure"];
+}
+
+- (void)onSuccess:(Object)closure {
+   NSLog(@"VR Init success %@", closure);
+   [mForm setLocalizedStatusMsg:@"Success"];
+}
+
+@end
+
+@implementation CallbackDestroy {
+   CtFormLogin *mForm;
+}
+
+- (id)initWith:(CtFormLogin *)form {
+   mForm = form;
+   return [super init];
+}
+
+- (void)onFailure:(Object)closure status:(NSInteger)status {
+   NSLog(@"VR Destroy failure");
+   [mForm setLocalizedStatusMsg:@"Failure"];
+}
+
+- (void)onSuccess:(Object)closure {
+   NSLog(@"VR Destroy success %@", closure);
+   [mForm setLocalizedStatusMsg:@"Success"];
+   [mForm initVRLib];
    
-   EndPointConfig *cfg = [mCfgMgr getSelectedConfig];
-   NSString *caption = nil;
-   
-   if (cfg) {
-      caption = [cfg getUrl];
-   } else {
-      caption = NSLocalizedString(@"NoEPConfigured", nil);
-   }
-   [mCtrlEndPoint setTitle:caption];
 }
 
 @end

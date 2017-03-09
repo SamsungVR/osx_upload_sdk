@@ -29,6 +29,13 @@
     Object mClosure;
 }
 
+- (id)initWith:(Object)callback handler:(Handler)handler closure:(Object)closure {
+    mCallbackWeakRef = callback;
+    mHandlerWeakRef = handler == NULL ? [NSOperationQueue mainQueue] : handler;
+    mClosure = closure;
+    return [super init];
+}
+
 - (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure {
     mCallbackWeakRef = callback;
     mHandlerWeakRef = handler == NULL ? [NSOperationQueue mainQueue] : handler;

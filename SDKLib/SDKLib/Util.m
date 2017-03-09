@@ -32,6 +32,11 @@
     ResultCallbackHolder_Impl *mRCHImpl;
 }
 
+- (id)initWithRH:(ResultCallbackHolder_Impl *)rchImpl {
+    mRCHImpl = rchImpl;
+    return [super init];
+}
+
 - (id)init {
     mRCHImpl = [[ResultCallbackHolder_Impl alloc] init];
     return [super init];

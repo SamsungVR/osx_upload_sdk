@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+#import "Util.h"
 #import "VR.h"
 #import "HttpPlugin.h"
 #import "APIClient_Impl.h"
@@ -30,6 +31,43 @@ static NSObject *sLock = NULL;
 
 static id<VR_Result_Init> sInitCallbackApp = nil;
 static id<APIClient_Result_Init> sInitCallbackApi = nil;
+static id<VR_Result_Destroy> sDestroyCallbackApp = nil;
+static id<APIClient_Result_Destroy> sDestroyCallbackApi = nil;
+
+@interface APIClient_Result_Destroy_Impl : NSObject<APIClient_Result_Destroy>
+
+- (void)cleanupNoLock;
+
+@end
+
+@implementation APIClient_Result_Destroy_Impl
+
+- (void)onSuccess:(Object)closure {
+    @synchronized (sLock) {
+        sAPIClient = NULL;
+        
+        if (sDestroyCallbackApp) {
+            [sDestroyCallbackApp onSuccess:closure];
+        }
+        [self cleanupNoLock];
+    }
+}
+
+- (void)onFailure:(Object)closure status:(NSInteger)status {
+    @synchronized (sLock) {
+        if (sDestroyCallbackApp) {
+            [sDestroyCallbackApp onFailure:closure status:status];
+        }
+        [self cleanupNoLock];
+    }
+}
+
+- (void)cleanupNoLock {
+    sDestroyCallbackApp = nil;
+    sDestroyCallbackApi = nil;
+}
+
+@end
 
 @interface APIClient_Result_Init_Impl : NSObject<APIClient_Result_Init>
 
@@ -65,6 +103,8 @@ static id<APIClient_Result_Init> sInitCallbackApi = nil;
 
 @end
 
+
+
 @implementation VR
 
 + (void)initialize {
@@ -95,4 +135,27 @@ static id<APIClient_Result_Init> sInitCallbackApi = nil;
                   callback:callback handler:handler closure:closure];
 }
 
-@end	
+
++ (bool) destroyAsync:(id<VR_Result_Destroy>)callback handler:(NSOperationQueue *)handler closure:(Object)closure {
+    @synchronized (sLock) {
+        if (sInitCallbackApi || sDestroyCallbackApi) {
+            return false;
+        }
+        APIClient_Result_Destroy_Impl *temp = [[APIClient_Result_Destroy_Impl alloc] init];
+        if (!sAPIClient) {
+            sDestroyCallbackApi = temp;
+            sDestroyCallbackApp = callback;
+            [[[[Util_SuccessCallbackNotifier alloc] init] setNoLock:sDestroyCallbackApi handler:handler closure:closure] post];
+            return true;
+        }
+        if ([sAPIClient destroy:sDestroyCallbackApi handler:nil closure:nil]) {
+            sDestroyCallbackApp = callback;
+            sDestroyCallbackApi = temp;
+            return true;
+        }
+        return false;
+    }
+
+}
+
+@end

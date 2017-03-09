@@ -21,19 +21,59 @@
  */
 
 #import "APIClient_Impl.h"
+#import "AsyncWorkQueue.h"
 #import "Util.h"
+
+typedef NS_ENUM(NSInteger, State) {
+    INITIAILIZING,
+    INITIALIZED,
+    DESTROYING,
+    DESTROYED
+};
 
 @implementation APIClient_Impl {
     AsyncWorkQueue *mAsyncWorkQueue;
     AsyncWorkQueue *mAsyncUploadQueue;
+    State mState;
+    ResultCallbackHolder_Impl *mDestroyCallbackHolder;
+    NSInteger mNumAsyncQueues;
+    
 }
 
 - (id)initInternal:(NSString *)endPoint apiKey:(NSString *)apiKey
     httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory {
     
-    mAsyncWorkQueue = [[AsyncWorkQueue alloc] init];
-    mAsyncUploadQueue = [[AsyncWorkQueue alloc] init];
+    mNumAsyncQueues = 2;
+    mAsyncWorkQueue = [[AsyncWorkQueue alloc] initWithAPIClient:self];
+    mAsyncUploadQueue = [[AsyncWorkQueue alloc] initWithAPIClient:self];
+    
+    mState = INITIALIZED;
     return self;
+}
+
+
+- (bool)destroy:(id<APIClient_Result_Destroy>)callback handler:(NSOperationQueue *)handler closure:(Object)closure {
+    if (INITIALIZED != mState) {
+        return false;
+    }
+    mDestroyCallbackHolder = [[ResultCallbackHolder_Impl alloc] initWith:callback handler:handler closure:closure];
+    mState = DESTROYING;
+    [mAsyncWorkQueue destroy];
+    [mAsyncUploadQueue destroy];
+    return true;
+}
+
+
+- (void)onAsyncWorkQueueTerm:(AsyncWorkQueue *)asyncWorkQueue {
+    @synchronized (self) {
+        mNumAsyncQueues -= 1;
+        if (mNumAsyncQueues < 1) {
+            if (mDestroyCallbackHolder) {
+                [[[Util_SuccessCallbackNotifier alloc] initWithRH:mDestroyCallbackHolder] post];
+            }
+        }
+    }
+    
 }
 
 @end
@@ -50,5 +90,6 @@
     }
     return true;
 }
+
 
 @end

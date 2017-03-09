@@ -23,4 +23,12 @@
 #import "APIClient.h"
 
 @interface APIClient_Impl : NSObject<APIClient>
+
+- (void)onAsyncWorkQueueTerm:(AsyncWorkQueue *)asyncWorkQueue;
+- (bool)destroy:(id<APIClient_Result_Destroy>)callback handler:(NSOperationQueue *)handler
+        closure:(Object)closure;
+
+- (AsyncWorkQueue *)getAsyncWorkQueue;
+- (AsyncWorkQueue *)getAsyncUploadQueue;
+
 @end

@@ -245,4 +245,8 @@ typedef NS_ENUM(NSInteger, VR_Result_Status_NewUser) {
     callback:(id<VR_Result_Init>)callback
     handler:(NSOperationQueue *)handler closure:(Object)closure;
 
++ (bool)destroyAsync:(id<VR_Result_Destroy>)callback handler:(NSOperationQueue *)handler
+              closure:(Object)closure;
+
+
 @end

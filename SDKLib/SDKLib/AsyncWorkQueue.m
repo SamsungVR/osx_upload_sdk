@@ -21,7 +21,44 @@
  */
 
 #import "AsyncWorkQueue.h"
+#import "APIClient_Impl.h"
 
-@implementation AsyncWorkQueue
+@interface TermOp : NSOperation
+
+- (id)initWith:(APIClient_Impl *)apiClient queue:(AsyncWorkQueue *)queue;
+
+@end
+
+@implementation TermOp {
+    APIClient_Impl *mAPIClientImpl;
+    AsyncWorkQueue *mQueue;
+}
+
+- (id)initWith:(APIClient_Impl *)apiClient queue:(AsyncWorkQueue *)queue {
+    mAPIClientImpl = apiClient;
+    mQueue = queue;
+    return [super init];
+}
+
+- (void)main {
+    [mAPIClientImpl onAsyncWorkQueueTerm:mQueue];
+}
+
+@end
+
+@implementation AsyncWorkQueue {
+    APIClient_Impl *mAPIClient;
+}
+
+- (void)destroy {
+    [self addOperation:[[TermOp alloc] initWith:mAPIClient queue:self]];
+    self.suspended = YES;
+    [self cancelAllOperations];
+}
+
+- (id)initWithAPIClient:(APIClient_Impl *)apiClient {
+    mAPIClient = apiClient;
+    return [self init];
+}
 
 @end

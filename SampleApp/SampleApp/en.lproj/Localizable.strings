@@ -25,3 +25,5 @@
 "Success"="Success";
 "Failure"="Failure";
 "NoEPConfigured"="Please configure endpoint";
+"DestroyVRLib"="Destroying VR lib";
+"InitVRLib"="Initializing VR lib";

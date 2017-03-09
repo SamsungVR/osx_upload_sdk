@@ -31,6 +31,7 @@
 @interface Util_CallbackNotifier : NSOperation<ResultCallbackHolder>
 
 - (id)init;
+- (id)initWithRH:(ResultCallbackHolder_Impl *)rchImpl;
 - (void)notify:(Object)callback closure:(Object)closure;
 - (bool)post;
 
