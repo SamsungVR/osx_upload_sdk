@@ -60,7 +60,7 @@
 }
 
 - (Handler)getHandlerNoLock {
-    return mHandlerWeakRef;
+    return NULL == mHandlerWeakRef ? [NSOperationQueue mainQueue] : mHandlerWeakRef;
 }
 
 @end

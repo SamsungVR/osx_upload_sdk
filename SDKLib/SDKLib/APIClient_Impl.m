@@ -76,6 +76,17 @@ typedef NS_ENUM(NSInteger, State) {
     
 }
 
+- (bool)login:(NSString *)email password:(NSString *)password callback:(id<VR_Result_Login>)callback
+      handler:(NSOperationQueue *)handler closure:(Object)closure {
+    @synchronized (self) {
+        if (INITIALIZED != mState) {
+            return false;
+        }
+        
+    }
+    return true;
+}
+
 @end
 
 @implementation APIClient_Factory

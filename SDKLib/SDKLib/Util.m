@@ -33,7 +33,8 @@
 }
 
 - (id)initWithRH:(ResultCallbackHolder_Impl *)rchImpl {
-    mRCHImpl = rchImpl;
+    mRCHImpl = [[ResultCallbackHolder_Impl alloc] init];
+    [self setNoLock:[rchImpl getCallbackNoLock] handler:[rchImpl getHandlerNoLock] closure:[rchImpl getClosureNoLock]];
     return [super init];
 }
 

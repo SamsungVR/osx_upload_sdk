@@ -51,9 +51,9 @@
 }
 
 - (void)destroy {
+    [self cancelAllOperations];
     [self addOperation:[[TermOp alloc] initWith:mAPIClient queue:self]];
     self.suspended = YES;
-    [self cancelAllOperations];
 }
 
 - (id)initWithAPIClient:(APIClient_Impl *)apiClient {

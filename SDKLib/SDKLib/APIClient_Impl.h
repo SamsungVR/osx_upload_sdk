@@ -28,6 +28,9 @@
 - (bool)destroy:(id<APIClient_Result_Destroy>)callback handler:(NSOperationQueue *)handler
         closure:(Object)closure;
 
+- (bool)login:(NSString *)email password:(NSString *)password callback:(id<VR_Result_Login>)callback
+      handler:(NSOperationQueue *)handler closure:(Object)closure;
+
 - (AsyncWorkQueue *)getAsyncWorkQueue;
 - (AsyncWorkQueue *)getAsyncUploadQueue;
 

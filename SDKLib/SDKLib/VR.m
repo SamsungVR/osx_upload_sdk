@@ -136,7 +136,7 @@ static id<APIClient_Result_Destroy> sDestroyCallbackApi = nil;
 }
 
 
-+ (bool) destroyAsync:(id<VR_Result_Destroy>)callback handler:(NSOperationQueue *)handler closure:(Object)closure {
++ (bool)destroyAsync:(id<VR_Result_Destroy>)callback handler:(NSOperationQueue *)handler closure:(Object)closure {
     @synchronized (sLock) {
         if (sInitCallbackApi || sDestroyCallbackApi) {
             return false;
@@ -148,7 +148,7 @@ static id<APIClient_Result_Destroy> sDestroyCallbackApi = nil;
             [[[[Util_SuccessCallbackNotifier alloc] init] setNoLock:sDestroyCallbackApi handler:handler closure:closure] post];
             return true;
         }
-        if ([sAPIClient destroy:sDestroyCallbackApi handler:nil closure:nil]) {
+        if ([sAPIClient destroy:temp handler:nil closure:nil]) {
             sDestroyCallbackApp = callback;
             sDestroyCallbackApi = temp;
             return true;
@@ -156,6 +156,16 @@ static id<APIClient_Result_Destroy> sDestroyCallbackApi = nil;
         return false;
     }
 
+}
+
++ (bool)login:(NSString *)email password:(NSString *)password callback:(id<VR_Result_Login>)callback
+      handler:(NSOperationQueue *)handler closure:(Object)closure {
+    @synchronized (sLock) {
+        if (!sAPIClient) {
+            return false;
+        }
+        return [sAPIClient login:email password:password callback:callback handler:handler closure:closure];
+    }
 }
 
 @end
