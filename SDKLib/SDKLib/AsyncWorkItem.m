@@ -21,10 +21,19 @@
  */
 #import "AsyncWorkItem.h"
 
-@implementation AsyncWorkItem
+@implementation AsyncWorkItem {
+    id<AsyncWorkItemType> mType;
+}
 
-- (void)main {
-    
+- (id)initWithType:(id<AsyncWorkItemType>)type {
+    mType = type;
+    return [super init];
+}
+
+- (id<AsyncWorkItemType>)getType {
+    return mType;
 }
 
 @end
+
+

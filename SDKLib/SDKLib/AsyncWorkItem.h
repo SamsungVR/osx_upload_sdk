@@ -22,6 +22,18 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol AsyncWorkItemType;
+
 @interface AsyncWorkItem : NSOperation
+
+- (id)initWithType:(id<AsyncWorkItemType>)type;
+
+@end
+
+@class APIClient_Impl;
+
+@protocol AsyncWorkItemType
+
+- (AsyncWorkItem *)newInstance:(APIClient_Impl *)apiClient;
 
 @end

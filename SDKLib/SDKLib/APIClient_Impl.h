@@ -21,8 +21,13 @@
  */
 
 #import "APIClient.h"
+#import "AsyncWorkItem.h"
+
+static const NSString * HEADER_API_KEY = @"X-API-KEY";
+
 
 @interface APIClient_Impl : NSObject<APIClient>
+
 
 - (void)onAsyncWorkQueueTerm:(AsyncWorkQueue *)asyncWorkQueue;
 - (bool)destroy:(id<APIClient_Result_Destroy>)callback handler:(NSOperationQueue *)handler
@@ -33,5 +38,10 @@
 
 - (AsyncWorkQueue *)getAsyncWorkQueue;
 - (AsyncWorkQueue *)getAsyncUploadQueue;
+- (bool)isInitialized;
+
+- (NSString *)getEndPoint;
+- (NSString *)getApiKey;
+- (id<HttpPlugin_RequestFactory>)getRequestFactory;
 
 @end

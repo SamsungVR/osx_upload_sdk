@@ -79,17 +79,16 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     
 }
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url httpMethod:(NSString *)httpMethod headers:(NSString * __autoreleasing *)headers {
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url httpMethod:(NSString *)httpMethod headers:(Headers)headers {
     mSession = session;
     mResponse = NULL;
-    NSMutableURLRequest *mRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
-    
+    mRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     [mRequest setHTTPMethod:httpMethod];
     if (headers) {
-        for (int i = 0; headers[i]; i += 1) {
-            NSString *pAttr = headers[i, 0];
-            NSString *pValue = headers[i, 1];
-            [	mRequest setValue:pAttr forHTTPHeaderField:pValue];
+        for (int i = 0; headers[i]; i += 2) {
+            NSString *pAttr = headers[i + 0];
+            NSString *pValue = headers[i + 1];
+            [mRequest setValue:pAttr forHTTPHeaderField:pValue];
         }
     }
     return self;
@@ -114,13 +113,13 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
 
 @interface HttpPlugin_RequestFactory_GetRequest : HttpPlugin_RequestFactory_Request<HttpPlugin_GetRequest>
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers;
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers;
 
 @end
 
 @implementation HttpPlugin_RequestFactory_GetRequest
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers {
     return [super initWithSession:session url:url httpMethod:@"GET" headers:headers];
 }
 
@@ -129,13 +128,13 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
 
 @interface HttpPlugin_RequestFactory_PostRequest : HttpPlugin_RequestFactory_Request<HttpPlugin_PostRequest>
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers;
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers;
 
 @end
 
 @implementation HttpPlugin_RequestFactory_PostRequest
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers {
     return [super initWithSession:session url:url httpMethod:@"POST" headers:headers];
 }
 
@@ -143,13 +142,13 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
 
 @interface HttpPlugin_RequestFactory_PutRequest : HttpPlugin_RequestFactory_Request<HttpPlugin_PutRequest>
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers;
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers;
 
 @end
 
 @implementation HttpPlugin_RequestFactory_PutRequest
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers {
     return [super initWithSession:session url:url httpMethod:@"PUT" headers:headers];
 }
 
@@ -157,13 +156,13 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
 
 @interface HttpPlugin_RequestFactory_DeleteRequest : HttpPlugin_RequestFactory_Request<HttpPlugin_DeleteRequest>
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers;
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers;
 
 @end
 
 @implementation HttpPlugin_RequestFactory_DeleteRequest
 
-- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id)initWithSession:(NSURLSession *)session url:(NSString *)url headers:(Headers)headers {
     return [super initWithSession:session url:url httpMethod:@"DELETE" headers:headers];
 }
 
@@ -179,24 +178,23 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     return [super init];
 }
 
-- (id<HttpPlugin_GetRequest>)newGetRequest:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id<HttpPlugin_GetRequest>)newGetRequest:(NSString *)url headers:(Headers)headers {
     return [[HttpPlugin_RequestFactory_GetRequest alloc] initWithSession:mSession url:url headers:headers];
 }
 
-- (id<HttpPlugin_PostRequest>)newPostRequest:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id<HttpPlugin_PostRequest>)newPostRequest:(NSString *)url headers:(Headers)headers {
     return [[HttpPlugin_RequestFactory_PostRequest alloc] initWithSession:mSession url:url headers:headers];
 }
 
-- (id<HttpPlugin_DeleteRequest>)newDeleteRequest:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id<HttpPlugin_DeleteRequest>)newDeleteRequest:(NSString *)url headers:(Headers)headers {
     return [[HttpPlugin_RequestFactory_DeleteRequest alloc] initWithSession:mSession url:url headers:headers];
 }
 
-- (id<HttpPlugin_PutRequest>)newPutRequest:(NSString *)url headers:(NSString * __autoreleasing *)headers {
+- (id<HttpPlugin_PutRequest>)newPutRequest:(NSString *)url headers:(Headers)headers {
     return [[HttpPlugin_RequestFactory_PutRequest alloc] initWithSession:mSession url:url headers:headers];
 }
 
 - (void)destroy {
-
 }
 
 

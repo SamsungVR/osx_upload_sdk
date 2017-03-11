@@ -21,7 +21,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "ResultCallbackHolder.h"
+#import "ResultCallbackHolder_Impl.h"
 
 @interface Util : NSObject
 

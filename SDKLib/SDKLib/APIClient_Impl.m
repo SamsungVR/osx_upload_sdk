@@ -23,6 +23,8 @@
 #import "APIClient_Impl.h"
 #import "AsyncWorkQueue.h"
 #import "Util.h"
+#import "ClientWorkItem.h"
+#import "HttpPlugin.h"
 
 typedef NS_ENUM(NSInteger, State) {
     INITIAILIZING,
@@ -31,26 +33,118 @@ typedef NS_ENUM(NSInteger, State) {
     DESTROYED
 };
 
+@interface WorkItemTypePerformLogin : NSObject<AsyncWorkItemType>
+
+@end
+
+@interface WorkItemPerformLogin : ClientWorkItem
+
+- (id)initWithClient:(APIClient_Impl *)apiClient;
+
+@end
+
+
+@implementation WorkItemTypePerformLogin
+
+- (AsyncWorkItem *)newInstance:(APIClient_Impl *)apiClient {
+    return [[WorkItemPerformLogin alloc] initWithClient:apiClient];
+}
+
+@end
+
+static id<AsyncWorkItemType> sTypePerformLogin = nil;
+
+@implementation WorkItemPerformLogin {
+    NSString *mEmail, *mPassword;
+}
+
+- (id)initWithClient:(APIClient_Impl *)apiClient {
+    return [super initWith:apiClient type:sTypePerformLogin];
+}
+
+- (void)set:(NSString *)email password:(NSString *)password callback:(id<VR_Result_Login>)callback handler:(Handler)handler closure:(Object)closure {
+    [super set:callback handler:handler closure:closure];
+    mEmail = email;
+    mPassword = password;
+}
+
+- (void)onRun {
+    id<HttpPlugin_PostRequest> request = nil;
+    
+    NSMutableDictionary *o = [[NSMutableDictionary alloc] init];
+    o[@"email"] = mEmail;
+    o[@"password"] = mPassword;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:o options:0 error:nil];
+    NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    Headers headers = {
+        HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%d", [jsonData length]],
+        HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
+        HEADER_API_KEY, [[self getApiClient] getApiKey],
+        NULL
+    };
+    request = [self newPostRequest:@"user/authenticate" headers:headers];
+    [self writeBytes:request data:jsonData debugMsg:nil];
+    int responseCode = [self getResponseCode:request];
+    NSData *response = [self readHttpStream:request debugMsg:nil];
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
+    NSLog(@"Response %@", jsonResponse);
+    
+    
+    
+}
+
+@end
+
 @implementation APIClient_Impl {
     AsyncWorkQueue *mAsyncWorkQueue;
     AsyncWorkQueue *mAsyncUploadQueue;
     State mState;
     ResultCallbackHolder_Impl *mDestroyCallbackHolder;
     NSInteger mNumAsyncQueues;
+    NSString *mEndPoint, *mApiKey;
+    id<HttpPlugin_RequestFactory> mRequestFactory;
     
+}
+
+
++ (void)initTypes {
+    @synchronized (self) {
+        if (!sTypePerformLogin) {
+            sTypePerformLogin = [[WorkItemTypePerformLogin alloc] init];
+        }
+    }
 }
 
 - (id)initInternal:(NSString *)endPoint apiKey:(NSString *)apiKey
     httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory {
-    
+    [APIClient_Impl initTypes];
+    mRequestFactory = httpRequestFactory;
     mNumAsyncQueues = 2;
     mAsyncWorkQueue = [[AsyncWorkQueue alloc] initWithAPIClient:self];
     mAsyncUploadQueue = [[AsyncWorkQueue alloc] initWithAPIClient:self];
-    
+    mEndPoint = endPoint;
+    mApiKey = apiKey;
     mState = INITIALIZED;
     return self;
 }
 
+- (id<HttpPlugin_RequestFactory>)getRequestFactory {
+    return mRequestFactory;
+}
+
+- (NSString *)getEndPoint {
+    return mEndPoint;
+}
+
+- (NSString *)getApiKey {
+    return mApiKey;
+}
+
+- (bool)isInitialized {
+    @synchronized (self) {
+        return (INITIALIZED == mState);
+    }
+}
 
 - (bool)destroy:(id<APIClient_Result_Destroy>)callback handler:(NSOperationQueue *)handler closure:(Object)closure {
     if (INITIALIZED != mState) {
@@ -63,7 +157,6 @@ typedef NS_ENUM(NSInteger, State) {
     return true;
 }
 
-
 - (void)onAsyncWorkQueueTerm:(AsyncWorkQueue *)asyncWorkQueue {
     @synchronized (self) {
         mNumAsyncQueues -= 1;
@@ -73,7 +166,6 @@ typedef NS_ENUM(NSInteger, State) {
             }
         }
     }
-    
 }
 
 - (bool)login:(NSString *)email password:(NSString *)password callback:(id<VR_Result_Login>)callback
@@ -82,9 +174,10 @@ typedef NS_ENUM(NSInteger, State) {
         if (INITIALIZED != mState) {
             return false;
         }
-        
     }
-    return true;
+    WorkItemPerformLogin *workItem = [mAsyncWorkQueue obtainWorkItem:sTypePerformLogin];
+    [workItem set:email password:password callback:callback handler:handler closure:closure];
+    return [mAsyncWorkQueue enqueue:workItem];
 }
 
 @end

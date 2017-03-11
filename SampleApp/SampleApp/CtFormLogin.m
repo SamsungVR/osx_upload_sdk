@@ -44,7 +44,7 @@
 @implementation CtFormLogin {
    NSControl *mCtrlLogin;
    NSButton *mCtrlEndPoint;
-   NSTextField *mCtrlStatusMsg;
+   NSTextField *mCtrlStatusMsg, *mCtrlUsername, *mCtrlPassword;
    EndPointConfigManager *mCfgMgr;
    CallbackInit *mCallbackInit;
    CallbackDestroy *mCallbackDestroy;
@@ -55,7 +55,8 @@
 }
 
 - (void)onCtrlLoginClick {
-   
+   [VR login:[mCtrlUsername stringValue] password:[mCtrlPassword stringValue]
+     callback:nil handler:nil closure:nil];
 }
 
 - (void)setLocalizedStatusMsg:(NSString *)msg {
@@ -96,7 +97,8 @@
    NSView *root = [self view];
    mCtrlLogin = [AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
    mCtrlStatusMsg = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlStatusMsg"];
-
+   mCtrlUsername = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlUsername"];
+   mCtrlPassword = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlPassword"];
    mCtrlEndPoint = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlEndPoint" target:self action:@selector(onCtrlEndPointClick)];
    [self initVRLib];
 }

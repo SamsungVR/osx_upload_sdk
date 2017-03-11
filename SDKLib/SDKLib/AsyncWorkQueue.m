@@ -61,4 +61,13 @@
     return [self init];
 }
 
+- (AsyncWorkItem *)obtainWorkItem:(id<AsyncWorkItemType>)type {
+    return [type newInstance:mAPIClient];
+}
+
+- (bool)enqueue:(AsyncWorkItem *)workItem {
+    [self addOperation:workItem];
+    return true;
+}
+
 @end

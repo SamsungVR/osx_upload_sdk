@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import "ResultCallbackHolder.h"
+#import "ResultCallbackHolder_Impl.h"
 
 
 @implementation ResultCallbackHolder_Impl {

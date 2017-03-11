@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import <Foundation/Foundation.h>
+#import "AsyncWorkItem.h"
 
 @class APIClient_Impl;
 
@@ -28,5 +28,7 @@
 
 - (void)destroy;
 - (id)initWithAPIClient:(APIClient_Impl *)apiClient;
+- (AsyncWorkItem *)obtainWorkItem:(id<AsyncWorkItemType>)type;
+- (bool)enqueue:(AsyncWorkItem *)workItem;
 
 @end

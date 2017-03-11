@@ -22,7 +22,7 @@
 
 #import "VR.h"
 #import "Util.h"
-#import "ResultCallbackHolder.h"
+#import "ResultCallbackHolder_Impl.h"
 
 @implementation Util
 

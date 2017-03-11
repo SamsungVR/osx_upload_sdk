@@ -20,8 +20,10 @@
 		254A54C71E69F79700BFAC55 /* AsyncWorkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54C51E69F79700BFAC55 /* AsyncWorkQueue.m */; };
 		254A54CA1E69F82F00BFAC55 /* AsyncWorkItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 254A54C81E69F82F00BFAC55 /* AsyncWorkItem.h */; };
 		254A54CB1E69F82F00BFAC55 /* AsyncWorkItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54C91E69F82F00BFAC55 /* AsyncWorkItem.m */; };
-		254A54CE1E6A00CC00BFAC55 /* ResultCallbackHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder.h */; };
+		254A54CE1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.h */; };
 		254A54CF1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m in Sources */ = {isa = PBXBuildFile; fileRef = 254A54CD1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m */; };
+		258E264E1E731DCA0006A11F /* ClientWorkItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 258E264C1E731DCA0006A11F /* ClientWorkItem.h */; };
+		258E264F1E731DCA0006A11F /* ClientWorkItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 258E264D1E731DCA0006A11F /* ClientWorkItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,9 +42,11 @@
 		254A54C51E69F79700BFAC55 /* AsyncWorkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncWorkQueue.m; path = SDKLib/AsyncWorkQueue.m; sourceTree = "<group>"; };
 		254A54C81E69F82F00BFAC55 /* AsyncWorkItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AsyncWorkItem.h; path = SDKLib/AsyncWorkItem.h; sourceTree = "<group>"; };
 		254A54C91E69F82F00BFAC55 /* AsyncWorkItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AsyncWorkItem.m; path = SDKLib/AsyncWorkItem.m; sourceTree = "<group>"; };
-		254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultCallbackHolder.h; path = SDKLib/ResultCallbackHolder.h; sourceTree = "<group>"; };
+		254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResultCallbackHolder_Impl.h; path = SDKLib/ResultCallbackHolder_Impl.h; sourceTree = "<group>"; };
 		254A54CD1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ResultCallbackHolder_Impl.m; path = SDKLib/ResultCallbackHolder_Impl.m; sourceTree = "<group>"; };
 		254A54D01E6A2DC500BFAC55 /* APIClient_Impl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = APIClient_Impl.h; path = SDKLib/APIClient_Impl.h; sourceTree = "<group>"; };
+		258E264C1E731DCA0006A11F /* ClientWorkItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientWorkItem.h; path = SDKLib/ClientWorkItem.h; sourceTree = "<group>"; };
+		258E264D1E731DCA0006A11F /* ClientWorkItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientWorkItem.m; path = SDKLib/ClientWorkItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +63,10 @@
 		254A546C1E64C5A500BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				258E264C1E731DCA0006A11F /* ClientWorkItem.h */,
+				258E264D1E731DCA0006A11F /* ClientWorkItem.m */,
 				254A54D01E6A2DC500BFAC55 /* APIClient_Impl.h */,
-				254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder.h */,
+				254A54CC1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.h */,
 				254A54CD1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m */,
 				254A54C81E69F82F00BFAC55 /* AsyncWorkItem.h */,
 				254A54C91E69F82F00BFAC55 /* AsyncWorkItem.m */,
@@ -89,11 +95,12 @@
 			files = (
 				254A54C61E69F79700BFAC55 /* AsyncWorkQueue.h in Headers */,
 				254A54C21E69EE5700BFAC55 /* APIClient.h in Headers */,
+				258E264E1E731DCA0006A11F /* ClientWorkItem.h in Headers */,
 				254A54B61E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h in Headers */,
 				254A54791E64C5A500BFAC55 /* VR.h in Headers */,
 				254A54BD1E679F8400BFAC55 /* Util.h in Headers */,
 				254A54BA1E67961100BFAC55 /* HttpPlugin.h in Headers */,
-				254A54CE1E6A00CC00BFAC55 /* ResultCallbackHolder.h in Headers */,
+				254A54CE1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.h in Headers */,
 				254A54CA1E69F82F00BFAC55 /* AsyncWorkItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +166,7 @@
 				254A54B71E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.m in Sources */,
 				254A54CB1E69F82F00BFAC55 /* AsyncWorkItem.m in Sources */,
 				254A547B1E64C5A500BFAC55 /* VR.m in Sources */,
+				258E264F1E731DCA0006A11F /* ClientWorkItem.m in Sources */,
 				254A54BE1E679F8400BFAC55 /* Util.m in Sources */,
 				254A54CF1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m in Sources */,
 				254A54C31E69EE5700BFAC55 /* APIClient_Impl.m in Sources */,
