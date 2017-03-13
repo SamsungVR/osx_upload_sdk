@@ -21,22 +21,26 @@
  */
 
 
-#import <Foundation/Foundation.h>
-#import "Compat_Defs.h"
+#import "VR.h"
 
-@protocol ResultCallbackHolder
+@protocol User_Result_CreateLiveEvent <VR_Result_BaseCallback, VR_Result_SuccessWithResultCallback>
 
-- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)initWithOther:(id<ResultCallbackHolder>)other;
-- (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)setNoLock:(id<ResultCallbackHolder>)other;
-- (id)clearNoLock;
-- (Object)getClosureNoLock;
-- (Handler)getHandlerNoLock;
-- (Object)getCallbackNoLock;
+
+typedef NS_ENUM(NSInteger, User_Result_Status_CreateLiveEvent) {
+    
+    VR_RESULT_STATUS_INVALID_STEREOSCOPIC_TYPE = 5,
+    VR_RESULT_STATUS_INVALID_AUDIO_TYPE = 6
+};
 
 @end
 
+@protocol User
 
-@interface ResultCallbackHolder_Impl : NSObject<ResultCallbackHolder>
+- (NSString *)getName;
+- (NSString *)getEmail;
+- (NSString *)getProfilePicUrl;
+- (NSString *)getSessionToken;
+- (NSString *)getUserId;
+
 @end
+

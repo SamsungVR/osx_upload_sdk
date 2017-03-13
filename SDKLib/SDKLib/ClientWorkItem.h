@@ -23,6 +23,7 @@
 
 #import "AsyncWorkItem.h"
 #import "VR.h"
+#import "Util.h"
 
 typedef NS_ENUM(NSInteger, HttpMethod) {
     GET,
@@ -40,15 +41,31 @@ static const NSString * CONTENT_TYPE_CHARSET_SUFFIX_UTF8 = @"; charset=utf-8";
 static const NSString * HEADER_TRANSFER_ENCODING = @"Transfer-Encoding";
 static const NSString * TRANSFER_ENCODING_CHUNKED = @"chunked";
 
+@interface ClientWorkItem_CancelledCallbackNotifier : Util_CallbackNotifier
+@end
+
+@interface ClientWorkItem_ExceptionCallbackNotifier : Util_CallbackNotifier
+
+- (id)initWithParamsAndException:(Object)callback handler:(Handler)handler closure:(Object)closure exception:(NSException *)exception;
+- (id)initWithOtherAndException:(id<ResultCallbackHolder>)other exception:(NSException *)exception;
+
+@end
+
 @interface ClientWorkItem : AsyncWorkItem
 
 - (id)initWith:(APIClient_Impl *)apiClient type:(id<AsyncWorkItemType>)type;
 - (void)onRun;
-- (void)set:(id<VR_Result_BaseCallback>)callback handler:(Handler)handler closure:(Object)closure;
 - (id<HttpPlugin_PostRequest>) newPostRequest:(NSString *)suffix headers:(NSString * __autoreleasing *)headers;
 - (APIClient_Impl *)getApiClient;
 - (void)writeBytes:(id<HttpPlugin_WritableRequest>)request data:(NSData *)data debugMsg:(NSString *)debugMsg;
 - (int)getResponseCode:(id<HttpPlugin_ReadableRequest>)request;
 - (NSData *)readHttpStream:(id<HttpPlugin_ReadableRequest>)request debugMsg:(NSString *)debugMsg;
+- (bool)isHttpSuccess:(NSInteger)statusCode;
+
+- (void)set:(id<ResultCallbackHolder>)other;
+- (void)set:(Object)callback handler:(Handler)handler closure:(Object)closure;
+- (id<ResultCallbackHolder>) getCallbackHolder;
+- (Object)getClosure;
+- (Handler)getHandler;
 
 @end

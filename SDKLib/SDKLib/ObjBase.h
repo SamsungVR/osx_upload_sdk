@@ -20,23 +20,10 @@
  * THE SOFTWARE.
  */
 
-
 #import <Foundation/Foundation.h>
-#import "Compat_Defs.h"
 
-@protocol ResultCallbackHolder
+@interface ObjBase : NSObject
 
-- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)initWithOther:(id<ResultCallbackHolder>)other;
-- (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)setNoLock:(id<ResultCallbackHolder>)other;
-- (id)clearNoLock;
-- (Object)getClosureNoLock;
-- (Handler)getHandlerNoLock;
-- (Object)getCallbackNoLock;
+- (id)getLocked:(NSString *)attr;
 
-@end
-
-
-@interface ResultCallbackHolder_Impl : NSObject<ResultCallbackHolder>
 @end

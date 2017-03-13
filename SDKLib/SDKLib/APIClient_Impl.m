@@ -25,6 +25,7 @@
 #import "Util.h"
 #import "ClientWorkItem.h"
 #import "HttpPlugin.h"
+#import "User_Impl.h"
 
 typedef NS_ENUM(NSInteger, State) {
     INITIAILIZING,
@@ -85,11 +86,16 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     request = [self newPostRequest:@"user/authenticate" headers:headers];
     [self writeBytes:request data:jsonData debugMsg:nil];
     int responseCode = [self getResponseCode:request];
-    NSData *response = [self readHttpStream:request debugMsg:nil];
-    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
-    NSLog(@"Response %@", jsonResponse);
-    
-    
+    if ([self isHttpSuccess:responseCode]) {
+        NSData *response = [self readHttpStream:request debugMsg:nil];
+        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
+        
+        User_Impl *user = [[User_Impl alloc] initWith:[self getApiClient] jsonObject:jsonResponse];
+        if (user) {
+            
+        }
+    }
+
     
 }
 
@@ -150,7 +156,7 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     if (INITIALIZED != mState) {
         return false;
     }
-    mDestroyCallbackHolder = [[ResultCallbackHolder_Impl alloc] initWith:callback handler:handler closure:closure];
+    mDestroyCallbackHolder = [[ResultCallbackHolder_Impl alloc] initWithParams:callback handler:handler closure:closure];
     mState = DESTROYING;
     [mAsyncWorkQueue destroy];
     [mAsyncUploadQueue destroy];
@@ -162,7 +168,7 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
         mNumAsyncQueues -= 1;
         if (mNumAsyncQueues < 1) {
             if (mDestroyCallbackHolder) {
-                [[[Util_SuccessCallbackNotifier alloc] initWithRH:mDestroyCallbackHolder] post];
+                [[[Util_SuccessCallbackNotifier alloc] initWithOther:mDestroyCallbackHolder] post];
             }
         }
     }
@@ -190,7 +196,7 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
                      closure:(Object)closure {
     id<APIClient> result = [[APIClient_Impl alloc] initInternal:endPoint apiKey:apiKey httpRequestFactory:httpRequestFactory];
     if (callback) {
-        [[[[Util_SuccessWithResultCallbackNotifier alloc] initWithRef:result] setNoLock:callback handler:handler closure:closure] post];
+        [[[Util_SuccessWithResultCallbackNotifier alloc] initWithParamsAndRef:callback handler:handler closure:closure ref:result] post];
     }
     return true;
 }

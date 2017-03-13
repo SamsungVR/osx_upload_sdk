@@ -29,11 +29,15 @@
     Object mClosure;
 }
 
-- (id)initWith:(Object)callback handler:(Handler)handler closure:(Object)closure {
+- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure {
     mCallbackWeakRef = callback;
     mHandlerWeakRef = handler == NULL ? [NSOperationQueue mainQueue] : handler;
     mClosure = closure;
     return [super init];
+}
+
+- (id)initWithOther:(ResultCallbackHolder_Impl *)other {
+    return [self initWithParams:[other getCallbackNoLock] handler:[other getHandlerNoLock] closure:[other getClosureNoLock]];
 }
 
 - (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure {

@@ -32,14 +32,16 @@
     ResultCallbackHolder_Impl *mRCHImpl;
 }
 
-- (id)initWithRH:(ResultCallbackHolder_Impl *)rchImpl {
+
+- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure {
     mRCHImpl = [[ResultCallbackHolder_Impl alloc] init];
-    [self setNoLock:[rchImpl getCallbackNoLock] handler:[rchImpl getHandlerNoLock] closure:[rchImpl getClosureNoLock]];
+    [mRCHImpl setNoLock:callback handler:handler closure:closure];
     return [super init];
 }
 
-- (id)init {
+- (id)initWithOther:(id<ResultCallbackHolder>)other {
     mRCHImpl = [[ResultCallbackHolder_Impl alloc] init];
+    [mRCHImpl setNoLock:other];
     return [super init];
 }
 
@@ -49,12 +51,12 @@
 }
 
 - (id)setNoLock:(id<ResultCallbackHolder>)other {
-    [mRCHImpl setNoLock:[other getCallbackNoLock] handler:[other getHandlerNoLock] closure:[other getClosureNoLock]];
+    [mRCHImpl setNoLock:other];
     return self;
 }
 
 - (id)clearNoLock {
-    [mRCHImpl setNoLock:NULL handler:NULL closure:NULL];
+    [mRCHImpl clearNoLock];
     return self;
 }
 
@@ -104,9 +106,14 @@
     Object mRef;
 }
 
-- (id)initWithRef:(Object)ref {
+- (id)initWithParamsAndRef:(Object)callback handler:(Handler)handler closure:(Object)closure ref:(Object)ref {
     mRef = ref;
-    return [super init];
+    return [super initWithParams:callback handler:handler closure:closure];
+}
+
+- (id)initWithOtherAndRef:(id<ResultCallbackHolder>)other ref:(Object)ref {
+    mRef = ref;
+    return [super initWithOther:other];
 }
 
 - (void)notify:(Object)callback closure:(Object)closure {
@@ -121,9 +128,15 @@
     NSInteger mStatus;
 }
 
-- (id)initWithStatus:(NSInteger)status {
+
+- (id)initWithParamsAndStatus:(Object)callback handler:(Handler)handler closure:(Object)closure status:(NSInteger)status {
     mStatus = status;
-    return [super init];
+    return [super initWithParams:callback handler:handler closure:closure];
+}
+
+- (id)initWithOtherAndRef:(id<ResultCallbackHolder>)other status:(NSInteger)status {
+    mStatus = status;
+    return [super initWithOther:other];
 }
 
 - (void)notify:(Object)callback closure:(Object)closure {
@@ -133,29 +146,3 @@
 
 @end
 
-
-@implementation Util_CancelledCallbackNotifier
-
-
-- (void)notify:(Object)callback closure:(Object)closure {
-    id<VR_Result_BaseCallback> pCasted = callback;
-    [pCasted onCancelled:closure];
-}
-
-@end
-
-@implementation Util_ExceptionCallbackNotifier {
-    NSException *mException;
-}
-
-- (id)initWithException:(NSException *)exception {
-    mException = exception;
-    return [super init];
-}
-
-- (void)notify:(Object)callback closure:(Object)closure {
-    id<VR_Result_BaseCallback> pCasted = callback;
-    [pCasted onException:closure ex:mException];
-}
-
-@end

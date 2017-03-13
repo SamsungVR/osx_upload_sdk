@@ -57,7 +57,7 @@ typedef NSString * __autoreleasing Headers[];
  * @throws Exception
  */
 
-- (NSInputStream *)input;
+- (NSData *)input;
 
 /**
  * Response code for this request
@@ -142,7 +142,7 @@ typedef NSString * __autoreleasing Headers[];
 
 @protocol HttpPlugin_RequestFactory
 
-- (id<HttpPlugin_GetRequest>)newGetRequest:(NSString *)url headers:(Headers)headers;
+- (id<HttpPlugin_GetRequest>)newGetRequest:(NSString *)url headers:(Headers)headers ;
 - (id<HttpPlugin_PostRequest>)newPostRequest:(NSString *)url headers:(Headers)headers;
 - (id<HttpPlugin_DeleteRequest>)newDeleteRequest:(NSString *)url headers:(Headers)headers;
 - (id<HttpPlugin_PutRequest>)newPutRequest:(NSString *)url headers:(Headers)headers;

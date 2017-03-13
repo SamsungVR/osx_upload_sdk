@@ -145,7 +145,7 @@ static id<APIClient_Result_Destroy> sDestroyCallbackApi = nil;
         if (!sAPIClient) {
             sDestroyCallbackApi = temp;
             sDestroyCallbackApp = callback;
-            [[[[Util_SuccessCallbackNotifier alloc] init] setNoLock:sDestroyCallbackApi handler:handler closure:closure] post];
+            [[[Util_SuccessCallbackNotifier alloc] initWithParams:sDestroyCallbackApi handler:handler closure:closure] post];
             return true;
         }
         if ([sAPIClient destroy:temp handler:nil closure:nil]) {

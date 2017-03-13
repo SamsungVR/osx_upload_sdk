@@ -23,16 +23,52 @@
 #import "ClientWorkItem.h"
 #import "APIClient_Impl.h"
 #import "ResultCallbackHolder_Impl.h"
+#import "Util.h"
 
 
+@implementation ClientWorkItem_CancelledCallbackNotifier
+
+- (void)notify:(Object)callback closure:(Object)closure {
+    id<VR_Result_BaseCallback> pCasted = callback;
+    [pCasted onCancelled:closure];
+}
+
+@end
+
+@implementation ClientWorkItem_ExceptionCallbackNotifier {
+    NSException *mException;
+}
+
+- (id)initWithParamsAndException:(Object)callback handler:(Handler)handler closure:(Object)closure exception:(NSException *)exception {
+    mException = exception;
+    return [super initWithParams:callback handler:handler closure:closure];
+}
+- (id)initWithOtherAndException:(id<ResultCallbackHolder>)other exception:(NSException *)exception {
+    mException = exception;
+    return [super initWithOther:other];
+}
+
+- (id)initWithException:(NSException *)exception {
+    mException = exception;
+    return [super init];
+}
+
+- (void)notify:(Object)callback closure:(Object)closure {
+    id<VR_Result_BaseCallback> pCasted = callback;
+    [pCasted onException:closure ex:mException];
+}
+
+@end
 
 @implementation ClientWorkItem {
     APIClient_Impl *mAPIClient;
     ResultCallbackHolder_Impl *mCallbackHolder;
+    int mDispatchCounted;
 }
 
 - (id)initWith:(APIClient_Impl *)apiClient type:(id<AsyncWorkItemType>)type {
     mAPIClient = apiClient;
+    mDispatchCounted = 0;
     mCallbackHolder = [[ResultCallbackHolder_Impl alloc] init];
     return [super initWithType:type];
 }
@@ -47,14 +83,10 @@
 - (APIClient_Impl *)getApiClient {
     return mAPIClient;
 }
-- (void)set:(id<VR_Result_BaseCallback>)callback handler:(Handler)handler closure:(Object)closure {
-    [mCallbackHolder setNoLock:callback handler:handler closure:closure];
-}
 
 - (NSString *)toRESTUrl:(NSString *)suffix {
     return [NSString stringWithFormat:@"%@/%@", [mAPIClient getEndPoint], suffix];
 }
-
 
 - (id<HttpPlugin_PostRequest>) newPostRequest:(NSString *)suffix headers:(NSString __autoreleasing *[][2])headers {
     NSString *restUrl = [self toRESTUrl:suffix];
@@ -73,15 +105,54 @@
 }
 
 - (NSData *)readHttpStream:(id<HttpPlugin_ReadableRequest>)request debugMsg:(NSString *)debugMsg {
-    NSMutableData *data = [[NSMutableData alloc] init];
-    NSInputStream *stream = [request input];
-    uint8_t buf[2048];
-    int len;
+    return [request input];
+}
+
+- (bool)isHttpSuccess:(NSInteger)statusCode {
+    return statusCode >= 200 && statusCode < 400;
+}
+
+
+- (void)set:(id<ResultCallbackHolder>)other {
+    [mCallbackHolder setNoLock:other];
+}
+
+- (void)set:(Object)callback handler:(Handler)handler closure:(Object)closure {
+    [mCallbackHolder setNoLock:callback handler:handler closure:closure];
+}
+
+- (Object)getClosure {
+    return [mCallbackHolder getClosureNoLock];
+}
+
+- (Handler)getHandler {
+    return [mCallbackHolder getHandlerNoLock];
+}
+
+- (id<ResultCallbackHolder>) getCallbackHolder {
+    return mCallbackHolder;
+}
+
+- (void)dispatchUncounted:(Util_CallbackNotifier *)notifier {
+    [notifier post];
+}
+
+- (void)dispatchCounted:(Util_CallbackNotifier *)notifier {
+    [self dispatchUncounted:notifier];
+    mDispatchCounted += 1;
+    [self onDispatchCounted:mDispatchCounted];
+}
+
+- (void)dispatchSuccessWithResult:(Object)rf {
+    [self dispatchCounted:[[Util_SuccessWithResultCallbackNotifier alloc] initWithOtherAndRef:mCallbackHolder ref:rf]] ;
+}
+
+- (void) dispatchException:(NSException *)exception {
+    [self dispatchCounted:[[ClientWorkItem_ExceptionCallbackNotifier alloc] initWithOtherAndException:mCallbackHolder exception:exception]];
+}
+
+- (void)onDispatchCounted:(int)count {
     
-    while ((len = [stream read:buf maxLength:2048]) > 0) {
-        [data appendBytes:buf length:len];
-    }
-    return data;
 }
 
 @end

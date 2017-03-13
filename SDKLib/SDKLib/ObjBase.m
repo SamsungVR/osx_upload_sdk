@@ -20,23 +20,23 @@
  * THE SOFTWARE.
  */
 
+#import "ObjBase.h"
 
-#import <Foundation/Foundation.h>
-#import "Compat_Defs.h"
+@implementation ObjBase {
+    NSMutableDictionary *mProperties;
+}
 
-@protocol ResultCallbackHolder
+- (id)initWithDict:(NSDictionary *)dict {
+    mProperties = [[NSMutableDictionary alloc] initWithDictionary:dict];
+    return [super init];
+}
 
-- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)initWithOther:(id<ResultCallbackHolder>)other;
-- (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)setNoLock:(id<ResultCallbackHolder>)other;
-- (id)clearNoLock;
-- (Object)getClosureNoLock;
-- (Handler)getHandlerNoLock;
-- (Object)getCallbackNoLock;
+- (id)getLocked:(NSString *)attr {
+    id result;
+    @synchronized (self) {
+        result = mProperties[attr];
+    }
+    return result;
+}
 
-@end
-
-
-@interface ResultCallbackHolder_Impl : NSObject<ResultCallbackHolder>
 @end

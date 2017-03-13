@@ -32,30 +32,32 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     NSMutableURLRequest *mRequest;
     NSURLSession *mSession;
     NSHTTPURLResponse *mResponse;
-    NSInputStream *mInputStream;
+    NSData *mInputStream;
 }
 
 /* https://forums.developer.apple.com/thread/11519 */
 
-+ (void)sendSynchronousRequest:(NSData * __autoreleasing *)result request:(NSURLRequest *)request
-     returningResponse:(NSURLResponse * __autoreleasing *)responsePtr error:(NSError * __autoreleasing *)errorPtr {
+- (void)sendSynchronousRequest:(NSData * __strong *)result request:(NSURLRequest *)request
+     returningResponse:(NSURLResponse * __strong *)responsePtr error:(NSError * __strong *)errorPtr {
     
     dispatch_semaphore_t    sem;
     
     sem = dispatch_semaphore_create(0);
     
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request
-         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    [[mSession dataTaskWithRequest:request
+         completionHandler:^(NSData __strong *data, NSURLResponse __strong *response, NSError __strong *error) {
              if (errorPtr != NULL) {
                  *errorPtr = error;
              }
              if (responsePtr != NULL) {
                  *responsePtr = response;
              }
-             if (error == NULL) {
+             if (error == NULL && data) {
+                 NSString *temp = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 NSLog(@"Response data: %@", temp);
                  *result = [data copy];
              }  
-             dispatch_semaphore_signal(sem);  
+             dispatch_semaphore_signal(sem);
          }] resume];  
     
     dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);  
@@ -67,16 +69,12 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     }
     
     NSError *pError = NULL;
-    NSData *pData = NULL;
     NSURLResponse *pResponse = NULL;
-    [HttpPlugin_RequestFactory_Request sendSynchronousRequest:&pData
-                      request:mRequest returningResponse:&pResponse error:&pError];
-    if (!pData) {
+    [self sendSynchronousRequest:&mInputStream request:mRequest returningResponse:&pResponse error:&pError];
+    if (!mInputStream) {
         return;
     }
     mResponse = pResponse;
-    mInputStream = [[NSInputStream alloc] initWithData:pData];
-    
 }
 
 - (id)initWithSession:(NSURLSession *)session url:(NSString *)url httpMethod:(NSString *)httpMethod headers:(Headers)headers {
@@ -88,13 +86,13 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
         for (int i = 0; headers[i]; i += 2) {
             NSString *pAttr = headers[i + 0];
             NSString *pValue = headers[i + 1];
-            [mRequest setValue:pAttr forHTTPHeaderField:pValue];
+            [mRequest setValue:pValue forHTTPHeaderField:pAttr];
         }
     }
     return self;
 }
 
-- (NSInputStream *)input {
+- (NSData *)input {
     [self makeRequest];
     return mInputStream;
 }

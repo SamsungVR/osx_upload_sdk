@@ -20,23 +20,13 @@
  * THE SOFTWARE.
  */
 
+#import "User_Impl.h"
 
-#import <Foundation/Foundation.h>
-#import "Compat_Defs.h"
+@implementation User_Impl
 
-@protocol ResultCallbackHolder
+- (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject {
+    
+    return [super init];
+}
 
-- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)initWithOther:(id<ResultCallbackHolder>)other;
-- (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure;
-- (id)setNoLock:(id<ResultCallbackHolder>)other;
-- (id)clearNoLock;
-- (Object)getClosureNoLock;
-- (Handler)getHandlerNoLock;
-- (Object)getCallbackNoLock;
-
-@end
-
-
-@interface ResultCallbackHolder_Impl : NSObject<ResultCallbackHolder>
 @end
