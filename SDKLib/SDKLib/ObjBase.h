@@ -20,11 +20,12 @@
  * THE SOFTWARE.
  */
 
-#import <Foundation/Foundation.h>
+#import "APIClient_Impl.h"
 
 @interface ObjBase : NSObject
 
-- (id)initWithDict:(NSDictionary *)dict;
+- (id)initWithDict:(NSDictionary *)dict container:(id)container;
 - (id)getLocked:(NSString *)attr;
+- (id)getContainer;
 
 @end

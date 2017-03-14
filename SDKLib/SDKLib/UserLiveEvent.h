@@ -20,18 +20,28 @@
  * THE SOFTWARE.
  */
 
-#import "User.h"
-#import "ObjBase.h"
-#import "APIClient_Impl.h"
 
-static const NSString * HEADER_SESSION_TOKEN = @"X-SESSION-TOKEN";
 
-@interface User_Impl : ObjBase<User>
+@protocol User;
 
-+ (NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission;
-+ (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType;
-+ (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source;
+@protocol UserLiveEvent
 
-- (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject;
+typedef NS_ENUM(NSInteger, UserLiveEvent_Source) {
+    UserLiveEvent_Source_RTMP,
+    UserLiveEvent_Source_SEGMENTED_TS,
+    UserLiveEvent_Source_SEGMENTED_MP4
+};
+
+- (NSString *)getId;
+- (NSString *)getTitle;
+- (NSString *)getDescription;
+- (NSURL *)getProducerUrl;
+- (NSURL *)getViewUrl;
+- (UserVideo_VideoStereoscopyType)getVideoStereoscopyType;
+- (UserLiveEvent_Source)getSource;
+- (UserVideo_Permission)getPermission;
+
+- (id<User>)getUser;
+
 
 @end

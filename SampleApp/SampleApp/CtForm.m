@@ -39,4 +39,28 @@
    return mIsLoaded;
 }
 
+
+- (void)setLocalizedStatusMsg:(NSString *)msg {
+   if ([self isLoaded]) {
+      NSTextField *statusCtrl = [self getStatusMsgCtrl];
+      if (statusCtrl) {
+         NSString *realMsg = NSLocalizedString(msg, nil);
+         [statusCtrl setStringValue:realMsg];
+      }
+   }
+}
+
+- (void)setStatusMsg:(NSString *)msg {
+   if ([self isLoaded]) {
+      NSTextField *statusCtrl = [self getStatusMsgCtrl];
+      if (statusCtrl) {
+         [statusCtrl setStringValue:msg];
+      }
+   }
+}
+
+- (NSTextField *)getStatusMsgCtrl {
+   return nil;
+}
+
 @end

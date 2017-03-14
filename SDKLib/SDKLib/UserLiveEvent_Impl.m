@@ -20,18 +20,30 @@
  * THE SOFTWARE.
  */
 
-#import "User.h"
-#import "ObjBase.h"
-#import "APIClient_Impl.h"
 
-static const NSString * HEADER_SESSION_TOKEN = @"X-SESSION-TOKEN";
+#import "UserLiveEvent_Impl.h"
 
-@interface User_Impl : ObjBase<User>
+static const NSString
+     * const PROP_ID = @"id",
+     * const PROP_TITLE = @"title",
+     * const PROP_PERMISSION = @"permission",
+     * const PROP_SOURCE = @"source",
+     * const PROP_STEREOSCOPIC_TYPE = @"stereoscopic_type",
+     * const PROP_DESCRIPTION = @"description",
+     * const PROP_INGEST_URL = @"ingest_url",
+     * const PROP_VIEW_URL = @"view_url",
+     * const PROP_STATE = @"state",
+     * const PROP_THUMBNAIL_URL = @"thumbnail_url",
+     * const PROP_VIEWER_COUNT = @"viewer_count",
+     * const PROP_LIVE_STARTED = @"live_started",
+     * const PROP_LIVE_STOPPED = @"live_stopped",
+     * const PROP_METADATA_STEREOSCOPIC_TYPE = @"metadata_stereoscopic_type";
 
-+ (NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission;
-+ (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType;
-+ (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source;
 
-- (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject;
+@implementation UserLiveEvent_Impl
+
+- (id)initWith:(User_Impl *)container jsonObject:(NSDictionary *)jsonObject {
+    return [super initWithDict:jsonObject container:container];
+}
 
 @end

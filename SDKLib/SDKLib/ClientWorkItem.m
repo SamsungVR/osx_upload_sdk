@@ -88,7 +88,7 @@
     return [NSString stringWithFormat:@"%@/%@", [mAPIClient getEndPoint], suffix];
 }
 
-- (id<HttpPlugin_PostRequest>) newPostRequest:(NSString *)suffix headers:(NSString __autoreleasing *[][2])headers {
+- (id<HttpPlugin_PostRequest>) newPostRequest:(NSString *)suffix headers:(Headers)headers {
     NSString *restUrl = [self toRESTUrl:suffix];
     id<HttpPlugin_RequestFactory> reqFactory = [mAPIClient getRequestFactory];
     return [reqFactory newPostRequest:restUrl headers:headers];

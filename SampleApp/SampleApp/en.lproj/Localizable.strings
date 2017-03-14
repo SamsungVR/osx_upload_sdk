@@ -28,3 +28,4 @@
 "DestroyVRLib"="Destroying VR lib";
 "InitVRLib"="Initializing VR lib";
 "LoggedInAs"="Logged in as %@";
+"CreatedLiveEvent"="Created live event - %@";

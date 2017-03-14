@@ -20,18 +20,8 @@
  * THE SOFTWARE.
  */
 
-#import "User.h"
-#import "ObjBase.h"
-#import "APIClient_Impl.h"
+#import "CtForm.h"
 
-static const NSString * HEADER_SESSION_TOKEN = @"X-SESSION-TOKEN";
-
-@interface User_Impl : ObjBase<User>
-
-+ (NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission;
-+ (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType;
-+ (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source;
-
-- (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject;
+@interface CtFormCreateLiveEvent : CtForm
 
 @end

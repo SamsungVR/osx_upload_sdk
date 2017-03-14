@@ -24,11 +24,17 @@
 
 @implementation ObjBase {
     NSMutableDictionary *mProperties;
+    id mContainer;
 }
 
-- (id)initWithDict:(NSDictionary *)dict {
+- (id)initWithDict:(NSDictionary *)dict container:(id)container {
+    mContainer = container;
     mProperties = [[NSMutableDictionary alloc] initWithDictionary:dict];
     return [super init];
+}
+
+- (id)getContainer {
+    return mContainer;
 }
 
 - (id)getLocked:(NSString *)attr {

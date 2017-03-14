@@ -35,7 +35,6 @@
 
 @end
 
-
 @interface CallbackDestroy : NSObject<VR_Result_Destroy>
 
 - (id)initWith:(CtFormLogin *)form;
@@ -68,18 +67,6 @@
      callback:mCallbackLogin handler:nil closure:nil];
 }
 
-- (void)setLocalizedStatusMsg:(NSString *)msg {
-   if ([self isLoaded]) {
-      NSString *realMsg = NSLocalizedString(msg, nil);
-      [mCtrlStatusMsg setStringValue:realMsg];
-   }
-}
-
-- (void)setStatusMsg:(NSString *)msg {
-   if ([self isLoaded]) {
-      [mCtrlStatusMsg setStringValue:msg];
-   }
-}
 
 - (void)initVRLib {
    EndPointConfig *cfg = [mCfgMgr getSelectedConfig];

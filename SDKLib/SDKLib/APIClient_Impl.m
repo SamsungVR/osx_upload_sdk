@@ -117,18 +117,12 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     
 }
 
-
-+ (void)initTypes {
-    @synchronized (self) {
-        if (!sTypePerformLogin) {
-            sTypePerformLogin = [[WorkItemTypePerformLogin alloc] init];
-        }
-    }
++ (void)initialize {
+    sTypePerformLogin = [[WorkItemTypePerformLogin alloc] init];
 }
 
 - (id)initInternal:(NSString *)endPoint apiKey:(NSString *)apiKey
     httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory {
-    [APIClient_Impl initTypes];
     mRequestFactory = httpRequestFactory;
     mNumAsyncQueues = 2;
     mAsyncWorkQueue = [[AsyncWorkQueue alloc] initWithAPIClient:self];
@@ -189,6 +183,14 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     WorkItemPerformLogin *workItem = [mAsyncWorkQueue obtainWorkItem:sTypePerformLogin];
     [workItem set:email password:password callback:callback handler:handler closure:closure];
     return [mAsyncWorkQueue enqueue:workItem];
+}
+
+- (AsyncWorkQueue *)getAsyncWorkQueue {
+    return mAsyncWorkQueue;
+}
+
+- (AsyncWorkQueue *)getAsyncUploadQueue {
+    return mAsyncUploadQueue;
 }
 
 @end

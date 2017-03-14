@@ -27,5 +27,8 @@
 - (void) onLoad;
 - (void) onUnload;
 - (bool) isLoaded;
+- (NSTextField *)getStatusMsgCtrl;
+- (void)setStatusMsg:(NSString *)msg;
+- (void)setLocalizedStatusMsg:(NSString *)msg;
 
 @end

@@ -24,14 +24,60 @@
 #import "SDKLib/User.h"
 
 #import "CtFormLoggedIn.h"
+#import "CtFormCreateLiveEvent.h"
 #import "AppUtil.h"
 #import "DgApp.h"
 
 @implementation CtFormLoggedIn {
    NSImageView *mCtrlProfilePic;
    NSTextField *mCtrlUsername, *mCtrlUserEmail;
+   NSBox *mCtrlSubContainer;
    
+   NSButton *mCtrlCreateLiveEvent;
+   
+   
+   CtForm *mSubForm;
    id<User> mUser;
+}
+
+- (void)onUnload {
+   [self unloadCurrentSubForm];
+   [super onUnload];
+}
+
+- (void)setSubForm:(CtForm *)subForm {
+   if (mSubForm && subForm && [mSubForm class] == [subForm class]) {
+      return;
+   }
+   
+   [self unloadCurrentSubForm];
+   
+   mSubForm = subForm;
+   if (mSubForm) {
+      NSView *subView = [mSubForm view];
+      if (subView) {
+         [mCtrlSubContainer addSubview:subView];
+         NSSize subViewSize = subView.frame.size;
+         NSSize containerViewSize = mCtrlSubContainer.frame.size;
+         
+         int dx = containerViewSize.width - subViewSize.width;
+         int dy = containerViewSize.height - subViewSize.height;
+         
+         NSPoint currentLoc;
+         currentLoc.x = dx / 2;
+         currentLoc.y = dy / 2;
+         [subView setFrameOrigin:currentLoc];
+         [mSubForm onLoad];
+      }
+   }
+}
+- (void)setSubForm:(CtForm *)form nibName:(NSString *)nibName {
+   CtForm *result = [form initWithNibName:nibName bundle:nil];
+   [self setSubForm:result];
+}
+
+- (void)onCtrlCreateLiveEventClick {
+   [self setSubForm:[CtFormCreateLiveEvent alloc] nibName:@"FormCreateLiveEvent"];
 }
 
 - (void)onLoad {
@@ -43,6 +89,7 @@
    mCtrlProfilePic = (NSImageView *)[AppUtil findViewById:root identifier:@"ctrlUserProfilePic"];
    mCtrlUserEmail = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlUserEmail"];
    mCtrlUsername = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlUsername"];
+   mCtrlSubContainer = (NSBox *)[AppUtil findViewById:root identifier:@"ctrlSubContainer"];
    
    NSURL *profilePicUrl = [mUser getProfilePicUrl];
    NSImage *img = [[NSImage alloc] initWithContentsOfURL:profilePicUrl];
@@ -51,7 +98,26 @@
    [mCtrlUsername setStringValue:[mUser getName]];
    [mCtrlUserEmail setStringValue:[mUser getEmail]];
    
-   //[AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
+   mCtrlCreateLiveEvent = (NSButton*)[AppUtil setActionHandler:root identifier:@"ctrlCreateLiveEvent" target:self action:@selector(onCtrlCreateLiveEventClick)];
 }
+
+- (bool)unloadCurrentSubForm {
+   bool result = false;
+   
+   if (mSubForm) {
+      [mSubForm onUnload];
+      
+      NSView *subView = [mSubForm view];
+      if (subView) {
+         [subView removeFromSuperview];
+         result = true;
+      }
+      mSubForm = NULL;
+   }
+   return result;
+}
+
+
+
 
 @end

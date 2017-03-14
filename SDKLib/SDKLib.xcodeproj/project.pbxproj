@@ -26,6 +26,8 @@
 		256BF5761E772B6F006DF17C /* User_Impl.m in Sources */ = {isa = PBXBuildFile; fileRef = 256BF5741E772B6F006DF17C /* User_Impl.m */; };
 		256BF5791E772D0B006DF17C /* ObjBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 256BF5771E772D0B006DF17C /* ObjBase.h */; };
 		256BF57A1E772D0B006DF17C /* ObjBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 256BF5781E772D0B006DF17C /* ObjBase.m */; };
+		256BF58E1E7893CF006DF17C /* UserLiveEvent_Impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 256BF58C1E7893CF006DF17C /* UserLiveEvent_Impl.h */; };
+		256BF58F1E7893CF006DF17C /* UserLiveEvent_Impl.m in Sources */ = {isa = PBXBuildFile; fileRef = 256BF58D1E7893CF006DF17C /* UserLiveEvent_Impl.m */; };
 		258E264E1E731DCA0006A11F /* ClientWorkItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 258E264C1E731DCA0006A11F /* ClientWorkItem.h */; };
 		258E264F1E731DCA0006A11F /* ClientWorkItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 258E264D1E731DCA0006A11F /* ClientWorkItem.m */; };
 /* End PBXBuildFile section */
@@ -54,6 +56,10 @@
 		256BF5741E772B6F006DF17C /* User_Impl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User_Impl.m; path = SDKLib/User_Impl.m; sourceTree = "<group>"; };
 		256BF5771E772D0B006DF17C /* ObjBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjBase.h; path = SDKLib/ObjBase.h; sourceTree = "<group>"; };
 		256BF5781E772D0B006DF17C /* ObjBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjBase.m; path = SDKLib/ObjBase.m; sourceTree = "<group>"; };
+		256BF58A1E7881CC006DF17C /* UserVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UserVideo.h; path = SDKLib/UserVideo.h; sourceTree = "<group>"; };
+		256BF58B1E788713006DF17C /* UserLiveEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UserLiveEvent.h; path = SDKLib/UserLiveEvent.h; sourceTree = "<group>"; };
+		256BF58C1E7893CF006DF17C /* UserLiveEvent_Impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserLiveEvent_Impl.h; path = SDKLib/UserLiveEvent_Impl.h; sourceTree = "<group>"; };
+		256BF58D1E7893CF006DF17C /* UserLiveEvent_Impl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserLiveEvent_Impl.m; path = SDKLib/UserLiveEvent_Impl.m; sourceTree = "<group>"; };
 		258E264C1E731DCA0006A11F /* ClientWorkItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientWorkItem.h; path = SDKLib/ClientWorkItem.h; sourceTree = "<group>"; };
 		258E264D1E731DCA0006A11F /* ClientWorkItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientWorkItem.m; path = SDKLib/ClientWorkItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +78,10 @@
 		254A546C1E64C5A500BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				256BF58C1E7893CF006DF17C /* UserLiveEvent_Impl.h */,
+				256BF58D1E7893CF006DF17C /* UserLiveEvent_Impl.m */,
+				256BF58B1E788713006DF17C /* UserLiveEvent.h */,
+				256BF58A1E7881CC006DF17C /* UserVideo.h */,
 				256BF5771E772D0B006DF17C /* ObjBase.h */,
 				256BF5781E772D0B006DF17C /* ObjBase.m */,
 				256BF5731E772B6F006DF17C /* User_Impl.h */,
@@ -111,6 +121,7 @@
 				254A54C21E69EE5700BFAC55 /* APIClient.h in Headers */,
 				258E264E1E731DCA0006A11F /* ClientWorkItem.h in Headers */,
 				256BF5751E772B6F006DF17C /* User_Impl.h in Headers */,
+				256BF58E1E7893CF006DF17C /* UserLiveEvent_Impl.h in Headers */,
 				256BF5791E772D0B006DF17C /* ObjBase.h in Headers */,
 				254A54B61E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h in Headers */,
 				254A54791E64C5A500BFAC55 /* VR.h in Headers */,
@@ -188,6 +199,7 @@
 				254A54C31E69EE5700BFAC55 /* APIClient_Impl.m in Sources */,
 				256BF57A1E772D0B006DF17C /* ObjBase.m in Sources */,
 				256BF5761E772B6F006DF17C /* User_Impl.m in Sources */,
+				256BF58F1E7893CF006DF17C /* UserLiveEvent_Impl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

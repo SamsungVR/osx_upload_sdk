@@ -20,18 +20,18 @@
  * THE SOFTWARE.
  */
 
-#import "User.h"
-#import "ObjBase.h"
-#import "APIClient_Impl.h"
+typedef NS_ENUM(NSInteger, UserVideo_Permission) {
+    UserVideo_Permission_PRIVATE,
+    UserVideo_Permission_UNLISTED,
+    UserVideo_Permission_PUBLIC,
+    UserVideo_Permission_VR_ONLY,
+    UserVideo_Permission_WEB_ONLY
+};
 
-static const NSString * HEADER_SESSION_TOKEN = @"X-SESSION-TOKEN";
-
-@interface User_Impl : ObjBase<User>
-
-+ (NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission;
-+ (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType;
-+ (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source;
-
-- (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject;
-
-@end
+typedef NS_ENUM(NSInteger, UserVideo_VideoStereoscopyType) {
+    UserVideo_VideoStereoscopyType_DEFAULT,
+    UserVideo_VideoStereoscopyType_MONOSCOPIC,
+    UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC,
+    UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC,
+    UserVideo_VideoStereoscopyType_DUAL_FISHEYE
+};

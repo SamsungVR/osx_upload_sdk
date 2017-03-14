@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		256BF5801E785142006DF17C /* FormLoggedIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 256BF57E1E785142006DF17C /* FormLoggedIn.xib */; };
 		256BF5831E78517B006DF17C /* CtFormLoggedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 256BF5821E78517B006DF17C /* CtFormLoggedIn.m */; };
+		256BF5861E7871EE006DF17C /* FormCreateLiveEvent.xib in Resources */ = {isa = PBXBuildFile; fileRef = 256BF5841E7871EE006DF17C /* FormCreateLiveEvent.xib */; };
+		256BF5891E787532006DF17C /* CtFormCreateLiveEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 256BF5881E787532006DF17C /* CtFormCreateLiveEvent.m */; };
 		25AB69891E709B94002A69B7 /* AppUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69761E709B94002A69B7 /* AppUtil.m */; };
 		25AB698A1E709B94002A69B7 /* CtForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69781E709B94002A69B7 /* CtForm.m */; };
 		25AB698B1E709B94002A69B7 /* CtFormEndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB697A1E709B94002A69B7 /* CtFormEndPointConfig.m */; };
@@ -31,6 +33,9 @@
 		256BF57F1E785142006DF17C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = SampleApp/Base.lproj/FormLoggedIn.xib; sourceTree = "<group>"; };
 		256BF5811E78517B006DF17C /* CtFormLoggedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormLoggedIn.h; path = SampleApp/CtFormLoggedIn.h; sourceTree = "<group>"; };
 		256BF5821E78517B006DF17C /* CtFormLoggedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormLoggedIn.m; path = SampleApp/CtFormLoggedIn.m; sourceTree = "<group>"; };
+		256BF5851E7871EE006DF17C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = SampleApp/Base.lproj/FormCreateLiveEvent.xib; sourceTree = "<group>"; };
+		256BF5871E787532006DF17C /* CtFormCreateLiveEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormCreateLiveEvent.h; path = SampleApp/CtFormCreateLiveEvent.h; sourceTree = "<group>"; };
+		256BF5881E787532006DF17C /* CtFormCreateLiveEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormCreateLiveEvent.m; path = SampleApp/CtFormCreateLiveEvent.m; sourceTree = "<group>"; };
 		25AB69751E709B94002A69B7 /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtil.h; path = SampleApp/AppUtil.h; sourceTree = "<group>"; };
 		25AB69761E709B94002A69B7 /* AppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtil.m; path = SampleApp/AppUtil.m; sourceTree = "<group>"; };
 		25AB69771E709B94002A69B7 /* CtForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtForm.h; path = SampleApp/CtForm.h; sourceTree = "<group>"; };
@@ -77,6 +82,9 @@
 		254A54811E64CBDE00BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				256BF5871E787532006DF17C /* CtFormCreateLiveEvent.h */,
+				256BF5881E787532006DF17C /* CtFormCreateLiveEvent.m */,
+				256BF5841E7871EE006DF17C /* FormCreateLiveEvent.xib */,
 				256BF5811E78517B006DF17C /* CtFormLoggedIn.h */,
 				256BF5821E78517B006DF17C /* CtFormLoggedIn.m */,
 				256BF57E1E785142006DF17C /* FormLoggedIn.xib */,
@@ -184,6 +192,7 @@
 				25AB699C1E709BB0002A69B7 /* FormEndPointConfig.xib in Resources */,
 				25AB699E1E709BB0002A69B7 /* FormMain.xib in Resources */,
 				256BF5801E785142006DF17C /* FormLoggedIn.xib in Resources */,
+				256BF5861E7871EE006DF17C /* FormCreateLiveEvent.xib in Resources */,
 				25AB699D1E709BB0002A69B7 /* FormLogin.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +211,7 @@
 				25AB69901E709B94002A69B7 /* EndPointConfigManager.m in Sources */,
 				25AB69931E709B94002A69B7 /* SharedPrefs.m in Sources */,
 				25AB698F1E709B94002A69B7 /* EndPointConfig.m in Sources */,
+				256BF5891E787532006DF17C /* CtFormCreateLiveEvent.m in Sources */,
 				25AB698B1E709B94002A69B7 /* CtFormEndPointConfig.m in Sources */,
 				256BF5831E78517B006DF17C /* CtFormLoggedIn.m in Sources */,
 				25AB69921E709B94002A69B7 /* main.m in Sources */,
@@ -218,6 +228,14 @@
 				256BF57F1E785142006DF17C /* Base */,
 			);
 			name = FormLoggedIn.xib;
+			sourceTree = "<group>";
+		};
+		256BF5841E7871EE006DF17C /* FormCreateLiveEvent.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				256BF5851E7871EE006DF17C /* Base */,
+			);
+			name = FormCreateLiveEvent.xib;
 			sourceTree = "<group>";
 		};
 		25AB69961E709BB0002A69B7 /* FormEndPointConfig.xib */ = {
