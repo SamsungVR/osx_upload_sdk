@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, User_Result_Status_CreateLiveEvent) {
 
 - (NSString *)getName;
 - (NSString *)getEmail;
-- (NSString *)getProfilePicUrl;
+- (NSURL *)getProfilePicUrl;
 - (NSString *)getSessionToken;
 - (NSString *)getUserId;
 

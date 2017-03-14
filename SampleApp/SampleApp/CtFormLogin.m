@@ -23,8 +23,11 @@
 #import "DgApp.h"
 #import "CtFormLogin.h"
 #import "CtFormEndPointConfig.h"
+#import "CtFormLoggedIn.h"
 #import "AppUtil.h"
+
 #import <SDKLib/VR.h>
+#import <SDKLib/User.h>
 
 @interface CallbackInit : NSObject<VR_Result_Init>
 
@@ -39,6 +42,11 @@
 
 @end
 
+@interface CallbackLogin : NSObject<VR_Result_Login>
+
+- (id)initWith:(CtFormLogin *)form;
+
+@end
 
 
 @implementation CtFormLogin {
@@ -48,6 +56,7 @@
    EndPointConfigManager *mCfgMgr;
    CallbackInit *mCallbackInit;
    CallbackDestroy *mCallbackDestroy;
+   CallbackLogin *mCallbackLogin;
 }
 
 - (void)onCtrlEndPointClick {
@@ -56,13 +65,19 @@
 
 - (void)onCtrlLoginClick {
    [VR login:[mCtrlUsername stringValue] password:[mCtrlPassword stringValue]
-     callback:nil handler:nil closure:nil];
+     callback:mCallbackLogin handler:nil closure:nil];
 }
 
 - (void)setLocalizedStatusMsg:(NSString *)msg {
    if ([self isLoaded]) {
       NSString *realMsg = NSLocalizedString(msg, nil);
       [mCtrlStatusMsg setStringValue:realMsg];
+   }
+}
+
+- (void)setStatusMsg:(NSString *)msg {
+   if ([self isLoaded]) {
+      [mCtrlStatusMsg setStringValue:msg];
    }
 }
 
@@ -90,9 +105,12 @@
 - (void)onLoad {
    [super onLoad];
 
-   mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
+   DgApp *dgApp = [DgApp getDgInstance];
+   [dgApp setUser:nil];
+   mCfgMgr = [dgApp getEndPointCfgMgr];
    mCallbackInit = [[CallbackInit alloc] initWith:self];
    mCallbackDestroy = [[CallbackDestroy alloc] initWith:self];
+   mCallbackLogin = [[CallbackLogin alloc] initWith:self];
    
    NSView *root = [self view];
    mCtrlLogin = [AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
@@ -102,6 +120,41 @@
    mCtrlEndPoint = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlEndPoint" target:self action:@selector(onCtrlEndPointClick)];
    [self initVRLib];
 }
+
+@end
+
+@implementation CallbackLogin {
+   CtFormLogin *mForm;
+}
+
+- (id)initWith:(CtFormLogin *)form {
+   mForm = form;
+   return [super init];
+}
+
+- (void)onFailure:(Object)closure status:(NSInteger)status {
+   NSLog(@"VR Login failure");
+   [mForm setLocalizedStatusMsg:@"Failure"];
+}
+
+- (void)onSuccess:(Object)closure result:(id)result {
+   id<User> user = result;
+   NSString *tmpl = NSLocalizedString(@"LoggedInAs", nil);
+   NSString *msg = [NSString stringWithFormat:tmpl, [user getName]];
+   [mForm setStatusMsg:msg];
+   DgApp *dgApp = [DgApp getDgInstance];
+   [dgApp setUser:user];
+   [dgApp showForm:[CtFormLoggedIn alloc] nibName:@"FormLoggedIn"];
+}
+
+- (void)onException: (Object)closure  exception:(Exception)exception {
+   
+}
+
+- (void)onCancelled:(Object)closure {
+   
+}
+
 
 @end
 

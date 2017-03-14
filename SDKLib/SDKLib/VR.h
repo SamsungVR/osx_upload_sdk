@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, VR_Result_Status) {
  * @param closure Application provided object used to identify this request.
  */
 
-- (void)onException: (Object)closure  ex:(Exception)ex;
+- (void)onException: (Object)closure  exception:(Exception)exception;
     
 @end
 

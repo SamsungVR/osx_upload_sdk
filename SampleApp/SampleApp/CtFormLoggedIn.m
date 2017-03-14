@@ -20,22 +20,38 @@
  * THE SOFTWARE.
  */
 
-#import "CtForm.h"
-#import "SharedPrefs.h"
-#import "EndPointConfigManager.h"
 
 #import "SDKLib/User.h"
 
-@interface DgApp : NSObject<NSApplicationDelegate>
+#import "CtFormLoggedIn.h"
+#import "AppUtil.h"
+#import "DgApp.h"
 
-+ (DgApp *)getDgInstance;
+@implementation CtFormLoggedIn {
+   NSImageView *mCtrlProfilePic;
+   NSTextField *mCtrlUsername, *mCtrlUserEmail;
+   
+   id<User> mUser;
+}
 
-- (bool)showForm:(CtForm *)form;
-- (bool)showForm:(CtForm *)form nibName:(NSString *)nibName;
-- (void)onMainFormClosed;
-- (SharedPrefs *)getAppPrefs;
-- (EndPointConfigManager *)getEndPointCfgMgr;
-- (void)setUser:(id<User>)user;
-- (id<User>)getUser;
+- (void)onLoad {
+   [super onLoad];
+  
+   mUser = [[DgApp getDgInstance] getUser];
+   NSView *root = [self view];
+   
+   mCtrlProfilePic = (NSImageView *)[AppUtil findViewById:root identifier:@"ctrlUserProfilePic"];
+   mCtrlUserEmail = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlUserEmail"];
+   mCtrlUsername = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlUsername"];
+   
+   NSURL *profilePicUrl = [mUser getProfilePicUrl];
+   NSImage *img = [[NSImage alloc] initWithContentsOfURL:profilePicUrl];
+   [mCtrlProfilePic setImage:img];
+   
+   [mCtrlUsername setStringValue:[mUser getName]];
+   [mCtrlUserEmail setStringValue:[mUser getEmail]];
+   
+   //[AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
+}
 
 @end

@@ -27,3 +27,4 @@
 "NoEPConfigured"="Please configure endpoint";
 "DestroyVRLib"="Destroying VR lib";
 "InitVRLib"="Initializing VR lib";
+"LoggedInAs"="Logged in as %@";

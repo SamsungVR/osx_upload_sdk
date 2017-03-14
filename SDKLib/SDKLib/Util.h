@@ -25,6 +25,8 @@
 
 @interface Util : NSObject
 
++ (id)jsonOpt:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def;
++ (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def;
 
 @end
 
@@ -49,7 +51,7 @@
 @interface Util_FailureCallbackNotifier : Util_CallbackNotifier
 
 - (id)initWithParamsAndStatus:(Object)callback handler:(Handler)handler closure:(Object)closure status:(NSInteger)status;
-- (id)initWithOtherAndRef:(id<ResultCallbackHolder>)other status:(NSInteger)status;
+- (id)initWithOtherAndStatus:(id<ResultCallbackHolder>)other status:(NSInteger)status;
 
 @end
 

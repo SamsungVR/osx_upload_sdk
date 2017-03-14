@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		256BF5801E785142006DF17C /* FormLoggedIn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 256BF57E1E785142006DF17C /* FormLoggedIn.xib */; };
+		256BF5831E78517B006DF17C /* CtFormLoggedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 256BF5821E78517B006DF17C /* CtFormLoggedIn.m */; };
 		25AB69891E709B94002A69B7 /* AppUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69761E709B94002A69B7 /* AppUtil.m */; };
 		25AB698A1E709B94002A69B7 /* CtForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB69781E709B94002A69B7 /* CtForm.m */; };
 		25AB698B1E709B94002A69B7 /* CtFormEndPointConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 25AB697A1E709B94002A69B7 /* CtFormEndPointConfig.m */; };
@@ -25,7 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		258E264B1E70C7840006A11F /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = SampleApp.app; path = /Users/venky/Work/Git/osx_upload_sdk/SampleApp/build/Debug/SampleApp.app; sourceTree = "<absolute>"; };
+		256BF5711E772222006DF17C /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		256BF57F1E785142006DF17C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = SampleApp/Base.lproj/FormLoggedIn.xib; sourceTree = "<group>"; };
+		256BF5811E78517B006DF17C /* CtFormLoggedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormLoggedIn.h; path = SampleApp/CtFormLoggedIn.h; sourceTree = "<group>"; };
+		256BF5821E78517B006DF17C /* CtFormLoggedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormLoggedIn.m; path = SampleApp/CtFormLoggedIn.m; sourceTree = "<group>"; };
 		25AB69751E709B94002A69B7 /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtil.h; path = SampleApp/AppUtil.h; sourceTree = "<group>"; };
 		25AB69761E709B94002A69B7 /* AppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtil.m; path = SampleApp/AppUtil.m; sourceTree = "<group>"; };
 		25AB69771E709B94002A69B7 /* CtForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtForm.h; path = SampleApp/CtForm.h; sourceTree = "<group>"; };
@@ -72,6 +77,9 @@
 		254A54811E64CBDE00BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				256BF5811E78517B006DF17C /* CtFormLoggedIn.h */,
+				256BF5821E78517B006DF17C /* CtFormLoggedIn.m */,
+				256BF57E1E785142006DF17C /* FormLoggedIn.xib */,
 				25AB69A21E709BD1002A69B7 /* Localizable.strings */,
 				25AB69961E709BB0002A69B7 /* FormEndPointConfig.xib */,
 				25AB69981E709BB0002A69B7 /* FormLogin.xib */,
@@ -97,6 +105,7 @@
 				25AB69871E709B94002A69B7 /* SharedPrefs.h */,
 				25AB69881E709B94002A69B7 /* SharedPrefs.m */,
 				254A54AE1E67574000BFAC55 /* Frameworks */,
+				256BF5711E772222006DF17C /* SampleApp.app */,
 			);
 			indentWidth = 3;
 			sourceTree = "<group>";
@@ -127,7 +136,7 @@
 			);
 			name = SampleApp;
 			productName = SampleApp;
-			productReference = 258E264B1E70C7840006A11F /* SampleApp.app */;
+			productReference = 256BF5711E772222006DF17C /* SampleApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -174,6 +183,7 @@
 				25AB69A41E709BD1002A69B7 /* Localizable.strings in Resources */,
 				25AB699C1E709BB0002A69B7 /* FormEndPointConfig.xib in Resources */,
 				25AB699E1E709BB0002A69B7 /* FormMain.xib in Resources */,
+				256BF5801E785142006DF17C /* FormLoggedIn.xib in Resources */,
 				25AB699D1E709BB0002A69B7 /* FormLogin.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +203,7 @@
 				25AB69931E709B94002A69B7 /* SharedPrefs.m in Sources */,
 				25AB698F1E709B94002A69B7 /* EndPointConfig.m in Sources */,
 				25AB698B1E709B94002A69B7 /* CtFormEndPointConfig.m in Sources */,
+				256BF5831E78517B006DF17C /* CtFormLoggedIn.m in Sources */,
 				25AB69921E709B94002A69B7 /* main.m in Sources */,
 				25AB698D1E709B94002A69B7 /* CtFormMain.m in Sources */,
 			);
@@ -201,6 +212,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		256BF57E1E785142006DF17C /* FormLoggedIn.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				256BF57F1E785142006DF17C /* Base */,
+			);
+			name = FormLoggedIn.xib;
+			sourceTree = "<group>";
+		};
 		25AB69961E709BB0002A69B7 /* FormEndPointConfig.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

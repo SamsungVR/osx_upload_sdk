@@ -25,6 +25,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="yVr-2B-zOy" id="gKC-yA-Pa1"/>
+                    </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Credentials" translatesAutoresizingMaskIntoConstraints="NO" id="cQ4-kj-IBV">
                     <rect key="frame" x="20" y="75" width="256" height="160"/>
@@ -41,6 +44,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="KQV-a7-04Y" id="n3H-ZF-Q6m"/>
+                                </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Val-aE-5hI">
                                 <rect key="frame" x="18" y="121" width="121" height="17"/>
@@ -67,6 +73,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="7Fg-7C-5gC" id="t3V-9b-9iS"/>
+                                </connections>
                             </button>
                             <textField identifier="ctrlPassword" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KQV-a7-04Y">
                                 <rect key="frame" x="20" y="48" width="214" height="22"/>
@@ -76,6 +85,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="xhb-zw-JCd" id="EnS-1T-ARf"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>

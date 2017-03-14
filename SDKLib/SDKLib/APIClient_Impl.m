@@ -86,17 +86,22 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     request = [self newPostRequest:@"user/authenticate" headers:headers];
     [self writeBytes:request data:jsonData debugMsg:nil];
     int responseCode = [self getResponseCode:request];
+    NSData *response = [self readHttpStream:request debugMsg:nil];
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
+    
     if ([self isHttpSuccess:responseCode]) {
-        NSData *response = [self readHttpStream:request debugMsg:nil];
-        NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
         
         User_Impl *user = [[User_Impl alloc] initWith:[self getApiClient] jsonObject:jsonResponse];
         if (user) {
-            
+            [self dispatchSuccessWithResult:user];
+        } else {
+            [self dispatchFailure:VR_RESULT_STATUS_SERVER_RESPONSE_INVALID];
         }
+        return;
     }
 
-    
+    NSInteger status = [Util jsonOptInt:jsonResponse key:@"status" def:VR_RESULT_STATUS_SERVER_RESPONSE_NO_STATUS_CODE];
+    [self dispatchFailure:status];
 }
 
 @end

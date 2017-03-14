@@ -22,11 +22,36 @@
 
 #import "User_Impl.h"
 
+static const NSString *PROP_NAME = @"name";
+static const NSString *PROP_PROFILE_PIC = @"profile_pic";
+static const NSString *PROP_EMAIL = @"email";
+static const NSString *PROP_SESSION_TOKEN = @"session_token";
+static const NSString *PROP_USER_ID = @"user_id";
+
 @implementation User_Impl
 
 - (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject {
-    
-    return [super init];
+    return [super initWithDict:jsonObject];
+}
+
+- (NSString *)getName {
+    return [super getLocked:PROP_NAME];
+}
+
+- (NSURL *)getProfilePicUrl {
+    return [NSURL URLWithString:[super getLocked:PROP_PROFILE_PIC]];
+}
+
+- (NSString *)getEmail {
+    return [super getLocked:PROP_EMAIL];
+}
+
+- (NSString *)getSessionToken {
+    return [super getLocked:PROP_SESSION_TOKEN];
+}
+
+- (NSString *)getUserId {
+    return [super getLocked:PROP_USER_ID];
 }
 
 @end

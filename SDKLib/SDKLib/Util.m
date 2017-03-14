@@ -26,6 +26,21 @@
 
 @implementation Util
 
++ (id)jsonOpt:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def {
+    if ([jsonObject doesContain:key]) {
+        return jsonObject[key];
+    }
+    return def;
+}
+
++ (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def {
+    if ([jsonObject doesContain:key]) {
+        return jsonObject[key];
+    }
+    return def;
+}
+
+
 @end
 
 @implementation Util_CallbackNotifier {
@@ -134,7 +149,7 @@
     return [super initWithParams:callback handler:handler closure:closure];
 }
 
-- (id)initWithOtherAndRef:(id<ResultCallbackHolder>)other status:(NSInteger)status {
+- (id)initWithOtherAndStatus:(id<ResultCallbackHolder>)other status:(NSInteger)status {
     mStatus = status;
     return [super initWithOther:other];
 }

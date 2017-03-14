@@ -31,6 +31,7 @@ static DgApp *sInstance = NULL;
    CtFormMain *mCtFormMain;
    EndPointConfigManager *mEndPointCfgMgr;
    SharedPrefs *mAppPrefs;
+   id<User> mUser;
 }
 
 - (id)init {
@@ -72,11 +73,21 @@ static DgApp *sInstance = NULL;
    return mEndPointCfgMgr;
 }
 
+- (void)setUser:(id<User>)user {
+   mUser = user;
+}
+
+- (id<User>)getUser {
+   return mUser;
+}
+
 + (DgApp *)getDgInstance {
    if (!sInstance) {
       sInstance = [[DgApp alloc] init];
    }
    return sInstance;
 }
+
+
 
 @end

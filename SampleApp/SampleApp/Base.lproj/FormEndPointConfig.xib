@@ -25,6 +25,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="hOM-EY-cXl" id="gKM-OJ-tQt"/>
+                    </connections>
                 </button>
                 <button identifier="ctrlCfgAdd" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFt-0C-0Oy">
                     <rect key="frame" x="332" y="60" width="81" height="32"/>
@@ -67,6 +70,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="khs-sE-yfp" id="7E8-3H-kY9"/>
+                                </connections>
                             </textField>
                             <textField identifier="ctrlEditCfgAPIKey" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="khs-sE-yfp">
                                 <rect key="frame" x="20" y="18" width="345" height="22"/>
@@ -76,6 +82,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="7jK-H7-6wK" id="aym-Hi-XDh"/>
+                                </connections>
                             </textField>
                         </subviews>
                     </view>
@@ -104,6 +113,9 @@
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="Rv8-vL-I3m" id="Av2-bj-iNL"/>
+                                </connections>
                             </textField>
                             <button identifier="ctrlCfgSave" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kr9-OW-RGm">
                                 <rect key="frame" x="290" y="8" width="81" height="32"/>
@@ -112,6 +124,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="cW0-Oi-rqI" id="wJc-yn-bKz"/>
+                                </connections>
                             </button>
                             <button identifier="ctrlCfgLoad" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W4s-xL-4y3">
                                 <rect key="frame" x="209" y="8" width="81" height="32"/>
@@ -120,6 +135,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="Kr9-OW-RGm" id="sp5-HI-2CP"/>
+                                </connections>
                             </button>
                             <button identifier="ctrlCfgSelect" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rv8-vL-I3m">
                                 <rect key="frame" x="128" y="8" width="81" height="32"/>
@@ -128,6 +146,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="W4s-xL-4y3" id="877-D6-mhP"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
@@ -139,6 +160,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="bFt-0C-0Oy" id="A7f-uU-oOg"/>
+                    </connections>
                 </button>
                 <button identifier="ctrlCfgDelete" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7jK-H7-6wK">
                     <rect key="frame" x="170" y="60" width="81" height="32"/>
@@ -147,6 +171,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="wUg-w2-Ulg" id="dPg-i1-SVj"/>
+                    </connections>
                 </button>
                 <scrollView wantsLayer="YES" fixedFrame="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WvE-hb-NvN">
                     <rect key="frame" x="20" y="252" width="387" height="134"/>

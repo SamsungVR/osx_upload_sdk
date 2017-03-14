@@ -55,7 +55,7 @@
 
 - (void)notify:(Object)callback closure:(Object)closure {
     id<VR_Result_BaseCallback> pCasted = callback;
-    [pCasted onException:closure ex:mException];
+    [pCasted onException:closure exception:mException];
 }
 
 @end
@@ -151,6 +151,9 @@
     [self dispatchCounted:[[ClientWorkItem_ExceptionCallbackNotifier alloc] initWithOtherAndException:mCallbackHolder exception:exception]];
 }
 
+- (void)dispatchFailure:(int)status {
+    [self dispatchCounted:[[Util_FailureCallbackNotifier alloc] initWithOtherAndStatus:mCallbackHolder status:status]];
+}
 - (void)onDispatchCounted:(int)count {
     
 }

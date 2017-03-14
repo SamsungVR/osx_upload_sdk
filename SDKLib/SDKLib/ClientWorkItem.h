@@ -68,4 +68,7 @@ static const NSString * TRANSFER_ENCODING_CHUNKED = @"chunked";
 - (Object)getClosure;
 - (Handler)getHandler;
 
+- (void)dispatchSuccessWithResult:(Object)rf;
+- (void)dispatchFailure:(int)status;
+
 @end

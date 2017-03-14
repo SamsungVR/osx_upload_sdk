@@ -21,21 +21,7 @@
  */
 
 #import "CtForm.h"
-#import "SharedPrefs.h"
-#import "EndPointConfigManager.h"
 
-#import "SDKLib/User.h"
-
-@interface DgApp : NSObject<NSApplicationDelegate>
-
-+ (DgApp *)getDgInstance;
-
-- (bool)showForm:(CtForm *)form;
-- (bool)showForm:(CtForm *)form nibName:(NSString *)nibName;
-- (void)onMainFormClosed;
-- (SharedPrefs *)getAppPrefs;
-- (EndPointConfigManager *)getEndPointCfgMgr;
-- (void)setUser:(id<User>)user;
-- (id<User>)getUser;
+@interface CtFormLoggedIn : CtForm
 
 @end
