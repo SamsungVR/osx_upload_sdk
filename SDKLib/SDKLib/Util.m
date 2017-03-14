@@ -26,11 +26,9 @@
 
 @implementation Util
 
-+ (id)jsonOpt:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def {
-    if ([jsonObject doesContain:key]) {
-        return jsonObject[key];
-    }
-    return def;
++ (id)jsonOptObj:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def {
+    id result = jsonObject[key];
+    return (result) ? result : def;
 }
 
 + (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def {

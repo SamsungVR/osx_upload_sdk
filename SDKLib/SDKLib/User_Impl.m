@@ -121,10 +121,19 @@ static id<AsyncWorkItemType> sTypeCreateLiveEvent = nil;
         return;
     }
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
-    if ([self isHttpSuccess:responseCode] && jsonResponse[@"video_id"]) {
-        UserLiveEvent_Impl *eventObj = [[UserLiveEvent_Impl alloc] initWith:mUser jsonObject:jsonResponse];
-        [self dispatchSuccessWithResult:eventObj];
-        return;
+    if ([self isHttpSuccess:responseCode]) {
+        
+        NSString *videoId = [Util jsonOptObj:jsonResponse key:@"video_id" def:NULL];
+        NSString *ingestUrl = [Util jsonOptObj:jsonResponse key:@"ingest_url" def:NULL];
+        NSString *viewUrl = [Util jsonOptObj:jsonResponse key:@"view_url" def:NULL];
+        
+        if (videoId) {
+            UserLiveEvent_Impl *eventObj = [[UserLiveEvent_Impl alloc] initWithParams:mUser
+                videoId:videoId title:mTitle description:mDescription permission:mPermission source:mSource videoSteroscopyType:mVideoStereoscopyType
+                ingestUrl:ingestUrl viewUrl:viewUrl];
+            [self dispatchSuccessWithResult:eventObj];
+            return;
+        }
     }
     
     NSInteger status = [Util jsonOptInt:jsonResponse key:@"status" def:VR_RESULT_STATUS_SERVER_RESPONSE_NO_STATUS_CODE];

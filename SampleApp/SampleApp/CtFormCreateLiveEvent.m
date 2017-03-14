@@ -33,8 +33,8 @@
 @end
 
 @implementation CtFormCreateLiveEvent {
-   NSButton *mCtrlCreate;
-   NSTextField *mCtrlStatusMsg, *mCtrlTitle, *mCtrlDescription;
+   NSButton *mCtrlCreate, *mCtrlCopyRtmlUrlToClipboard;
+   NSTextField *mCtrlStatusMsg, *mCtrlTitle, *mCtrlDescription, *mCtrlRtmpUrl;
    NSComboBox *mCtrlPermission, *mCtrlSource, *mCtrlVideoStereoscopyType;
    
    CallbackCreateLiveEvent *mCallbackCreateLiveEvent;
@@ -54,11 +54,16 @@
    NSString *tmpl = NSLocalizedString(@"CreatedLiveEvent", nil);
    NSString *msg = [NSString stringWithFormat:tmpl, [userLiveEvent getId]];
    [self setStatusMsg:msg];
-   
+   [mCtrlRtmpUrl setStringValue:[[userLiveEvent getProducerUrl] absoluteString]];
 }
 
 - (NSTextField *)getStatusMsgCtrl {
    return mCtrlStatusMsg;
+}
+
+- (void)onCtrlCopyRtmpUrlToClipboardClick {
+   [[NSPasteboard generalPasteboard] clearContents];
+   [[NSPasteboard generalPasteboard] setString:[mCtrlRtmpUrl stringValue]  forType:NSStringPboardType];
 }
 
 - (void)onLoad {
@@ -74,6 +79,9 @@
    mCtrlSource = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlSource"];
    mCtrlPermission = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlPermission"];
    mCtrlVideoStereoscopyType = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlVideoStereoscopyType"];
+   mCtrlRtmpUrl = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlRtmpUrl"];
+   mCtrlCopyRtmlUrlToClipboard = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlCopyRtmpUrlToClipboard"
+                                                                target:self action:@selector(onCtrlCopyRtmpUrlToClipboardClick)];
 }
 
 @end

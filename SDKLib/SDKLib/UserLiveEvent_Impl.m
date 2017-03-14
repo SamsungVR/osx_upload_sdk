@@ -46,4 +46,47 @@ static const NSString
     return [super initWithDict:jsonObject container:container];
 }
 
+- (id)initWithParams:(User_Impl *)container videoId:(NSString *)videoId title:(NSString *)title
+    description:(NSString *)description
+    permission:(UserVideo_Permission)permission source:(UserLiveEvent_Source)source
+    videoSteroscopyType:(UserVideo_VideoStereoscopyType)videoStereoscopyType
+    ingestUrl:(NSString *)ingestUrl viewUrl:(NSString *)viewUrl {
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    dict[PROP_ID] = videoId;
+    dict[PROP_TITLE] = title;
+    dict[PROP_DESCRIPTION] = description;
+    dict[PROP_INGEST_URL] = ingestUrl;
+    dict[PROP_VIEW_URL] = viewUrl;
+    return [super initWithDict:dict container:container];
+}
+
+
+- (NSString *)getId {
+    return [super getLocked:PROP_ID];
+}
+
+- (NSString *)getTitle {
+    return [super getLocked:PROP_TITLE];
+}
+
+- (NSString *)getDescription {
+    return [super getLocked:PROP_DESCRIPTION];
+}
+
+- (NSURL *)getProducerUrl {
+    NSString *url = [super getLocked:PROP_INGEST_URL];
+    if (!url) {
+        return NULL;
+    }
+    return [NSURL URLWithString:url];
+};
+
+- (NSURL *)getViewUrl {
+    NSString *url = [super getLocked:PROP_VIEW_URL];
+    if (!url) {
+        return NULL;
+    }
+    return [NSURL URLWithString:url];
+}
+
 @end

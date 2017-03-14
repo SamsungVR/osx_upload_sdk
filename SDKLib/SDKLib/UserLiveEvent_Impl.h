@@ -28,5 +28,11 @@
 @interface UserLiveEvent_Impl : ObjBase<UserLiveEvent>
 
 - (id)initWith:(User_Impl *)container jsonObject:(NSDictionary *)jsonObject;
+- (id)initWithParams:(User_Impl *)container videoId:(NSString *)videoId title:(NSString *)title
+    description:(NSString *)description
+    permission:(UserVideo_Permission)permission source:(UserLiveEvent_Source)source
+    videoSteroscopyType:(UserVideo_VideoStereoscopyType)videoStereoscopyType
+           ingestUrl:(NSString *)ingestUrl viewUrl:(NSString *)viewUrl;
+
 
 @end

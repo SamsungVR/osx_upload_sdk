@@ -25,7 +25,7 @@
 
 @interface Util : NSObject
 
-+ (id)jsonOpt:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def;
++ (id)jsonOptObj:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def;
 + (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def;
 
 @end

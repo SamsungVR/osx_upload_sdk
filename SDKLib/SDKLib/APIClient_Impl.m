@@ -90,7 +90,6 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
     
     if ([self isHttpSuccess:responseCode]) {
-        
         User_Impl *user = [[User_Impl alloc] initWith:[self getApiClient] jsonObject:jsonResponse];
         if (user) {
             [self dispatchSuccessWithResult:user];
