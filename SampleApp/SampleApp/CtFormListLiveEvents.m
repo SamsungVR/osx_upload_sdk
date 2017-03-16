@@ -27,6 +27,9 @@
 #import "AppUtil.h"
 #import "DgApp.h"
 
+#define MAX_PERMISSIONS 5
+
+static NSString * Permissions[MAX_PERMISSIONS];
 
 @interface CallbackQueryLiveEvents : NSObject<User_Result_QueryLiveEvents>
 
@@ -43,6 +46,50 @@
    
    id<User> mUser;
    CallbackQueryLiveEvents *mCallbackQueryLiveEvents;
+}
+
+- (NSString *)permissionToStr:(UserVideo_Permission)permission {
+   switch (permission) {
+      case UserVideo_Permission_PUBLIC:
+         return NSLocalizedString(@"UserVideo_Permission_PUBLIC", nil);
+      case UserVideo_Permission_PRIVATE:
+         return NSLocalizedString(@"UserVideo_Permission_PRIVATE", nil);
+      case UserVideo_Permission_VR_ONLY:
+         return NSLocalizedString(@"UserVideo_Permission_VR_ONLY", nil);
+      case UserVideo_Permission_UNLISTED:
+         return NSLocalizedString(@"UserVideo_Permission_UNLISTED", nil);
+      case UserVideo_Permission_WEB_ONLY:
+         return NSLocalizedString(@"UserVideo_Permission_WEB_ONLY", nil);
+   }
+   return NULL;
+}
+
+- (NSString *)stereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)steroescopyType {
+   switch (steroescopyType) {
+      case UserVideo_VideoStereoscopyType_DEFAULT:
+         return NSLocalizedString(@"UserVideo_VideoStereoscopyType_DEFAULT", nil);
+      case UserVideo_VideoStereoscopyType_MONOSCOPIC:
+         return NSLocalizedString(@"UserVideo_VideoStereoscopyType_MONOSCOPIC", nil);
+      case UserVideo_VideoStereoscopyType_DUAL_FISHEYE:
+         return NSLocalizedString(@"UserVideo_VideoStereoscopyType_DUAL_FISHEYE", nil);
+      case UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC:
+         return NSLocalizedString(@"UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC", nil);
+      case UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC:
+         return NSLocalizedString(@"UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC", nil);
+   }
+   return NULL;
+}
+
+- (NSString *)sourceToStr:(UserLiveEvent_Source)source {
+   switch (source) {
+      case UserLiveEvent_Source_RTMP:
+         return NSLocalizedString(@"UserLiveEvent_Source_RTMP", nil);
+      case UserLiveEvent_Source_SEGMENTED_TS:
+         return NSLocalizedString(@"UserLiveEvent_Source_SEGMENTED_TS", nil);
+      case UserLiveEvent_Source_SEGMENTED_MP4:
+         return NSLocalizedString(@"UserLiveEvent_Source_SEGMENTED_MP4", nil);
+   }
+   return NULL;
 }
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn
@@ -63,6 +110,12 @@
    [mUser queryLiveEvents:mCallbackQueryLiveEvents handler:nil closure:nil];
 }
 
+- (void)addIfValidToLiveEventDetails:(NSString *)data {
+   if (data) {
+      [mLiveEventDetails addObject:data];
+   }
+}
+
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification {
    if (!mQueriedLiveEvents) {
       return;
@@ -71,7 +124,17 @@
    if (selected >= 0 && selected < [mQueriedLiveEvents count]) {
       id<UserLiveEvent> liveEvent = [mQueriedLiveEvents objectAtIndex:selected];
       [mLiveEventDetails removeAllObjects];
-      
+      [self addIfValidToLiveEventDetails:[liveEvent getTitle]];
+      [self addIfValidToLiveEventDetails:[liveEvent getDescription]];
+      [self addIfValidToLiveEventDetails:[[liveEvent getViewUrl] absoluteString]];
+      [self addIfValidToLiveEventDetails:[[liveEvent getProducerUrl] absoluteString]];
+      NSString *permission = [self permissionToStr:[liveEvent getPermission]];
+      [self addIfValidToLiveEventDetails:permission];
+      NSString *stereoscopyType = [self stereoscopyTypeToStr:[liveEvent getVideoStereoscopyType]];
+      [self addIfValidToLiveEventDetails:stereoscopyType];
+      NSString *source = [self sourceToStr:[liveEvent getSource]];
+      [self addIfValidToLiveEventDetails:source];
+      [mCtrlLiveEventDetails reloadData];
    }
 }
 
@@ -85,7 +148,11 @@
    mCtrlRefreshAll = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlRefreshAll" target:self action:@selector(onCtrlRefreshAllClick)];
    mCtrlLiveEventIds = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlLiveEventIds"];
    mCtrlLiveEventDetails = (NSTableView *)[AppUtil findViewById:root identifier:@"ctrlLiveEventDetails"];
+
    [mCtrlLiveEventIds setDelegate:self];
+   mCtrlLiveEventDetails.dataSource = self;
+   
+   [self onCtrlRefreshAllClick];
 }
 
 - (void)onQueryLiveEvents:(NSArray *)liveEvents {

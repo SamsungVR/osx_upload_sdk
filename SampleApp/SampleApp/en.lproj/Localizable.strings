@@ -29,3 +29,19 @@
 "InitVRLib"="Initializing VR lib";
 "LoggedInAs"="Logged in as %@";
 "CreatedLiveEvent"="Created live event - %@";
+
+"UserVideo_Permission_PRIVATE"="Permission PRIVATE";
+"UserVideo_Permission_UNLISTED"="Permission UNLISTED";
+"UserVideo_Permission_PUBLIC"="Permission PUBLIC";
+"UserVideo_Permission_VR_ONLY"="Permission VR ONLY";
+"UserVideo_Permission_WEB_ONLY"="Permission Web Only";
+
+"UserVideo_VideoStereoscopyType_DEFAULT"="StereoscopyType DEFAULT";
+"UserVideo_VideoStereoscopyType_MONOSCOPIC"="StereoscopyType MONOSCOPIC";
+"UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC"="StereoscopyType TOP BOTTOM";
+"UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC"="StereoscopyType LEFT RIGHT";
+"UserVideo_VideoStereoscopyType_DUAL_FISHEYE"="StereoscopyType DUAL FISHEYE";
+
+"UserLiveEvent_Source_RTMP"="Source RTMP";
+"UserLiveEvent_Source_SEGMENTED_TS"="Source SEGMENTED TS";
+"UserLiveEvent_Source_SEGMENTED_MP4"="Source SEGMENTED MP4";

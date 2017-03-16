@@ -29,8 +29,13 @@ static const NSString * HEADER_SESSION_TOKEN = @"X-SESSION-TOKEN";
 @interface User_Impl : ObjBase<User>
 
 + (NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission;
++ (UserVideo_Permission)userVideoPermissionFromStr:(NSString *)permission;
+
 + (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType;
++ (UserVideo_VideoStereoscopyType)userVideoStereoscopyTypeFromStr:(NSString *)videoStereoscopyType;
+
 + (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source;
++ (UserLiveEvent_Source)userLiveEventSourceFromStr:(NSString *)source;
 
 - (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject;
 

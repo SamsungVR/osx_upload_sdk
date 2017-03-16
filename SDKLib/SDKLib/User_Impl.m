@@ -268,50 +268,112 @@ static id<AsyncWorkItemType> sTypeQueryLiveEvents = nil;
     return [workQueue enqueue:workItem];
 }
 
+static const NSString const * Str_UserVideo_Permission_UNLISTED = @"Unlisted";
+static const NSString const * Str_UserVideo_Permission_PUBLIC = @"Public";
+static const NSString const * Str_UserVideo_Permission_VR_ONLY = @"VR Only";
+static const NSString const * Str_UserVideo_Permission_WEB_ONLY = @"Web Only";
+static const NSString const * Str_UserVideo_Permission_PRIVATE = @"Private";
+
 + (NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission {
     switch (permission) {
-        case UserVideo_Permission_PRIVATE:
-            return @"Private";
+
         case UserVideo_Permission_UNLISTED:
-            return @"Unlisted";
+            return Str_UserVideo_Permission_UNLISTED;
         case UserVideo_Permission_PUBLIC:
-            return @"Public";
+            return Str_UserVideo_Permission_PUBLIC;
         case UserVideo_Permission_VR_ONLY:
-            return @"VR Only";
+            return Str_UserVideo_Permission_VR_ONLY;
         case UserVideo_Permission_WEB_ONLY:
-            return @"Web Only";
+            return Str_UserVideo_Permission_WEB_ONLY;
     }
-    return NULL;
+    return Str_UserVideo_Permission_PRIVATE;
 }
+
++ (UserVideo_Permission)userVideoPermissionFromStr:(NSString *)permission {
+    if ([Str_UserVideo_Permission_UNLISTED isEqualToString:permission]) {
+        return UserVideo_Permission_UNLISTED;
+    }
+    if ([Str_UserVideo_Permission_PUBLIC isEqualToString:permission]) {
+        return UserVideo_Permission_PUBLIC;
+    }
+    if ([Str_UserVideo_Permission_VR_ONLY isEqualToString:permission]) {
+        return UserVideo_Permission_VR_ONLY;
+    }
+    if ([Str_UserVideo_Permission_WEB_ONLY isEqualToString:permission]) {
+        return UserVideo_Permission_WEB_ONLY;
+    }
+    return UserVideo_Permission_PRIVATE;
+    
+}
+
+static const NSString const * Str_UserVideo_VideoStereoscopyType_MONOSCOPIC = @"monoscopic";
+static const NSString const * Str_UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC = @"left-right";
+static const NSString const * Str_UserVideo_VideoStereoscopyType_DUAL_FISHEYE = @"dual-fisheye";
+static const NSString const * Str_UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC = @"top-bottom";
+static const NSString const * Str_UserVideo_VideoStereoscopyType_DEFAULT = @"default";
 
 + (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType {
     switch (videoStereoscopyType) {
             
         case UserVideo_VideoStereoscopyType_MONOSCOPIC:
-            return @"monoscopic";
+            return Str_UserVideo_VideoStereoscopyType_MONOSCOPIC;
             
         case UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC:
-            return @"left-right";
+            return Str_UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC;
             
         case UserVideo_VideoStereoscopyType_DUAL_FISHEYE:
-            return @"dual-fisheye";
+            return Str_UserVideo_VideoStereoscopyType_DUAL_FISHEYE;
             
         case UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC:
-            return @"top-bottom";
+            return Str_UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC;
     }
-    return NULL;
+    return Str_UserVideo_VideoStereoscopyType_DEFAULT;
 }
+
++ (UserVideo_VideoStereoscopyType)userVideoStereoscopyTypeFromStr:(NSString *)videoStereoscopyType {
+    if ([Str_UserVideo_VideoStereoscopyType_MONOSCOPIC isEqualToString:videoStereoscopyType]) {
+        return UserVideo_VideoStereoscopyType_MONOSCOPIC;
+    }
+    if ([Str_UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC isEqualToString:videoStereoscopyType]) {
+        return UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC;
+    }
+    if ([Str_UserVideo_VideoStereoscopyType_DUAL_FISHEYE isEqualToString:videoStereoscopyType]) {
+        return UserVideo_VideoStereoscopyType_DUAL_FISHEYE;
+    }
+    if ([Str_UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC isEqualToString:videoStereoscopyType]) {
+        return UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC;
+    }
+    return UserVideo_VideoStereoscopyType_DEFAULT;
+    
+}
+
+static const NSString const * Str_UserLiveEvent_Source_RTMP = @"rtmp";
+static const NSString const * Str_UserLiveEvent_Source_SEGMENTED_TS = @"segmented_ts";
+static const NSString const * Str_UserLiveEvent_Source_SEGMENTED_MP4 = @"segmented_mp4";
 
 + (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source {
     switch (source) {
         case UserLiveEvent_Source_RTMP:
-            return @"rtmp";
+            return Str_UserLiveEvent_Source_RTMP;
         case UserLiveEvent_Source_SEGMENTED_TS:
-            return @"segmented_ts";
+            return Str_UserLiveEvent_Source_SEGMENTED_TS;
         case UserLiveEvent_Source_SEGMENTED_MP4:
-            return @"segmented_mp4";
+            return Str_UserLiveEvent_Source_SEGMENTED_MP4;
     }
-    return NULL;
+    return Str_UserLiveEvent_Source_RTMP;
+}
+
++ (UserLiveEvent_Source)userLiveEventSourceFromStr:(NSString *)source {
+    if ([Str_UserLiveEvent_Source_RTMP isEqualToString:source]) {
+        return UserLiveEvent_Source_RTMP;
+    }
+    if ([Str_UserLiveEvent_Source_SEGMENTED_TS isEqualToString:source]) {
+        return UserLiveEvent_Source_SEGMENTED_TS;
+    }
+    if ([Str_UserLiveEvent_Source_SEGMENTED_MP4 isEqualToString:source]) {
+        return UserLiveEvent_Source_SEGMENTED_MP4;
+    }
+    return UserLiveEvent_Source_RTMP;
 }
 
 @end

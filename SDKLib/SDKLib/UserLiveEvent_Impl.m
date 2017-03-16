@@ -89,4 +89,19 @@ static const NSString
     return [NSURL URLWithString:url];
 }
 
+- (UserVideo_Permission)getPermission {
+    NSString *permission = [super getLocked:PROP_PERMISSION];
+    return [User_Impl userVideoPermissionFromStr:permission];
+}
+
+- (UserVideo_VideoStereoscopyType)getVideoStereoscopyType {
+    NSString *videoStereoscopyType = [super getLocked:PROP_STEREOSCOPIC_TYPE];
+    return [User_Impl userVideoStereoscopyTypeFromStr:videoStereoscopyType];
+}
+
+- (UserLiveEvent_Source)getSource {
+    NSString *source = [super getLocked:PROP_SOURCE];
+    return [User_Impl userLiveEventSourceFromStr:source];
+}
+
 @end
