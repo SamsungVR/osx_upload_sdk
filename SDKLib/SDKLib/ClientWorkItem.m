@@ -101,6 +101,13 @@
     return [reqFactory newGetRequest:restUrl headers:headers];
 }
 
+
+- (id<HttpPlugin_DeleteRequest>) newDeleteRequest:(NSString *)suffix headers:(Headers)headers {
+    NSString *restUrl = [self toRESTUrl:suffix];
+    id<HttpPlugin_RequestFactory> reqFactory = [mAPIClient getRequestFactory];
+    return [reqFactory newDeleteRequest:restUrl headers:headers];
+}
+
 - (void)writeBytes:(id<HttpPlugin_WritableRequest>)request data:(NSData *)data debugMsg:(NSString *)debugMsg {
     NSInputStream *stream = [[NSInputStream alloc] initWithData:data];
     [request output:stream buf:nil];
@@ -152,6 +159,10 @@
 
 - (void)dispatchSuccessWithResult:(Object)rf {
     [self dispatchCounted:[[Util_SuccessWithResultCallbackNotifier alloc] initWithOtherAndRef:mCallbackHolder ref:rf]] ;
+}
+
+- (void)dispatchSuccess {
+    [self dispatchCounted:[[Util_SuccessCallbackNotifier alloc] initWithOther:mCallbackHolder]];
 }
 
 - (void) dispatchException:(NSException *)exception {

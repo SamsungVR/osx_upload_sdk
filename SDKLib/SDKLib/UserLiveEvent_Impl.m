@@ -22,6 +22,7 @@
 
 
 #import "UserLiveEvent_Impl.h"
+#import "ClientWorkItem.h"
 
 static const NSString
      * const PROP_ID = @"id",
@@ -39,8 +40,81 @@ static const NSString
      * const PROP_LIVE_STOPPED = @"live_stopped",
      * const PROP_METADATA_STEREOSCOPIC_TYPE = @"metadata_stereoscopic_type";
 
+@interface WorkItemTypeDeleteLiveEvent : NSObject<AsyncWorkItemType>
+@end
+
+@interface WorkItemDeleteLiveEvent : ClientWorkItem
+
+- (id)initWithClient:(APIClient_Impl *)apiClient;
+- (void)set:(UserLiveEvent_Impl *)liveEvent callback:(id<UserLiveEvent_Result_Delete>)callback handler:(Handler)handler closure:(Object)closure;
+
+@end
+
+
+@implementation WorkItemTypeDeleteLiveEvent
+
+- (AsyncWorkItem *)newInstance:(APIClient_Impl *)apiClient {
+    return [[WorkItemDeleteLiveEvent alloc] initWithClient:apiClient];
+}
+
+@end
+
+static id<AsyncWorkItemType> sTypeDeleteLiveEvent = nil;
+
+@implementation WorkItemDeleteLiveEvent {
+    UserLiveEvent_Impl *mUserLiveEvent;
+}
+
+
+- (id)initWithClient:(APIClient_Impl *)apiClient {
+    return [super initWith:apiClient type:sTypeDeleteLiveEvent];
+}
+
+- (void)set:(UserLiveEvent_Impl *)userLiveEvent
+   callback:(id<UserLiveEvent_Result_Delete>)callback handler:(Handler)handler closure:(Object)closure {
+    
+    [super set:callback handler:handler closure:closure];
+    mUserLiveEvent = userLiveEvent;
+}
+
+- (void)onRun {
+    id<HttpPlugin_GetRequest> request = nil;
+    User_Impl *user = [mUserLiveEvent getUser];
+    Headers headers = {
+        HEADER_API_KEY, [[self getApiClient] getApiKey],
+        HEADER_SESSION_TOKEN, [user getSessionToken],
+        NULL
+    };
+    NSString *liveEventId = [mUserLiveEvent getId];
+    
+    NSString *userId = [user getUserId];
+    request = [self newDeleteRequest:[NSString stringWithFormat:@"user/%@/video/%@", userId, liveEventId] headers:headers];
+    if (!request) {
+        [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_NULL_CONNECTION];
+        return;
+    }
+    int responseCode = [self getResponseCode:request];
+    if ([self isHttpSuccess:responseCode]) {
+        [self dispatchSuccess];
+        return;
+    }
+    NSData *response = [self readHttpStream:request debugMsg:nil];
+    if (!response) {
+        [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
+        return;
+    }
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
+    NSInteger status = [Util jsonOptInt:jsonResponse key:@"status" def:VR_RESULT_STATUS_SERVER_RESPONSE_NO_STATUS_CODE];
+    [self dispatchFailure:status];
+}
+
+@end
 
 @implementation UserLiveEvent_Impl
+
++ (void)initialize {
+    sTypeDeleteLiveEvent = [[WorkItemTypeDeleteLiveEvent alloc] init];
+}
 
 - (id)initWith:(User_Impl *)container jsonObject:(NSDictionary *)jsonObject {
     return [super initWithDict:jsonObject container:container];
@@ -81,6 +155,10 @@ static const NSString
     return [NSURL URLWithString:url];
 };
 
+- (id<User>)getUser {
+    return [self getContainer];
+}
+
 - (NSURL *)getViewUrl {
     NSString *url = [super getLocked:PROP_VIEW_URL];
     if (!url) {
@@ -102,6 +180,14 @@ static const NSString
 - (UserLiveEvent_Source)getSource {
     NSString *source = [super getLocked:PROP_SOURCE];
     return [User_Impl userLiveEventSourceFromStr:source];
+}
+
+- (bool)del:(id<UserLiveEvent_Result_Delete>)callback handler:(Handler)handler closure:(Object)closure {
+    User_Impl *user = [self getUser];
+    AsyncWorkQueue *workQueue = [(APIClient_Impl *)[user getContainer] getAsyncWorkQueue];
+    WorkItemDeleteLiveEvent *workItem = [workQueue obtainWorkItem:sTypeDeleteLiveEvent];
+    [workItem set:self callback:callback handler:handler closure:closure];
+    return [workQueue enqueue:workItem];
 }
 
 @end

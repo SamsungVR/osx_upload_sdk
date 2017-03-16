@@ -34,5 +34,4 @@
     videoSteroscopyType:(UserVideo_VideoStereoscopyType)videoStereoscopyType
            ingestUrl:(NSString *)ingestUrl viewUrl:(NSString *)viewUrl;
 
-
 @end

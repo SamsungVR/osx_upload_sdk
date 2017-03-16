@@ -37,8 +37,15 @@ static NSString * Permissions[MAX_PERMISSIONS];
 
 @end
 
+
+@interface CallbackDeleteLiveEvent : NSObject<UserLiveEvent_Result_Delete>
+
+- (id)initWith:(CtFormListLiveEvents *)form;
+
+@end
+
 @implementation CtFormListLiveEvents {
-   NSButton *mCtrlRefreshAll;
+   NSButton *mCtrlRefreshAll, *mCtrlDelete, *mCtrlCopyRtmpUrl;
    NSComboBox *mCtrlLiveEventIds;
    NSArray *mQueriedLiveEvents;
    NSMutableArray *mLiveEventDetails;
@@ -46,6 +53,7 @@ static NSString * Permissions[MAX_PERMISSIONS];
    
    id<User> mUser;
    CallbackQueryLiveEvents *mCallbackQueryLiveEvents;
+   CallbackDeleteLiveEvent *mCallbackDeleteLiveEvent;
 }
 
 - (NSString *)permissionToStr:(UserVideo_Permission)permission {
@@ -138,14 +146,47 @@ static NSString * Permissions[MAX_PERMISSIONS];
    }
 }
 
+- (id<UserLiveEvent>)getSelectedLiveEvent {
+   if (!mQueriedLiveEvents) {
+      return nil;
+   }
+   NSInteger selectedIndex = [mCtrlLiveEventIds indexOfSelectedItem];
+   if (selectedIndex < 0 || selectedIndex >= [mQueriedLiveEvents count]) {
+      return nil;
+   }
+   return [mQueriedLiveEvents objectAtIndex:selectedIndex];
+}
+
+- (void)onCtrlDelete {
+   id<UserLiveEvent> selectedLiveEvent = [self getSelectedLiveEvent];
+   if (selectedLiveEvent) {
+      [selectedLiveEvent del:mCallbackDeleteLiveEvent handler:nil closure:nil];
+   }
+}
+
+- (void)onCtrlCopyRtmpUrl {
+   id<UserLiveEvent> selectedLiveEvent = [self getSelectedLiveEvent];
+   [[NSPasteboard generalPasteboard] clearContents];
+   if (selectedLiveEvent) {
+      NSURL *producerUrl = [selectedLiveEvent getProducerUrl];
+      if (producerUrl) {
+         [[NSPasteboard generalPasteboard] setString:[producerUrl absoluteString]  forType:NSStringPboardType];
+      }
+   }
+}
+
 - (void)onLoad {
    [super onLoad];
    
    mUser = [[DgApp getDgInstance] getUser];
    mCallbackQueryLiveEvents = [[CallbackQueryLiveEvents alloc] initWith:self];
+   mCallbackDeleteLiveEvent = [[CallbackDeleteLiveEvent alloc] initWith:self];
+   
    mLiveEventDetails = [[NSMutableArray alloc] init];
    NSView *root = [self view];
    mCtrlRefreshAll = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlRefreshAll" target:self action:@selector(onCtrlRefreshAllClick)];
+   mCtrlDelete = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlDelete" target:self action:@selector(onCtrlDelete)];
+   mCtrlCopyRtmpUrl = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlCopyRtmpUrl" target:self action:@selector(onCtrlCopyRtmpUrl)];
    mCtrlLiveEventIds = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlLiveEventIds"];
    mCtrlLiveEventDetails = (NSTableView *)[AppUtil findViewById:root identifier:@"ctrlLiveEventDetails"];
 
@@ -158,12 +199,20 @@ static NSString * Permissions[MAX_PERMISSIONS];
 - (void)onQueryLiveEvents:(NSArray *)liveEvents {
    mQueriedLiveEvents = liveEvents;
    [mCtrlLiveEventIds removeAllItems];
+   [mCtrlLiveEventIds setStringValue:@""];
+   [mLiveEventDetails removeAllObjects];
+   [mCtrlLiveEventDetails reloadData];
+   
    for (id<UserLiveEvent> liveEvent in mQueriedLiveEvents) {
       [mCtrlLiveEventIds addItemWithObjectValue:[liveEvent getId]];
    }
    if ([mQueriedLiveEvents count] > 0) {
       [mCtrlLiveEventIds selectItemAtIndex:0];
    }
+}
+
+- (void)onDeleteLiveEvent {
+   [self onCtrlRefreshAllClick];
 }
 
 @end
@@ -183,6 +232,31 @@ static NSString * Permissions[MAX_PERMISSIONS];
 
 - (void)onSuccess:(Object)closure result:(id)result {
    [mForm onQueryLiveEvents:result];
+}
+
+- (void)onException: (Object)closure  exception:(Exception)exception {
+}
+
+- (void)onCancelled:(Object)closure {
+}
+
+@end
+
+@implementation CallbackDeleteLiveEvent {
+   CtFormListLiveEvents *mForm;
+}
+
+- (id)initWith:(CtFormListLiveEvents *)form {
+   mForm = form;
+   return [super init];
+}
+
+- (void)onFailure:(Object)closure status:(NSInteger)status {
+   [mForm setLocalizedStatusMsg:@"Failure"];
+}
+
+- (void)onSuccess:(Object)closure {
+   [mForm onDeleteLiveEvent];
 }
 
 - (void)onException: (Object)closure  exception:(Exception)exception {
