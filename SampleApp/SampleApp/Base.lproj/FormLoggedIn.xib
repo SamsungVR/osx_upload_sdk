@@ -15,11 +15,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="777" height="712"/>
+            <rect key="frame" x="0.0" y="0.0" width="777" height="650"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Login Info" translatesAutoresizingMaskIntoConstraints="NO" id="Mc0-nw-vkS">
-                    <rect key="frame" x="20" y="478" width="196" height="214"/>
+                    <rect key="frame" x="20" y="416" width="196" height="214"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="VeC-yP-xM2">
                         <rect key="frame" x="1" y="1" width="194" height="212"/>
@@ -52,24 +52,46 @@
                     </view>
                 </box>
                 <box identifier="ctrlSubContainer" fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="U6L-3f-R4S">
-                    <rect key="frame" x="236" y="20" width="521" height="672"/>
+                    <rect key="frame" x="236" y="20" width="521" height="610"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="yaA-R2-3Zv">
-                        <rect key="frame" x="1" y="1" width="519" height="670"/>
+                        <rect key="frame" x="1" y="1" width="519" height="608"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
                 </box>
                 <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="jTs-gg-fLs">
-                    <rect key="frame" x="20" y="20" width="196" height="442"/>
+                    <rect key="frame" x="20" y="20" width="196" height="380"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="11P-f9-ZX7">
-                        <rect key="frame" x="1" y="1" width="194" height="440"/>
+                        <rect key="frame" x="1" y="1" width="194" height="378"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button identifier="ctrlCreateLiveEvent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="67M-3W-4Gm">
-                                <rect key="frame" x="14" y="392" width="166" height="32"/>
+                                <rect key="frame" x="14" y="330" width="166" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Create live event" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zqB-g5-SK6">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="zA8-bl-Rmh" id="u3E-UM-k7j"/>
+                                </connections>
+                            </button>
+                            <button identifier="ctrlListLiveEvents" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zA8-bl-Rmh">
+                                <rect key="frame" x="14" y="297" width="166" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="List live events" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3h3-pO-qLJ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <outlet property="nextKeyView" destination="3qf-Q8-PeY" id="raN-Ge-J9O"/>
+                                </connections>
+                            </button>
+                            <button identifier="ctrlLogout" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3qf-Q8-PeY">
+                                <rect key="frame" x="14" y="264" width="166" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Logout" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nxQ-fF-U1W">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -78,7 +100,7 @@
                     </view>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="105.5" y="243"/>
+            <point key="canvasLocation" x="105.5" y="212"/>
         </customView>
     </objects>
 </document>

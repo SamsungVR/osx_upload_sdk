@@ -21,39 +21,8 @@
  */
 
 
-#import "VR.h"
-#import "UserVideo.h"
-#import "UserLiveEvent.h"
+#import "CtForm.h"
 
-@protocol User_Result_CreateLiveEvent <VR_Result_BaseCallback, VR_Result_SuccessWithResultCallback>
-
-
-typedef NS_ENUM(NSInteger, User_Result_Status_CreateLiveEvent) {
-    
-    VR_RESULT_STATUS_INVALID_STEREOSCOPIC_TYPE = 5,
-    VR_RESULT_STATUS_INVALID_AUDIO_TYPE = 6
-};
+@interface CtFormListLiveEvents : CtForm<NSTableViewDataSource, NSComboBoxDelegate>
 
 @end
-
-@protocol User_Result_QueryLiveEvents <VR_Result_BaseCallback, VR_Result_SuccessWithResultCallback>
-
-@end
-
-@protocol User
-
-- (NSString *)getName;
-- (NSString *)getEmail;
-- (NSURL *)getProfilePicUrl;
-- (NSString *)getSessionToken;
-- (NSString *)getUserId;
-
-- (bool)createLiveEvent:(NSString *)title description:(NSString *)description
-   permission:(UserVideo_Permission)permission source:(UserLiveEvent_Source)source
-   videoStereoscopyType:(UserVideo_VideoStereoscopyType)videoStereoscopyType
-   callback:(id<User_Result_CreateLiveEvent>)callback handler:(Handler)handler closure:(Object)closure;
-
-- (bool)queryLiveEvents:(id<User_Result_QueryLiveEvents>)callback handler:(Handler)handler closure:(Object)closure;
-
-@end
-

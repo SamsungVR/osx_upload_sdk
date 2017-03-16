@@ -65,6 +65,10 @@ static DgApp *sInstance = NULL;
    return [self showForm:result];
 }
 
+- (bool)showLoginForm {
+   return [self showForm:[[CtFormLogin alloc] initWithNibName:@"FormLogin" bundle:nil]];
+}
+
 - (void)onMainFormClosed {
    [NSApp terminate:nil];
 }

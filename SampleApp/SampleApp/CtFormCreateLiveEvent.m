@@ -72,13 +72,20 @@
    mCallbackCreateLiveEvent = [[CallbackCreateLiveEvent alloc] initWith:self];
    
    NSView *root = [self view];
+   
    mCtrlCreate = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlCreate" target:self action:@selector(onCtrlCreateClick)];
    mCtrlStatusMsg = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlStatusMsg"];
    mCtrlTitle = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlTitle"];
    mCtrlDescription = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlDescription"];
    mCtrlSource = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlSource"];
+   [mCtrlSource selectItemAtIndex:0];
+   
    mCtrlPermission = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlPermission"];
+   [mCtrlPermission selectItemAtIndex:0];
+   
    mCtrlVideoStereoscopyType = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlVideoStereoscopyType"];
+   [mCtrlVideoStereoscopyType selectItemAtIndex:0];
+   
    mCtrlRtmpUrl = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlRtmpUrl"];
    mCtrlCopyRtmlUrlToClipboard = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlCopyRtmpUrlToClipboard"
                                                                 target:self action:@selector(onCtrlCopyRtmpUrlToClipboardClick)];

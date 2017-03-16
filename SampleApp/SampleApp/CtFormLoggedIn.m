@@ -25,6 +25,7 @@
 
 #import "CtFormLoggedIn.h"
 #import "CtFormCreateLiveEvent.h"
+#import "CtFormListLiveEvents.h"
 #import "AppUtil.h"
 #import "DgApp.h"
 
@@ -33,7 +34,7 @@
    NSTextField *mCtrlUsername, *mCtrlUserEmail;
    NSBox *mCtrlSubContainer;
    
-   NSButton *mCtrlCreateLiveEvent;
+   NSButton *mCtrlCreateLiveEvent, *mCtrlListLiveEvents, *mCtrlLogout;
    
    
    CtForm *mSubForm;
@@ -80,6 +81,15 @@
    [self setSubForm:[CtFormCreateLiveEvent alloc] nibName:@"FormCreateLiveEvent"];
 }
 
+
+- (void)onCtrlLogoutClick {
+   [[DgApp getDgInstance] showLoginForm];
+}
+
+- (void)onCtrlListLiveEventsClick {
+   [self setSubForm:[CtFormListLiveEvents alloc] nibName:@"FormListLiveEvents"];
+}
+
 - (void)onLoad {
    [super onLoad];
   
@@ -99,6 +109,9 @@
    [mCtrlUserEmail setStringValue:[mUser getEmail]];
    
    mCtrlCreateLiveEvent = (NSButton*)[AppUtil setActionHandler:root identifier:@"ctrlCreateLiveEvent" target:self action:@selector(onCtrlCreateLiveEventClick)];
+   mCtrlLogout = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlLogout" target:self action:@selector(onCtrlLogoutClick)];
+   mCtrlListLiveEvents = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlListLiveEvents" target:self action:@selector(onCtrlListLiveEventsClick)];
+   
 }
 
 - (bool)unloadCurrentSubForm {
@@ -116,8 +129,5 @@
    }
    return result;
 }
-
-
-
 
 @end

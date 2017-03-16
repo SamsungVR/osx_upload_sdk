@@ -15,11 +15,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe">
-            <rect key="frame" x="0.0" y="0.0" width="466" height="628"/>
+            <rect key="frame" x="0.0" y="0.0" width="401" height="585"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Awn-wK-y0O">
-                    <rect key="frame" x="18" y="591" width="37" height="17"/>
+                    <rect key="frame" x="18" y="548" width="37" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Title" id="osN-ag-mZe">
                         <font key="font" metaFont="system"/>
@@ -28,7 +28,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zVQ-ib-Frn">
-                    <rect key="frame" x="18" y="536" width="82" height="17"/>
+                    <rect key="frame" x="18" y="493" width="82" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Description" id="AiS-4Z-kVg">
                         <font key="font" metaFont="system"/>
@@ -37,7 +37,7 @@
                     </textFieldCell>
                 </textField>
                 <textField identifier="ctrlDescription" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IHd-lH-wFY">
-                    <rect key="frame" x="20" y="506" width="361" height="22"/>
+                    <rect key="frame" x="20" y="463" width="361" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="NgJ-dg-b9q">
                         <font key="font" metaFont="system"/>
@@ -46,7 +46,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDq-aU-dM5">
-                    <rect key="frame" x="18" y="481" width="82" height="17"/>
+                    <rect key="frame" x="18" y="438" width="82" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Permission" id="jkk-Am-ITn">
                         <font key="font" metaFont="system"/>
@@ -55,7 +55,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox identifier="ctrlPermission" toolTip="ctrlStereoscopicType" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mHG-7j-ENp">
-                    <rect key="frame" x="20" y="449" width="238" height="26"/>
+                    <rect key="frame" x="20" y="406" width="238" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="TL3-qG-QPH">
                         <font key="font" metaFont="system"/>
@@ -74,7 +74,7 @@
                     </connections>
                 </comboBox>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5dl-RM-BFr">
-                    <rect key="frame" x="18" y="428" width="125" height="17"/>
+                    <rect key="frame" x="18" y="385" width="125" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Stereoscopic Type" id="WtE-bm-hVb">
                         <font key="font" metaFont="system"/>
@@ -83,7 +83,7 @@
                     </textFieldCell>
                 </textField>
                 <textField identifier="ctrlTitle" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9B6-9X-Ctg">
-                    <rect key="frame" x="20" y="561" width="361" height="22"/>
+                    <rect key="frame" x="20" y="518" width="361" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="mrW-Ku-Sh5">
                         <font key="font" metaFont="system"/>
@@ -92,7 +92,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox identifier="ctrlVideoStereoscopyType" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7F-vJ-jxK">
-                    <rect key="frame" x="20" y="396" width="238" height="26"/>
+                    <rect key="frame" x="20" y="353" width="238" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="F8C-Cz-Fhc">
                         <font key="font" metaFont="system"/>
@@ -111,7 +111,7 @@
                     </connections>
                 </comboBox>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oxv-s0-cUj">
-                    <rect key="frame" x="18" y="375" width="67" height="17"/>
+                    <rect key="frame" x="18" y="332" width="67" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Source" id="3BF-53-Ysx">
                         <font key="font" metaFont="system"/>
@@ -120,7 +120,7 @@
                     </textFieldCell>
                 </textField>
                 <comboBox identifier="ctrlSource" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UeJ-2c-oRJ">
-                    <rect key="frame" x="20" y="343" width="238" height="26"/>
+                    <rect key="frame" x="20" y="300" width="238" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="p42-D4-1xD">
                         <font key="font" metaFont="system"/>
@@ -134,7 +134,7 @@
                     </comboBoxCell>
                 </comboBox>
                 <button identifier="ctrlCreate" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YBx-rV-yAM">
-                    <rect key="frame" x="14" y="299" width="81" height="32"/>
+                    <rect key="frame" x="14" y="256" width="81" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Create" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="swq-AS-89D">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -145,7 +145,7 @@
                     </connections>
                 </button>
                 <box fixedFrame="YES" boxType="custom" cornerRadius="4" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="k3b-SW-2eR">
-                    <rect key="frame" x="20" y="63" width="361" height="223"/>
+                    <rect key="frame" x="20" y="20" width="361" height="223"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <view key="contentView" ambiguous="YES" id="RBk-Xc-gME">
                         <rect key="frame" x="1" y="1" width="359" height="221"/>
@@ -199,7 +199,7 @@
                     </view>
                 </box>
             </subviews>
-            <point key="canvasLocation" x="202" y="216"/>
+            <point key="canvasLocation" x="169.5" y="194.5"/>
         </customView>
     </objects>
 </document>

@@ -53,7 +53,6 @@ static const NSString
 
 static id<AsyncWorkItemType> sTypeCreateLiveEvent = nil;
 
-
 @implementation WorkItemCreateLiveEvent {
     User_Impl *mUser;
     NSString *mTitle, *mDescription;
@@ -142,10 +141,89 @@ static id<AsyncWorkItemType> sTypeCreateLiveEvent = nil;
 
 @end
 
+@interface WorkItemTypeQueryLiveEvents : NSObject<AsyncWorkItemType>
+@end
+
+@interface WorkItemQueryLiveEvents : ClientWorkItem
+
+- (id)initWithClient:(APIClient_Impl *)apiClient;
+- (void)set:(User_Impl *)user callback:(id<User_Result_QueryLiveEvents>)callback handler:(Handler)handler closure:(Object)closure;
+
+@end
+
+
+@implementation WorkItemTypeQueryLiveEvents
+
+- (AsyncWorkItem *)newInstance:(APIClient_Impl *)apiClient {
+    return [[WorkItemQueryLiveEvents alloc] initWithClient:apiClient];
+}
+
+@end
+
+static id<AsyncWorkItemType> sTypeQueryLiveEvents = nil;
+
+@implementation WorkItemQueryLiveEvents {
+    User_Impl *mUser;
+}
+
+
+- (id)initWithClient:(APIClient_Impl *)apiClient {
+    return [super initWith:apiClient type:sTypeQueryLiveEvents];
+}
+
+- (void)set:(User_Impl *)user
+   callback:(id<User_Result_QueryLiveEvents>)callback handler:(Handler)handler closure:(Object)closure {
+    
+    [super set:callback handler:handler closure:closure];
+    mUser = user;
+}
+
+- (void)onRun {
+    id<HttpPlugin_GetRequest> request = nil;
+
+    Headers headers = {
+        HEADER_API_KEY, [[self getApiClient] getApiKey],
+        HEADER_SESSION_TOKEN, [mUser getSessionToken],
+        NULL
+    };
+    NSString *userId = [mUser getUserId];
+    request = [self newGetRequest:[NSString stringWithFormat:@"user/%@/video?source=live", userId] headers:headers];
+    if (!request) {
+        [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_NULL_CONNECTION];
+        return;
+    }
+    int responseCode = [self getResponseCode:request];
+    NSData *response = [self readHttpStream:request debugMsg:nil];
+    if (!response) {
+        [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
+        return;
+    }
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
+    if ([self isHttpSuccess:responseCode]) {
+        NSMutableArray *liveEvents = [[NSMutableArray alloc] init];
+        NSArray *items = [Util jsonOptObj:jsonResponse key:@"videos" def:NULL];
+        if (items) {
+            for (NSDictionary *dict in items) {
+                [liveEvents addObject:[[UserLiveEvent_Impl alloc] initWith:mUser jsonObject:dict]];
+            }
+            [self dispatchSuccessWithResult:liveEvents];
+            return;
+        }
+    }
+    
+    NSInteger status = [Util jsonOptInt:jsonResponse key:@"status" def:VR_RESULT_STATUS_SERVER_RESPONSE_NO_STATUS_CODE];
+    [self dispatchFailure:status];
+}
+
+@end
+
+
+
 @implementation User_Impl
 
 + (void)initialize {
     sTypeCreateLiveEvent = [[WorkItemTypeCreateLiveEvent alloc] init];
+    sTypeQueryLiveEvents = [[WorkItemTypeQueryLiveEvents alloc] init];
 }
 
 - (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject {
@@ -180,6 +258,13 @@ static id<AsyncWorkItemType> sTypeCreateLiveEvent = nil;
     WorkItemCreateLiveEvent *workItem = [workQueue obtainWorkItem:sTypeCreateLiveEvent];
     [workItem set:self title:title description:description permission:permission source:source videoStereoscopyType:videoStereoscopyType
           callback:callback handler:handler closure:closure];
+    return [workQueue enqueue:workItem];
+}
+
+- (bool)queryLiveEvents:(id<User_Result_QueryLiveEvents>)callback handler:(Handler)handler closure:(Object)closure {
+    AsyncWorkQueue *workQueue = [(APIClient_Impl *)[super getContainer] getAsyncWorkQueue];
+    WorkItemQueryLiveEvents *workItem = [workQueue obtainWorkItem:sTypeQueryLiveEvents];
+    [workItem set:self callback:callback handler:handler closure:closure];
     return [workQueue enqueue:workItem];
 }
 

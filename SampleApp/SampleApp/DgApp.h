@@ -37,5 +37,6 @@
 - (EndPointConfigManager *)getEndPointCfgMgr;
 - (void)setUser:(id<User>)user;
 - (id<User>)getUser;
+- (bool)showLoginForm;
 
 @end

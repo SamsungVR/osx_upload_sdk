@@ -94,6 +94,13 @@
     return [reqFactory newPostRequest:restUrl headers:headers];
 }
 
+
+- (id<HttpPlugin_GetRequest>) newGetRequest:(NSString *)suffix headers:(Headers)headers {
+    NSString *restUrl = [self toRESTUrl:suffix];
+    id<HttpPlugin_RequestFactory> reqFactory = [mAPIClient getRequestFactory];
+    return [reqFactory newGetRequest:restUrl headers:headers];
+}
+
 - (void)writeBytes:(id<HttpPlugin_WritableRequest>)request data:(NSData *)data debugMsg:(NSString *)debugMsg {
     NSInputStream *stream = [[NSInputStream alloc] initWithData:data];
     [request output:stream buf:nil];
