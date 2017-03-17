@@ -30,12 +30,22 @@
 
 typedef NS_ENUM(NSInteger, UserLiveEvent_Result_Status_Delete) {
     
-    USERLIVEEVENT_RESULT_STATUS_INVALID_LIVE_EVENT_ID = 1
+    USERLIVEEVENT_RESULT_STATUS_DELETE_INVALID_LIVE_EVENT_ID = 1
     
 };
 
 @end
 
+@protocol UserLiveEvent_Result_Finish <VR_Result_BaseCallback, VR_Result_SuccessCallback>
+
+
+typedef NS_ENUM(NSInteger, UserLiveEvent_Result_Status_Finish) {
+    
+    USERLIVEEVENT_RESULT_STATUS_FINISH_INVALID_LIVE_EVENT_ID = 1
+    
+};
+
+@end
 
 @protocol UserLiveEvent
 
@@ -57,5 +67,6 @@ typedef NS_ENUM(NSInteger, UserLiveEvent_Source) {
 - (id<User>)getUser;
 
 - (bool)del:(id<UserLiveEvent_Result_Delete>)callback handler:(Handler)handler closure:(Object)closure;
+- (bool)finish:(id<UserLiveEvent_Result_Finish>)callback handler:(Handler)handler closure:(Object)closure;
 
 @end

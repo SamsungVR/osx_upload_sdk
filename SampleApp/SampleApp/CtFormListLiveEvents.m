@@ -44,8 +44,14 @@ static NSString * Permissions[MAX_PERMISSIONS];
 
 @end
 
+@interface CallbackFinishLiveEvent : NSObject<UserLiveEvent_Result_Finish>
+
+- (id)initWith:(CtFormListLiveEvents *)form;
+
+@end
+
 @implementation CtFormListLiveEvents {
-   NSButton *mCtrlRefreshAll, *mCtrlDelete, *mCtrlCopyRtmpUrl;
+   NSButton *mCtrlRefreshAll, *mCtrlDelete, *mCtrlCopyRtmpUrl, *mCtrlFinish;
    NSComboBox *mCtrlLiveEventIds;
    NSArray *mQueriedLiveEvents;
    NSMutableArray *mLiveEventDetails;
@@ -54,6 +60,8 @@ static NSString * Permissions[MAX_PERMISSIONS];
    id<User> mUser;
    CallbackQueryLiveEvents *mCallbackQueryLiveEvents;
    CallbackDeleteLiveEvent *mCallbackDeleteLiveEvent;
+   CallbackFinishLiveEvent *mCallbackFinishLiveEvent;
+   
 }
 
 - (NSString *)permissionToStr:(UserVideo_Permission)permission {
@@ -157,14 +165,21 @@ static NSString * Permissions[MAX_PERMISSIONS];
    return [mQueriedLiveEvents objectAtIndex:selectedIndex];
 }
 
-- (void)onCtrlDelete {
+- (void)onCtrlDeleteClick {
    id<UserLiveEvent> selectedLiveEvent = [self getSelectedLiveEvent];
    if (selectedLiveEvent) {
       [selectedLiveEvent del:mCallbackDeleteLiveEvent handler:nil closure:nil];
    }
 }
 
-- (void)onCtrlCopyRtmpUrl {
+- (void)onCtrlFinishClick {
+   id<UserLiveEvent> selectedLiveEvent = [self getSelectedLiveEvent];
+   if (selectedLiveEvent) {
+      [selectedLiveEvent finish:mCallbackFinishLiveEvent handler:nil closure:nil];
+   }
+}
+
+- (void)onCtrlCopyRtmpUrlClick {
    id<UserLiveEvent> selectedLiveEvent = [self getSelectedLiveEvent];
    [[NSPasteboard generalPasteboard] clearContents];
    if (selectedLiveEvent) {
@@ -181,12 +196,13 @@ static NSString * Permissions[MAX_PERMISSIONS];
    mUser = [[DgApp getDgInstance] getUser];
    mCallbackQueryLiveEvents = [[CallbackQueryLiveEvents alloc] initWith:self];
    mCallbackDeleteLiveEvent = [[CallbackDeleteLiveEvent alloc] initWith:self];
-   
+   mCallbackFinishLiveEvent = [[CallbackFinishLiveEvent alloc] initWith:self];
    mLiveEventDetails = [[NSMutableArray alloc] init];
    NSView *root = [self view];
    mCtrlRefreshAll = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlRefreshAll" target:self action:@selector(onCtrlRefreshAllClick)];
-   mCtrlDelete = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlDelete" target:self action:@selector(onCtrlDelete)];
-   mCtrlCopyRtmpUrl = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlCopyRtmpUrl" target:self action:@selector(onCtrlCopyRtmpUrl)];
+   mCtrlDelete = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlDelete" target:self action:@selector(onCtrlDeleteClick)];
+   mCtrlFinish = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlFinish" target:self action:@selector(onCtrlFinishClick)];
+   mCtrlCopyRtmpUrl = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlCopyRtmpUrl" target:self action:@selector(onCtrlCopyRtmpUrlClick)];
    mCtrlLiveEventIds = (NSComboBox *)[AppUtil findViewById:root identifier:@"ctrlLiveEventIds"];
    mCtrlLiveEventDetails = (NSTableView *)[AppUtil findViewById:root identifier:@"ctrlLiveEventDetails"];
 
@@ -212,6 +228,10 @@ static NSString * Permissions[MAX_PERMISSIONS];
 }
 
 - (void)onDeleteLiveEvent {
+   [self onCtrlRefreshAllClick];
+}
+
+- (void)onFinishLiveEvent {
    [self onCtrlRefreshAllClick];
 }
 
@@ -264,5 +284,31 @@ static NSString * Permissions[MAX_PERMISSIONS];
 
 - (void)onCancelled:(Object)closure {
 }
+
+@end
+
+@implementation CallbackFinishLiveEvent {
+   CtFormListLiveEvents *mForm;
+}
+
+- (id)initWith:(CtFormListLiveEvents *)form {
+   mForm = form;
+   return [super init];
+}
+
+- (void)onFailure:(Object)closure status:(NSInteger)status {
+   [mForm setLocalizedStatusMsg:@"Failure"];
+}
+
+- (void)onSuccess:(Object)closure {
+   [mForm onFinishLiveEvent];
+}
+
+- (void)onException: (Object)closure  exception:(Exception)exception {
+}
+
+- (void)onCancelled:(Object)closure {
+}
+
 
 @end

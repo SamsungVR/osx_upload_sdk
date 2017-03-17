@@ -110,10 +110,90 @@ static id<AsyncWorkItemType> sTypeDeleteLiveEvent = nil;
 
 @end
 
+@interface WorkItemTypeFinishLiveEvent : NSObject<AsyncWorkItemType>
+@end
+
+@interface WorkItemFinishLiveEvent : ClientWorkItem
+
+- (id)initWithClient:(APIClient_Impl *)apiClient;
+- (void)set:(UserLiveEvent_Impl *)liveEvent callback:(id<UserLiveEvent_Result_Delete>)callback handler:(Handler)handler closure:(Object)closure;
+
+@end
+
+
+@implementation WorkItemTypeFinishLiveEvent
+
+- (AsyncWorkItem *)newInstance:(APIClient_Impl *)apiClient {
+    return [[WorkItemFinishLiveEvent alloc] initWithClient:apiClient];
+}
+
+@end
+
+static id<AsyncWorkItemType> sTypeFinishLiveEvent = nil;
+
+@implementation WorkItemFinishLiveEvent {
+    UserLiveEvent_Impl *mUserLiveEvent;
+}
+
+
+- (id)initWithClient:(APIClient_Impl *)apiClient {
+    return [super initWith:apiClient type:sTypeFinishLiveEvent];
+}
+
+- (void)set:(UserLiveEvent_Impl *)userLiveEvent
+   callback:(id<UserLiveEvent_Result_Finish>)callback handler:(Handler)handler closure:(Object)closure {
+    
+    [super set:callback handler:handler closure:closure];
+    mUserLiveEvent = userLiveEvent;
+}
+
+- (void)onRun {
+    id<HttpPlugin_PutRequest> request = nil;
+    User_Impl *user = [mUserLiveEvent getUser];
+    NSMutableDictionary *jsonParam = [[NSMutableDictionary alloc] init];
+    jsonParam[@"state"] = @"LIVE_FINISHED_ARCHIVED";
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonParam options:0 error:nil];
+    NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    Headers headers = {
+        HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%d", [jsonData length]],
+        HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
+        HEADER_API_KEY, [[self getApiClient] getApiKey],
+        HEADER_SESSION_TOKEN, [user getSessionToken],
+        NULL
+    };
+    NSString *userId = [user getUserId];
+    NSString *liveEventId = [mUserLiveEvent getId];
+
+    request = [self newPutRequest:[NSString stringWithFormat:@"user/%@/video/%@", userId, liveEventId] headers:headers];
+    if (!request) {
+        [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_NULL_CONNECTION];
+        return;
+    }
+    
+    [self writeBytes:request data:jsonData debugMsg:nil];
+    int responseCode = [self getResponseCode:request];
+    if ([self isHttpSuccess:responseCode]) {
+        [self dispatchSuccess];
+        return;
+    }
+    NSData *response = [self readHttpStream:request debugMsg:nil];
+    if (!response) {
+        [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
+        return;
+    }
+    NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
+    NSInteger status = [Util jsonOptInt:jsonResponse key:@"status" def:VR_RESULT_STATUS_SERVER_RESPONSE_NO_STATUS_CODE];
+    [self dispatchFailure:status];
+}
+
+@end
+
+
 @implementation UserLiveEvent_Impl
 
 + (void)initialize {
     sTypeDeleteLiveEvent = [[WorkItemTypeDeleteLiveEvent alloc] init];
+    sTypeFinishLiveEvent = [[WorkItemTypeFinishLiveEvent alloc] init];
 }
 
 - (id)initWith:(User_Impl *)container jsonObject:(NSDictionary *)jsonObject {
@@ -186,6 +266,14 @@ static id<AsyncWorkItemType> sTypeDeleteLiveEvent = nil;
     User_Impl *user = [self getUser];
     AsyncWorkQueue *workQueue = [(APIClient_Impl *)[user getContainer] getAsyncWorkQueue];
     WorkItemDeleteLiveEvent *workItem = [workQueue obtainWorkItem:sTypeDeleteLiveEvent];
+    [workItem set:self callback:callback handler:handler closure:closure];
+    return [workQueue enqueue:workItem];
+}
+
+- (bool)finish:(id<UserLiveEvent_Result_Finish>)callback handler:(Handler)handler closure:(Object)closure {
+    User_Impl *user = [self getUser];
+    AsyncWorkQueue *workQueue = [(APIClient_Impl *)[user getContainer] getAsyncWorkQueue];
+    WorkItemFinishLiveEvent *workItem = [workQueue obtainWorkItem:sTypeFinishLiveEvent];
     [workItem set:self callback:callback handler:handler closure:closure];
     return [workQueue enqueue:workItem];
 }

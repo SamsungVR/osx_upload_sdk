@@ -59,6 +59,7 @@ static const NSString * TRANSFER_ENCODING_CHUNKED = @"chunked";
 - (id<HttpPlugin_PostRequest>) newPostRequest:(NSString *)suffix headers:(Headers)headers;
 - (id<HttpPlugin_GetRequest>) newGetRequest:(NSString *)suffix headers:(Headers)headers;
 - (id<HttpPlugin_DeleteRequest>) newDeleteRequest:(NSString *)suffix headers:(Headers)headers;
+- (id<HttpPlugin_PutRequest>) newPutRequest:(NSString *)suffix headers:(Headers)headers;
 
 - (APIClient_Impl *)getApiClient;
 - (void)writeBytes:(id<HttpPlugin_WritableRequest>)request data:(NSData *)data debugMsg:(NSString *)debugMsg;

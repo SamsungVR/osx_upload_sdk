@@ -102,6 +102,12 @@
 }
 
 
+- (id<HttpPlugin_PutRequest>) newPutRequest:(NSString *)suffix headers:(Headers)headers {
+    NSString *restUrl = [self toRESTUrl:suffix];
+    id<HttpPlugin_RequestFactory> reqFactory = [mAPIClient getRequestFactory];
+    return [reqFactory newPutRequest:restUrl headers:headers];
+}
+
 - (id<HttpPlugin_DeleteRequest>) newDeleteRequest:(NSString *)suffix headers:(Headers)headers {
     NSString *restUrl = [self toRESTUrl:suffix];
     id<HttpPlugin_RequestFactory> reqFactory = [mAPIClient getRequestFactory];
