@@ -37,6 +37,9 @@ static const NSString * HEADER_SESSION_TOKEN = @"X-SESSION-TOKEN";
 + (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source;
 + (UserLiveEvent_Source)userLiveEventSourceFromStr:(NSString *)source;
 
++ (NSString *)userLiveEventStateToStr:(UserLiveEvent_State)state;
++ (UserLiveEvent_State)userLiveEventStateFromStr:(NSString *)state;
+
 - (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject;
 
 @end

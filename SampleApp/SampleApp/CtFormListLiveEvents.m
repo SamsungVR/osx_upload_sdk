@@ -108,6 +108,26 @@ static NSString * Permissions[MAX_PERMISSIONS];
    return NULL;
 }
 
+- (NSString *)stateToStr:(UserLiveEvent_State)state {
+   switch (state) {
+      case UserLiveEvent_State_UNKNOWN:
+         return NSLocalizedString(@"UserLiveEvent_State_UNKNOWN", nil);
+      case UserLiveEvent_State_LIVE_ACTIVE:
+         return NSLocalizedString(@"UserLiveEvent_State_LIVE_ACTIVE", nil);
+      case UserLiveEvent_State_LIVE_CREATED:
+         return NSLocalizedString(@"UserLiveEvent_State_LIVE_CREATED", nil);
+      case UserLiveEvent_State_LIVE_ARCHIVING:
+         return NSLocalizedString(@"UserLiveEvent_State_LIVE_ARCHIVING", nil);
+      case UserLiveEvent_State_LIVE_CONNECTED:
+         return NSLocalizedString(@"UserLiveEvent_State_LIVE_CONNECTED", nil);
+      case UserLiveEvent_State_LIVE_DISCONNECTED:
+         return NSLocalizedString(@"UserLiveEvent_State_LIVE_DISCONNECTED", nil);
+      case UserLiveEvent_State_LIVE_FINISHED_ARCHIVED:
+         return NSLocalizedString(@"UserLiveEvent_State_LIVE_FINISHED_ARCHIVED", nil);
+   }
+   return NULL;
+}
+
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn
             row:(NSInteger)row {
 
@@ -150,6 +170,8 @@ static NSString * Permissions[MAX_PERMISSIONS];
       [self addIfValidToLiveEventDetails:stereoscopyType];
       NSString *source = [self sourceToStr:[liveEvent getSource]];
       [self addIfValidToLiveEventDetails:source];
+      NSString *state = [self stateToStr:[liveEvent getState]];
+      [self addIfValidToLiveEventDetails:state];
       [mCtrlLiveEventDetails reloadData];
    }
 }

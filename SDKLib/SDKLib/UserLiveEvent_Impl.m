@@ -211,6 +211,7 @@ static id<AsyncWorkItemType> sTypeFinishLiveEvent = nil;
     dict[PROP_DESCRIPTION] = description;
     dict[PROP_INGEST_URL] = ingestUrl;
     dict[PROP_VIEW_URL] = viewUrl;
+    dict[PROP_STATE] = @"UNKNOWN";
     return [super initWithDict:dict container:container];
 }
 
@@ -245,6 +246,11 @@ static id<AsyncWorkItemType> sTypeFinishLiveEvent = nil;
         return NULL;
     }
     return [NSURL URLWithString:url];
+}
+
+- (UserLiveEvent_State)getState {
+    NSString *state = [super getLocked:PROP_STATE];
+    return [User_Impl userLiveEventStateFromStr:state];
 }
 
 - (UserVideo_Permission)getPermission {

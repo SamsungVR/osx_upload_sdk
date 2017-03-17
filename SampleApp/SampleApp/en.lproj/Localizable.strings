@@ -45,3 +45,12 @@
 "UserLiveEvent_Source_RTMP"="Source RTMP";
 "UserLiveEvent_Source_SEGMENTED_TS"="Source SEGMENTED TS";
 "UserLiveEvent_Source_SEGMENTED_MP4"="Source SEGMENTED MP4";
+
+
+"UserLiveEvent_State_UNKNOWN"="State UNKNOWN";
+"UserLiveEvent_State_LIVE_CREATED"="State LIVE_CREATED";
+"UserLiveEvent_State_LIVE_CONNECTED"="State LIVE_CONNECTED";
+"UserLiveEvent_State_LIVE_DISCONNECTED"="State LIVE_DISCONNECTED";
+"UserLiveEvent_State_LIVE_FINISHED_ARCHIVED"="State LIVE_FINISHED_ARCHIVED";
+"UserLiveEvent_State_LIVE_ACTIVE"="State LIVE_ACTIVE";
+"UserLiveEvent_State_LIVE_ARCHIVING"="State LIVE_ARCHIVING";

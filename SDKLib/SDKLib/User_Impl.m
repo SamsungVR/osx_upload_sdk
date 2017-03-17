@@ -310,7 +310,7 @@ static const NSString const * Str_UserVideo_VideoStereoscopyType_MONOSCOPIC = @"
 static const NSString const * Str_UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC = @"left-right";
 static const NSString const * Str_UserVideo_VideoStereoscopyType_DUAL_FISHEYE = @"dual-fisheye";
 static const NSString const * Str_UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC = @"top-bottom";
-static const NSString const * Str_UserVideo_VideoStereoscopyType_DEFAULT = @"default";
+static const NSString const * Str_UserVideo_VideoStereoscopyType_DEFAULT = NULL;
 
 + (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType {
     switch (videoStereoscopyType) {
@@ -374,6 +374,58 @@ static const NSString const * Str_UserLiveEvent_Source_SEGMENTED_MP4 = @"segment
         return UserLiveEvent_Source_SEGMENTED_MP4;
     }
     return UserLiveEvent_Source_RTMP;
+}
+
+
+static const NSString const * Str_UserLiveEvent_State_UNKNOWN = @"UNKNOWN";
+static const NSString const * Str_UserLiveEvent_State_LIVE_CREATED = @"LIVE_CREATED";
+static const NSString const * Str_UserLiveEvent_State_LIVE_CONNECTED = @"LIVE_CONNECTED";
+static const NSString const * Str_UserLiveEvent_State_LIVE_DISCONNECTED = @"LIVE_DISCONNECTED";
+static const NSString const * Str_UserLiveEvent_State_LIVE_FINISHED_ARCHIVED = @"LIVE_FINISHED_ARCHIVED";
+static const NSString const * Str_UserLiveEvent_State_LIVE_ACTIVE = @"LIVE_ACTIVE";
+static const NSString const * Str_UserLiveEvent_State_LIVE_ARCHIVING = @"LIVE_ARCHIVING";
+
++ (NSString *)userLiveEventStateToStr:(UserLiveEvent_State)state {
+    switch (state) {
+
+        case UserLiveEvent_State_LIVE_CREATED:
+            return Str_UserLiveEvent_State_LIVE_CREATED;
+        case UserLiveEvent_State_LIVE_CONNECTED:
+            return Str_UserLiveEvent_State_LIVE_CONNECTED;
+        case UserLiveEvent_State_LIVE_DISCONNECTED:
+            return Str_UserLiveEvent_State_LIVE_DISCONNECTED;
+        case UserLiveEvent_State_LIVE_FINISHED_ARCHIVED:
+            return Str_UserLiveEvent_State_LIVE_FINISHED_ARCHIVED;
+        case UserLiveEvent_State_LIVE_ACTIVE:
+            return Str_UserLiveEvent_State_LIVE_ACTIVE;
+        case UserLiveEvent_State_LIVE_ARCHIVING:
+            return Str_UserLiveEvent_State_LIVE_ARCHIVING;
+           
+    }
+    return UserLiveEvent_State_UNKNOWN;
+}
+
++ (UserLiveEvent_State)userLiveEventStateFromStr:(NSString *)state {
+    if ([Str_UserLiveEvent_State_LIVE_CREATED isEqualToString:state]) {
+        return UserLiveEvent_State_LIVE_CREATED;
+    }
+    if ([Str_UserLiveEvent_State_LIVE_CONNECTED isEqualToString:state]) {
+        return UserLiveEvent_State_LIVE_CONNECTED;
+    }
+    if ([Str_UserLiveEvent_State_LIVE_DISCONNECTED isEqualToString:state]) {
+        return UserLiveEvent_State_LIVE_DISCONNECTED;
+    }
+    if ([Str_UserLiveEvent_State_LIVE_FINISHED_ARCHIVED isEqualToString:state]) {
+        return UserLiveEvent_State_LIVE_FINISHED_ARCHIVED;
+    }
+    if ([Str_UserLiveEvent_State_LIVE_ACTIVE isEqualToString:state]) {
+        return UserLiveEvent_State_LIVE_ACTIVE;
+    }
+    if ([Str_UserLiveEvent_State_LIVE_ARCHIVING isEqualToString:state]) {
+        return UserLiveEvent_State_LIVE_ARCHIVING;
+    }
+    
+    return Str_UserLiveEvent_State_UNKNOWN;
 }
 
 @end

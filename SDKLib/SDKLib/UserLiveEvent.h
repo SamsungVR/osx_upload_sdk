@@ -25,6 +25,18 @@
 
 @protocol User;
 
+typedef NS_ENUM(NSInteger, UserLiveEvent_State) {
+    
+    UserLiveEvent_State_UNKNOWN,
+    UserLiveEvent_State_LIVE_CREATED,
+    UserLiveEvent_State_LIVE_CONNECTED,
+    UserLiveEvent_State_LIVE_DISCONNECTED,
+    UserLiveEvent_State_LIVE_FINISHED_ARCHIVED,
+    UserLiveEvent_State_LIVE_ACTIVE,
+    UserLiveEvent_State_LIVE_ARCHIVING
+    
+};
+
 @protocol UserLiveEvent_Result_Delete <VR_Result_BaseCallback, VR_Result_SuccessCallback>
 
 
@@ -63,6 +75,7 @@ typedef NS_ENUM(NSInteger, UserLiveEvent_Source) {
 - (UserVideo_VideoStereoscopyType)getVideoStereoscopyType;
 - (UserLiveEvent_Source)getSource;
 - (UserVideo_Permission)getPermission;
+- (UserLiveEvent_State)getState;
 
 - (id<User>)getUser;
 
