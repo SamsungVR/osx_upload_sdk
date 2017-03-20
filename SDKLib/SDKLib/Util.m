@@ -32,10 +32,11 @@
 }
 
 + (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def {
-    if ([jsonObject doesContain:key]) {
-        return jsonObject[key];
+    NSInteger result = jsonObject[key];
+    if (!result) {
+        result = def;
     }
-    return def;
+    return result;
 }
 
 
