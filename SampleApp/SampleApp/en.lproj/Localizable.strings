@@ -24,6 +24,8 @@
 "FileOpenSaveDialogMsg"="Open or Save";
 "Success"="Success";
 "Failure"="Failure";
+"FailureWithStatusCode"="Failure (Code: %d)";
+
 "NoEPConfigured"="Please configure endpoint";
 "DestroyVRLib"="Destroying VR lib";
 "InitVRLib"="Initializing VR lib";

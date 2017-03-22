@@ -108,6 +108,10 @@
    [self initVRLib];
 }
 
+- (NSTextField *)getStatusMsgCtrl {
+   return mCtrlStatusMsg;
+}
+
 @end
 
 @implementation CallbackLogin {
@@ -121,7 +125,9 @@
 
 - (void)onFailure:(Object)closure status:(NSInteger)status {
    NSLog(@"VR Login failure");
-   [mForm setLocalizedStatusMsg:@"Failure"];
+   NSString *msgStr = NSLocalizedString(@"FailureWithStatusCode", nil);
+   NSString *withStatus = [NSString stringWithFormat:msgStr, status];
+   [mForm setStatusMsg:withStatus];
 }
 
 - (void)onSuccess:(Object)closure result:(id)result {

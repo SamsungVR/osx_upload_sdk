@@ -87,6 +87,10 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     [self writeBytes:request data:jsonData debugMsg:nil];
     int responseCode = [self getResponseCode:request];
     NSData *response = [self readHttpStream:request debugMsg:nil];
+    if (!response) {
+        [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
+        return;
+    }
     NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
     
     if ([self isHttpSuccess:responseCode]) {
