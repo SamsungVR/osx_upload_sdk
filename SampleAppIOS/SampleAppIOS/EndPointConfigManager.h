@@ -28,17 +28,16 @@
 
 - (id)initWithApp:(DgApp *)app;
 - (NSArray *)getList;
-- (bool)loadJsonConfig:(NSURL *)cfgFileUrl saveURLtoSettings:(bool)saveURLToSettings;
-- (bool)loadJsonConfig:(NSURL *)cfgFileUrl;
+- (bool)loadJsonConfig:(bool)saveURLToSettings;
+- (bool)loadJsonConfig;
 - (EndPointConfig *)getSelectedConfig;
 - (EndPointConfig *)getConfig:(NSString *)identifier;
 - (void)selectConfigById:(NSString *)argId;
 - (void)deleteConfig:(NSString *)argId;
 - (bool)addOrUpdateConfig:(EndPointConfig *)config;
 - (NSUInteger)getCount;
-- (NSURL *)getCurrentCfgURL;
 - (bool)deleteConfigByIndex:(NSInteger)index;
 - (bool)selectConfigByIndex:(NSInteger)index;
 - (NSInteger)getSelectedIndex;
-- (bool)saveJsonConfig:(NSURL *)cfgFileUrl;
+- (bool)saveJsonConfig;
 @end

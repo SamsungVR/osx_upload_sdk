@@ -51,7 +51,7 @@
             NSLog(@"Control size %@ %f %f", subView, controlSize.width, controlSize.height);
             int dx = mySize.width - controlSize.width;
             //int dy = mySize.height - controlSize.height;
-            CGRect newRect = CGRectMake(dx / 2.0, 10.0, controlSize.width, controlSize.height);
+            CGRect newRect = CGRectMake(dx / 2.0, 20.0, controlSize.width, controlSize.height);
             [subView setFrame:newRect];
         }
     }

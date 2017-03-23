@@ -26,172 +26,156 @@
 #import "CtFormLogin.h"
 #import "EndPointConfigManager.h"
 
-
-
 @implementation CtFormEndPointConfig {
-   UIControl *mCtrlBack, *mCtrlCfgSelect, *mCtrlCfgLoad, *mCtrlCfgSave,
-      *mCtrlCfgDelete, *mCtrlCfgAdd, *mCtrlCfgEdit;
-   UITextField *mCtrlCfgURL, *mCtrlStatus, *mCtrlEditCfgURL, *mCtrlEditCfgAPIKey;
-   UITableView *mCtrlConfigList;
-   EndPointConfigManager *mCfgMgr;
+    UIControl *mCtrlBack, *mCtrlSave, *mCtrlDelete, *mCtrlAdd, *mCtrlUpdate;
+    UITextField *mCtrlEditURL, *mCtrlEditAPIKey, *mCtrlStatus;
+    UITableView *mCtrlConfigList;
+    EndPointConfigManager *mCfgMgr;
 }
 
 - (void)onCtrlBackClick {
-   if (![self isLoaded]) {
-      return;
-   }
-   [[DgApp getDgInstance] showForm:[CtFormLogin alloc] nibName:@"FormLogin"];
-}
-
-- (void)onCtrlCfgSelectClick {
     if (![self isLoaded]) {
-      return;
-   }
-   
-   NSURL *pResult = [AppUtil showFileOpenOrSaveDialog];
-   if (pResult) {
-      [mCtrlCfgURL setText:[pResult absoluteString]];
-   }
+        return;
+    }
+    [[DgApp getDgInstance] showForm:[CtFormLogin alloc] nibName:@"FormLogin"];
 }
 
 
 - (void)updateUI {
-   [mCtrlConfigList reloadData];
-   [self updateEditZone];
-   NSInteger selectedIndex = [mCfgMgr getSelectedIndex];
-   NSIndexPath *indexPath = [[NSIndexPath alloc] initWithIndex:selectedIndex];
-   [mCtrlConfigList selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    [mCtrlConfigList reloadData];
+    [self updateEditZone];
+    NSInteger selectedIndex = [mCfgMgr getSelectedIndex];
+    if (-1 != selectedIndex) {
+        NSUInteger indexes[2] = {0, selectedIndex};
+        NSIndexPath *indexPath = [[NSIndexPath alloc] initWithIndexes:indexes length:2];
+        [mCtrlConfigList selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+    }
 }
 
 - (void)updateEditZone {
-   EndPointConfig *selected = [mCfgMgr getSelectedConfig];
-   if (selected) {
-      [mCtrlEditCfgAPIKey setText:[selected getApiKey]];
-      [mCtrlEditCfgURL setText:[selected getUrl]];
-   } else {
-      [mCtrlEditCfgAPIKey setText:@""];
-      [mCtrlEditCfgURL setText:@""];
-   }
-   
+    EndPointConfig *selected = [mCfgMgr getSelectedConfig];
+    if (selected) {
+        [mCtrlEditAPIKey setText:[selected getApiKey]];
+        [mCtrlEditURL setText:[selected getUrl]];
+    } else {
+        [mCtrlEditAPIKey setText:@""];
+        [mCtrlEditURL setText:@""];
+    }
+
 }
 
 - (void)onCtrlCfgLoadClick {
-   if (![self isLoaded]) {
-      return;
-   }
-   NSURL *pCfgUrl = [NSURL URLWithString:[mCtrlCfgURL text]];
-   EndPointConfigManager *pCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
-   NSString *status = nil;
-   if ([pCfgMgr loadJsonConfig:pCfgUrl]) {
-      status = NSLocalizedString(@"Success", nil);
-   } else {
-      status = NSLocalizedString(@"Failure", nil);
-   }
-   [mCtrlStatus setText:status];
-   [self updateUI];
+    if (![self isLoaded]) {
+        return;
+    }
+    EndPointConfigManager *pCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
+    NSString *status = nil;
+    if ([pCfgMgr loadJsonConfig]) {
+        status = NSLocalizedString(@"Success", nil);
+    } else {
+        status = NSLocalizedString(@"Failure", nil);
+    }
+    [mCtrlStatus setText:status];
+    [self updateUI];
 }
 
 - (void)onCtrlCfgDeleteClick {
-   if (![self isLoaded]) {
-      return;
-   }
-   NSInteger selectedIndex = [[mCtrlConfigList indexPathForSelectedRow] indexAtPosition:0];
-   if ([mCfgMgr deleteConfigByIndex:selectedIndex]) {
-      [self updateUI];
-   }
+    if (![self isLoaded]) {
+        return;
+    }
+    NSInteger selectedIndex = [[mCtrlConfigList indexPathForSelectedRow] indexAtPosition:0];
+    if ([mCfgMgr deleteConfigByIndex:selectedIndex]) {
+        [self updateUI];
+    }
 }
 
 - (void)onCtrlCfgSave {
-   if (![self isLoaded]) {
-      return;
-   }
-   if ([mCfgMgr saveJsonConfig:[NSURL URLWithString:[mCtrlCfgURL text]]]) {
-      [self updateUI];
-   }
+    if (![self isLoaded]) {
+        return;
+    }
+    if ([mCfgMgr saveJsonConfig]) {
+        [self updateUI];
+    }
 }
 
 - (void)onCtrlCfgAddClick {
-   if (![self isLoaded]) {
-      return;
-   }
-   EndPointConfig *cfg = [[EndPointConfig alloc] initWithAutoId];
-   [cfg setApiKey:[mCtrlEditCfgAPIKey text]];
-   [cfg setUrl:[mCtrlEditCfgURL text]];
-   if ([mCfgMgr addOrUpdateConfig:cfg]) {
-      [self updateUI];
-   }
+    if (![self isLoaded]) {
+        return;
+    }
+    EndPointConfig *cfg = [[EndPointConfig alloc] initWithAutoId];
+    [cfg setApiKey:[mCtrlEditAPIKey text]];
+    [cfg setUrl:[mCtrlEditURL text]];
+    if ([mCfgMgr addOrUpdateConfig:cfg]) {
+        [self updateUI];
+    }
 }
 
 - (void)onCtrlCfgEditClick {
-   if (![self isLoaded]) {
-      return;
-   }
-   EndPointConfig *cfg = [mCfgMgr getSelectedConfig];
-   if (!cfg) {
-      return;
-   }
-   [cfg setApiKey:[mCtrlEditCfgAPIKey text]];
-   [cfg setUrl:[mCtrlEditCfgURL text]];
-   if ([mCfgMgr addOrUpdateConfig:cfg]) {
-      [self updateUI];
-   }
+    if (![self isLoaded]) {
+        return;
+    }
+    EndPointConfig *cfg = [mCfgMgr getSelectedConfig];
+    if (!cfg) {
+        return;
+    }
+    [cfg setApiKey:[mCtrlEditAPIKey text]];
+    [cfg setUrl:[mCtrlEditURL text]];
+    if ([mCfgMgr addOrUpdateConfig:cfg]) {
+        [self updateUI];
+    }
 }
 
 - (void)onLoad {
-   [super onLoad];
-   UIView *root = [self view];
-   
-   mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
-   mCtrlBack = [AppUtil setActionHandler:root identifier:@"ctrlBack" target:self action:@selector(onCtrlBackClick)];
-   mCtrlCfgSelect = [AppUtil setActionHandler:root identifier:@"ctrlCfgSelect" target:self action:@selector(onCtrlCfgSelectClick)];
-   mCtrlCfgDelete = [AppUtil setActionHandler:root identifier:@"ctrlCfgDelete" target:self action:@selector(onCtrlCfgDeleteClick)];
-   mCtrlCfgSave = [AppUtil setActionHandler:root identifier:@"ctrlCfgSave" target:self action:@selector(onCtrlCfgSave)];
-   mCtrlCfgAdd = [AppUtil setActionHandler:root identifier:@"ctrlCfgAdd" target:self action:@selector(onCtrlCfgAddClick)];
-   mCtrlCfgEdit = [AppUtil setActionHandler:root identifier:@"ctrlCfgEdit" target:self action:@selector(onCtrlCfgEditClick)];
-   mCtrlEditCfgURL = (UITextField *)[AppUtil findViewById:root identifier:@"ctrlEditCfgURL"];
-   mCtrlEditCfgAPIKey = (UITextField *)[AppUtil findViewById:root identifier:@"ctrlEditCfgAPIKey"];
-   mCtrlCfgURL = (UITextField *)[AppUtil findViewById:root identifier:@"ctrlCfgURL"];
-   
-   [mCtrlCfgURL setText:[[mCfgMgr getCurrentCfgURL] absoluteString]];
-   
-   mCtrlCfgLoad = [AppUtil setActionHandler:root identifier:@"ctrlCfgLoad" target:self action:@selector(onCtrlCfgLoadClick)];
-   mCtrlConfigList = (UITableView *)[AppUtil findViewById:root identifier:@"ctrlConfigList"];
-   mCtrlConfigList.dataSource = self;
-   [mCtrlConfigList setDelegate:self];
-   mCtrlStatus = (UITextField *)[AppUtil findViewById:root identifier:@"ctrlStatus"];
-   
-   [self updateUI];
+    [super onLoad];
+    UIView *root = [self view];
+
+    mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
+    mCtrlBack = [AppUtil setActionHandler:root identifier:@"ctrlBack" target:self action:@selector(onCtrlBackClick)];
+    mCtrlDelete = [AppUtil setActionHandler:root identifier:@"ctrlDelete" target:self action:@selector(onCtrlCfgDeleteClick)];
+    mCtrlSave = [AppUtil setActionHandler:root identifier:@"ctrlSave" target:self action:@selector(onCtrlCfgSave)];
+    mCtrlAdd = [AppUtil setActionHandler:root identifier:@"ctrlAdd" target:self action:@selector(onCtrlCfgAddClick)];
+    mCtrlUpdate = [AppUtil setActionHandler:root identifier:@"ctrlUpdate" target:self action:@selector(onCtrlCfgEditClick)];
+    mCtrlEditURL = (UITextField *)[AppUtil findViewById:root identifier:@"ctrlEditURL"];
+    mCtrlEditAPIKey = (UITextField *)[AppUtil findViewById:root identifier:@"ctrlEditAPIKey"];
+
+    mCtrlConfigList = (UITableView *)[AppUtil findViewById:root identifier:@"ctrlConfigList"];
+    mCtrlConfigList.dataSource = self;
+    [mCtrlConfigList setDelegate:self];
+    mCtrlStatus = (UITextField *)[AppUtil findViewById:root identifier:@"ctrlStatus"];
+
+    [self updateUI];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification {
-   if ([mCfgMgr selectConfigByIndex:[[mCtrlConfigList indexPathForSelectedRow] indexAtPosition:0]]) {
-      [self updateEditZone];
-   }
+    if ([mCfgMgr selectConfigByIndex:[[mCtrlConfigList indexPathForSelectedRow] indexAtPosition:0]]) {
+        [self updateEditZone];
+    }
 }
 
 - (id)init {
-   mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
-   return [super init];
+    mCfgMgr = [[DgApp getDgInstance] getEndPointCfgMgr];
+    return [super init];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   return [mCfgMgr getCount];
+    return [mCfgMgr getCount];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-   return 1;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-   UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-   NSInteger row = [indexPath row];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    //[tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    NSInteger row = [indexPath row];
 
-   NSArray *items = [mCfgMgr getList];
-   if (items && row >= 0 && row < [items count]) {
-      EndPointConfig *cfg = [items objectAtIndex:row];
-      cell.textLabel.text = [cfg getUrl];
-   }
-   return cell;
+    NSArray *items = [mCfgMgr getList];
+    if (items && row >= 0 && row < [items count]) {
+        EndPointConfig *cfg = [items objectAtIndex:row];
+        cell.textLabel.text = [cfg getUrl];
+    }
+    return cell;
 }
 
 

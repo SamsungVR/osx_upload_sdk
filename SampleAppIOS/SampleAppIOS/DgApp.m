@@ -47,7 +47,9 @@ static DgApp *sApp;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     sApp = self;
-    // Override point for customization after application launch.
+
+    mAppPrefs = [[SharedPrefs alloc] initWithName:@"AppPrefs"];
+    mEndPointCfgMgr = [[EndPointConfigManager alloc] initWithApp:self];
     return YES;
 }
 
