@@ -35,6 +35,8 @@ static const NSString * HEADER_API_KEY = @"X-API-KEY";
 
 - (bool)login:(NSString *)email password:(NSString *)password callback:(id<VR_Result_Login>)callback
       handler:(NSOperationQueue *)handler closure:(Object)closure;
+- (bool)loginSamsungAccount:(NSString *)samsung_sso_token auth_server:(NSString *)auth_server
+                   callback:(id<VR_Result_LoginSSO>)callback handler:(Handler)handler closure:(Object)closure;
 
 - (AsyncWorkQueue *)getAsyncWorkQueue;
 - (AsyncWorkQueue *)getAsyncUploadQueue;

@@ -168,4 +168,14 @@ static id<APIClient_Result_Destroy> sDestroyCallbackApi = nil;
     }
 }
 
++ (bool)loginSamsungAccount:(NSString *)samsung_sso_token auth_server:(NSString *)auth_server
+                   callback:(id<VR_Result_LoginSSO>)callback handler:(NSOperationQueue *)handler closure:(Object)closure {
+   @synchronized (sLock) {
+      if (!sAPIClient) {
+         return false;
+      }
+      return [sAPIClient loginSamsungAccount:samsung_sso_token auth_server:auth_server callback:callback handler:handler closure:closure];
+   }
+}
+
 @end

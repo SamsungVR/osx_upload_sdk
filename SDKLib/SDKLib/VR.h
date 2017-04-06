@@ -212,6 +212,52 @@ typedef NS_ENUM(NSInteger, VR_Result_Status_Login) {
 
 @end
 
+@protocol VR_Result_LoginSSO <VR_Result_BaseCallback, VR_Result_SuccessWithResultCallback>
+
+   /*
+    >>authentication = {
+    0: "Success",
+    1: "Invalid username or password",
+    2: "Account is locked due to excessive failed login attempts",
+    3: "Invalid username or password, account lockout imminent",  # deprecated
+    4: "Account not yet activated",
+    5: "Unknown user",
+    6: "Invalid username or password",  # duplicate msg of 1
+    7: "Invalid or expired SSO token",
+    9: "Unable to verify Samsung SSO account",
+    10: "Unable to retrieve Samsung SSO account profile",
+    11: "Samsung Account not registered with Samsung VR, please register first",
+    12: "Invalid authentication type",
+    }
+
+    >>registration = {
+    0: "Success",
+    1: "Missing fields(s) - user_name, user_id or password not specified",
+    2: "Name too short - user name must be at least 3 chars",
+    3: "Password is too weak",
+    4: "email bad form",
+    5: "Password cannot contain email address",
+    6: "Password cannot contain user name",
+    7: "A user is already registered with this email address",
+    8: "Unable to create account; account already created",
+    9: "Unable to verify Samsung SSO account",
+    10: "Unable to retrieve Samsung SSO account profile",
+    11: "Invalid or expired SSO token",
+    12: "An account is already registered with an email address matching your Samsung Account profile",
+    13: "Invalid regional server",
+    14: "Unable to register account, server error",
+    }
+
+    */
+
+typedef NS_ENUM(NSInteger, VR_Result_Status_LoginSSO) {
+   VR_RESULT_STATUS_LOGINSSO_AUTH_LOGIN_FAILED = (1 << 8) | 6,
+   VR_RESULT_STATUS_LOGINSSO_AUTH_VERIFY_FAILED = (1 << 8) | 9,
+   VR_RESULT_STATUS_LOGINSSO_AUTH_REG_ACCOUNT_ALREADY_EXISTS = (2 << 8) | 8
+};
+
+@end
+
 @protocol VR_Result_NewUser <VR_Result_BaseCallback, VR_Result_SuccessWithResultCallback>
 
 typedef NS_ENUM(NSInteger, VR_Result_Status_NewUser) {
@@ -250,5 +296,7 @@ typedef NS_ENUM(NSInteger, VR_Result_Status_NewUser) {
 
 + (bool)login:(NSString *)email password:(NSString *)password callback:(id<VR_Result_Login>)callback
       handler:(NSOperationQueue *)handler closure:(Object)closure;
++ (bool)loginSamsungAccount:(NSString *)samsung_sso_token auth_server:(NSString *)auth_server
+                   callback:(id<VR_Result_LoginSSO>)callback handler:(NSOperationQueue *)handler closure:(Object)closure;
 
 @end

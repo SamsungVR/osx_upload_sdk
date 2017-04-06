@@ -38,7 +38,6 @@
         callback:(id<VR_Result_NewUser>)callback handler:(NSOperationQueue *)handler
         closure:(Object)closure;
 
-
 @end
 
 

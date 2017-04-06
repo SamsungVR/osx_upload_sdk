@@ -90,4 +90,17 @@
    while (true);
 }
 
++ (id)jsonOptObj:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def {
+   id result = jsonObject[key];
+   return (result) ? result : def;
+}
+
++ (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def {
+   NSInteger result = jsonObject[key];
+   if (!result) {
+      result = def;
+   }
+   return result;
+}
+
 @end

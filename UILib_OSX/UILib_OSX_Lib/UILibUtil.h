@@ -28,5 +28,7 @@
 + (NSControl *)setActionHandler:(NSView *)root identifier:(NSString *)identifier target:(id)target action:(SEL)action;
 + (void)removeAllSubViews:(NSView *)view;
 + (void)setEnabled:(NSView *)root enabled:(bool)enabled;
++ (id)jsonOptObj:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def;
++ (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def;
 
 @end

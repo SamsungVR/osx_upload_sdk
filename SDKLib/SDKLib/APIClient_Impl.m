@@ -109,6 +109,85 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
 
 @end
 
+@interface WorkItemTypePerformLoginSamsungAccount : NSObject<AsyncWorkItemType>
+
+@end
+
+@interface WorkItemPerformLoginSamsungAccount : ClientWorkItem
+
+- (id)initWithClient:(APIClient_Impl *)apiClient;
+
+@end
+
+
+@implementation WorkItemTypePerformLoginSamsungAccount
+
+- (AsyncWorkItem *)newInstance:(APIClient_Impl *)apiClient {
+   return [[WorkItemPerformLoginSamsungAccount alloc] initWithClient:apiClient];
+}
+
+@end
+
+static id<AsyncWorkItemType> sTypePerformLoginSamsungAccount = nil;
+
+@implementation WorkItemPerformLoginSamsungAccount {
+   NSString *mSamsungSSOToken, *mAuthServer;
+}
+
+- (id)initWithClient:(APIClient_Impl *)apiClient {
+   return [super initWith:apiClient type:sTypePerformLogin];
+}
+
+- (void)set:(NSString *)samsung_sso_token auth_server:(NSString *)auth_server callback:(id<VR_Result_LoginSSO>)callback handler:(Handler)handler closure:(Object)closure {
+   [super set:callback handler:handler closure:closure];
+   mSamsungSSOToken = samsung_sso_token;
+   mAuthServer = auth_server;
+}
+
+- (void)onRun {
+   id<HttpPlugin_PostRequest> request = nil;
+
+   NSMutableDictionary *o = [[NSMutableDictionary alloc] init];
+   o[@"auth_type"] = @"SamsungSSO";
+   o[@"samsung_sso_token"] = mSamsungSSOToken;
+   if (mAuthServer) {
+      o[@"auth_server"] = mAuthServer;
+   }
+   NSData *jsonData = [NSJSONSerialization dataWithJSONObject:o options:0 error:nil];
+   NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+   Headers headers = {
+      HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%d", [jsonData length]],
+      HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
+      HEADER_API_KEY, [[self getApiClient] getApiKey],
+      NULL
+   };
+   request = [self newPostRequest:@"user/authenticate" headers:headers];
+   [self writeBytes:request data:jsonData debugMsg:nil];
+   int responseCode = [self getResponseCode:request];
+   NSData *response = [self readHttpStream:request debugMsg:nil];
+   if (!response) {
+      [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
+      return;
+   }
+   NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:response options:0 error:nil];
+
+   if ([self isHttpSuccess:responseCode]) {
+      User_Impl *user = [[User_Impl alloc] initWith:[self getApiClient] jsonObject:jsonResponse];
+      if (user) {
+         [self dispatchSuccessWithResult:user];
+      } else {
+         [self dispatchFailure:VR_RESULT_STATUS_SERVER_RESPONSE_INVALID];
+      }
+      return;
+   }
+
+   NSInteger status = [Util jsonOptInt:jsonResponse key:@"status" def:VR_RESULT_STATUS_SERVER_RESPONSE_NO_STATUS_CODE];
+   [self dispatchFailure:status];
+}
+
+@end
+
+
 @implementation APIClient_Impl {
     AsyncWorkQueue *mAsyncWorkQueue;
     AsyncWorkQueue *mAsyncUploadQueue;
@@ -186,6 +265,18 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
     WorkItemPerformLogin *workItem = [mAsyncWorkQueue obtainWorkItem:sTypePerformLogin];
     [workItem set:email password:password callback:callback handler:handler closure:closure];
     return [mAsyncWorkQueue enqueue:workItem];
+}
+
+- (bool)loginSamsungAccount:(NSString *)samsung_sso_token auth_server:(NSString *)auth_server
+                   callback:(id<VR_Result_LoginSSO>)callback handler:(Handler)handler closure:(Object)closure {
+   @synchronized (self) {
+      if (INITIALIZED != mState) {
+         return false;
+      }
+   }
+   WorkItemPerformLoginSamsungAccount *workItem = [mAsyncWorkQueue obtainWorkItem:sTypePerformLoginSamsungAccount];
+   [workItem set:samsung_sso_token auth_server:auth_server callback:callback handler:handler closure:closure];
+   return [mAsyncWorkQueue enqueue:workItem];
 }
 
 - (AsyncWorkQueue *)getAsyncWorkQueue {
