@@ -23,6 +23,7 @@
 #import "DgApp.h"
 #import "CtFormMain.h"
 #import "CtFormLogin.h"
+#import "CtFormUILibLogin.h"
 
 static DgApp *sInstance = NULL;
 
@@ -32,15 +33,23 @@ static DgApp *sInstance = NULL;
    EndPointConfigManager *mEndPointCfgMgr;
    SharedPrefs *mAppPrefs;
    id<User> mUser;
+   AppUILibCallback *mAppUILibCallback;
+   NSMutableArray *mSubUILibCallbacks;
 }
 
 - (id)init {
    mTopLevelNibObjs = NULL;
    mCtFormMain = NULL;
+   mSubUILibCallbacks = [[NSMutableArray alloc] init];
+   mAppUILibCallback = [[AppUILibCallback alloc] init];
    mAppPrefs = [[SharedPrefs alloc] initWithName:@"AppPrefs"];
    mEndPointCfgMgr = [[EndPointConfigManager alloc] initWithApp:self];
    
    return [super init];
+}
+
+- (AppUILibCallback *)getAppUILibCallback {
+   return mAppUILibCallback;
 }
 
 - (SharedPrefs *)getAppPrefs {
@@ -66,7 +75,11 @@ static DgApp *sInstance = NULL;
 }
 
 - (bool)showLoginForm {
-   return [self showForm:[[CtFormLogin alloc] initWithNibName:@"FormLogin" bundle:nil]];
+   if (true) {
+      return [self showForm:[[CtFormUILibLogin alloc] initWithNibName:@"FormUILibLogin" bundle:nil]];
+   } else {
+      return [self showForm:[[CtFormLogin alloc] initWithNibName:@"FormLogin" bundle:nil]];
+   }
 }
 
 - (void)onMainFormClosed {

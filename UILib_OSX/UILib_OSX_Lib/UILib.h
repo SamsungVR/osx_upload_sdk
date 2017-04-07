@@ -38,6 +38,10 @@
 
 @interface UILib : NSObject
 
-+ (void)test;
++ (bool)initWith:(NSString *)serverEndPoint serverApiKey:(NSString *)serverApiKey ssoAppId:(NSString *)ssoAppId
+    ssoAppSecret:(NSString *)ssoAppSecret httpPlugin:(id<HttpPlugin_RequestFactory>)httpPlugin
+        callback:(id<UILib_Callback>)callback handler:(Handler)handler closure:(Object)closure;
+
++ (bool)login;
 
 @end

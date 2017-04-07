@@ -23,7 +23,7 @@
 #import "CtForm.h"
 #import "SharedPrefs.h"
 #import "EndPointConfigManager.h"
-
+#import "AppUILibCallback.h"
 #import "SDKLib/User.h"
 
 @interface DgApp : NSObject<NSApplicationDelegate>
@@ -38,5 +38,6 @@
 - (void)setUser:(id<User>)user;
 - (id<User>)getUser;
 - (bool)showLoginForm;
+- (AppUILibCallback *)getAppUILibCallback;
 
 @end

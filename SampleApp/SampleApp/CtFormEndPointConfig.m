@@ -40,7 +40,7 @@
    if (![self isLoaded]) {
       return;
    }
-   [[DgApp getDgInstance] showForm:[CtFormLogin alloc] nibName:@"FormLogin"];
+   [[DgApp getDgInstance] showLoginForm];
 }
 
 - (void)onCtrlCfgSelectClick {

@@ -30,6 +30,9 @@
 		25BC064C1E95A3A600B090DA /* libLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25BC064A1E95A3A600B090DA /* libLib.a */; };
 		25BC06571E95A96F00B090DA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25BC06561E95A96F00B090DA /* WebKit.framework */; };
 		25BC065F1E95B6AD00B090DA /* libSDKLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25BC065E1E95B6AD00B090DA /* libSDKLib.a */; };
+		25BC06661E97FE1300B090DA /* FormUILibLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC06641E97FE1300B090DA /* FormUILibLogin.xib */; };
+		25BC06691E9815C900B090DA /* CtFormUILibLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BC06681E9815C900B090DA /* CtFormUILibLogin.m */; };
+		25BC066C1E981D1F00B090DA /* AppUILibCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BC066B1E981D1F00B090DA /* AppUILibCallback.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +78,11 @@
 		25BC064B1E95A3A600B090DA /* libSDKLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDKLib.a; path = ../SDKLib/build/Debug/libSDKLib.a; sourceTree = "<group>"; };
 		25BC06561E95A96F00B090DA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		25BC065E1E95B6AD00B090DA /* libSDKLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDKLib.a; path = "../../../../Library/Developer/Xcode/DerivedData/osx_upload_sdk-frkvsfbceejmxberzxhrfkmkxxag/Build/Products/Debug/libSDKLib.a"; sourceTree = "<group>"; };
+		25BC06651E97FE1300B090DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = SampleApp/Base.lproj/FormUILibLogin.xib; sourceTree = "<group>"; };
+		25BC06671E9815C900B090DA /* CtFormUILibLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CtFormUILibLogin.h; path = SampleApp/CtFormUILibLogin.h; sourceTree = "<group>"; };
+		25BC06681E9815C900B090DA /* CtFormUILibLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CtFormUILibLogin.m; path = SampleApp/CtFormUILibLogin.m; sourceTree = "<group>"; };
+		25BC066A1E981D1F00B090DA /* AppUILibCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUILibCallback.h; path = SampleApp/AppUILibCallback.h; sourceTree = "<group>"; };
+		25BC066B1E981D1F00B090DA /* AppUILibCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUILibCallback.m; path = SampleApp/AppUILibCallback.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,11 @@
 		254A54811E64CBDE00BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				25BC066A1E981D1F00B090DA /* AppUILibCallback.h */,
+				25BC066B1E981D1F00B090DA /* AppUILibCallback.m */,
+				25BC06671E9815C900B090DA /* CtFormUILibLogin.h */,
+				25BC06681E9815C900B090DA /* CtFormUILibLogin.m */,
+				25BC06641E97FE1300B090DA /* FormUILibLogin.xib */,
 				256BF5931E79D993006DF17C /* CtFormListLiveEvents.h */,
 				256BF5941E79D993006DF17C /* CtFormListLiveEvents.m */,
 				256BF5901E79D96E006DF17C /* FormListLiveEvents.xib */,
@@ -212,6 +225,7 @@
 				256BF5921E79D96E006DF17C /* FormListLiveEvents.xib in Resources */,
 				25AB699E1E709BB0002A69B7 /* FormMain.xib in Resources */,
 				256BF5801E785142006DF17C /* FormLoggedIn.xib in Resources */,
+				25BC06661E97FE1300B090DA /* FormUILibLogin.xib in Resources */,
 				256BF5861E7871EE006DF17C /* FormCreateLiveEvent.xib in Resources */,
 				25AB699D1E709BB0002A69B7 /* FormLogin.xib in Resources */,
 			);
@@ -234,6 +248,8 @@
 				256BF5891E787532006DF17C /* CtFormCreateLiveEvent.m in Sources */,
 				256BF5951E79D993006DF17C /* CtFormListLiveEvents.m in Sources */,
 				25AB698B1E709B94002A69B7 /* CtFormEndPointConfig.m in Sources */,
+				25BC066C1E981D1F00B090DA /* AppUILibCallback.m in Sources */,
+				25BC06691E9815C900B090DA /* CtFormUILibLogin.m in Sources */,
 				256BF5831E78517B006DF17C /* CtFormLoggedIn.m in Sources */,
 				25AB69921E709B94002A69B7 /* main.m in Sources */,
 				25AB698D1E709B94002A69B7 /* CtFormMain.m in Sources */,
@@ -301,6 +317,14 @@
 				25AB69A81E709CFA002A69B7 /* Base */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		25BC06641E97FE1300B090DA /* FormUILibLogin.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25BC06651E97FE1300B090DA /* Base */,
+			);
+			name = FormUILibLogin.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

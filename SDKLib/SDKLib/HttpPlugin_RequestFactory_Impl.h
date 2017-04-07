@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import <HttpPlugin.h>
+#import "HttpPlugin.h"
 
 @interface HttpPlugin_RequestFactory_Impl : NSObject<HttpPlugin_RequestFactory>
 

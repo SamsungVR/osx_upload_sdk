@@ -20,19 +20,10 @@
  * THE SOFTWARE.
  */
 
+#import "UILib_OSX_Lib/UILib.h"
 
-#import <WebKit/WebFrameLoadDelegate.h>
-#import <WebKit/WebResourceLoadDelegate.h>
+@interface AppUILibCallback : NSObject<UILib_Callback>
 
-#import "UILibCtForm.h"
-
-@interface UILibCtFormLogin : UILibCtForm<WebFrameLoadDelegate, WebResourceLoadDelegate>
-
-@property NSString * mSSOAppId;
-@property NSString * mSSOAppSecret;
-@property NSString * mServerApiKey;
-@property NSString * mServerEndPoint;
-
-- (void)toLoginPage;
+@property NSMutableArray *mSubCallbacks;
 
 @end

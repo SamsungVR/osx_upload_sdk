@@ -21,18 +21,9 @@
  */
 
 
-#import <WebKit/WebFrameLoadDelegate.h>
-#import <WebKit/WebResourceLoadDelegate.h>
+#import "CtForm.h"
+#import "UILib_OSX_Lib/UILib.h"
 
-#import "UILibCtForm.h"
-
-@interface UILibCtFormLogin : UILibCtForm<WebFrameLoadDelegate, WebResourceLoadDelegate>
-
-@property NSString * mSSOAppId;
-@property NSString * mSSOAppSecret;
-@property NSString * mServerApiKey;
-@property NSString * mServerEndPoint;
-
-- (void)toLoginPage;
+@interface CtFormUILibLogin : CtForm<UILib_Callback>
 
 @end

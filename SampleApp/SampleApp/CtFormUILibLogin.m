@@ -21,42 +21,79 @@
  */
 
 #import "DgApp.h"
-#import "CtFormLogin.h"
+#import "CtFormUILibLogin.h"
 #import "CtFormEndPointConfig.h"
 #import "CtFormLoggedIn.h"
 #import "AppUtil.h"
 
 #import <SDKLib/VR.h>
 #import <SDKLib/User.h>
-#import <UILib_OSX_Lib/UILib.h>
 
-@interface CallbackInit : NSObject<VR_Result_Init>
+@interface FormUILibCallbackInit : NSObject<VR_Result_Init>
 
-- (id)initWith:(CtFormLogin *)form;
-
-@end
-
-@interface CallbackDestroy : NSObject<VR_Result_Destroy>
-
-- (id)initWith:(CtFormLogin *)form;
+- (id)initWith:(CtFormUILibLogin *)form;
 
 @end
 
-@interface CallbackLogin : NSObject<VR_Result_Login>
+@interface FormUILibCallbackDestroy : NSObject<VR_Result_Destroy>
 
-- (id)initWith:(CtFormLogin *)form;
+- (id)initWith:(CtFormUILibLogin *)form;
+
+@end
+
+@interface FormUILibCallbackLogin : NSObject<VR_Result_Login>
+
+- (id)initWith:(CtFormUILibLogin *)form;
 
 @end
 
 
-@implementation CtFormLogin {
+@implementation CtFormUILibLogin {
    NSControl *mCtrlLogin;
    NSButton *mCtrlEndPoint;
    NSTextField *mCtrlStatusMsg, *mCtrlUsername, *mCtrlPassword;
+   NSProgressIndicator *mCtrlWaitProgressIndicator;
+
    EndPointConfigManager *mCfgMgr;
-   CallbackInit *mCallbackInit;
-   CallbackDestroy *mCallbackDestroy;
-   CallbackLogin *mCallbackLogin;
+   FormUILibCallbackInit *mCallbackInit;
+   FormUILibCallbackDestroy *mCallbackDestroy;
+   FormUILibCallbackLogin *mCallbackLogin;
+
+   NSView *mCtrlWaitPanel, *mCtrlLoginPanel;
+}
+
+- (void)showWaitPanel {
+   [mCtrlWaitPanel setHidden:NO];
+   [mCtrlLoginPanel setHidden:YES];
+   [mCtrlWaitProgressIndicator startAnimation:nil];
+}
+
+- (void)hideWaitPanel {
+   [mCtrlWaitPanel setHidden:YES];
+   [mCtrlLoginPanel setHidden:NO];
+   [mCtrlWaitProgressIndicator stopAnimation:nil];
+}
+
+- (void)onLibInitStatus:(Object)closure status:(bool)status {
+   if (status) {
+      [UILib login];
+   }
+}
+
+- (void)onLibDestroyStatus:(Object)closure status:(bool)status {
+}
+
+- (void)onLoginSuccess:(id<User>)user closure:(Object)closure {
+}
+
+- (void)onLoginFailure:(Object)closure {
+}
+
+- (void)showLoginUI:(NSView *)loginUI closure:(Object)closure {
+   [AppUtil removeAllSubViews:mCtrlLoginPanel];
+   [mCtrlLoginPanel addSubview:loginUI];
+   [self hideWaitPanel];
+   [self setLocalizedStatusMsg:@"Success"];
 }
 
 - (void)onCtrlEndPointClick {
@@ -68,44 +105,54 @@
      callback:mCallbackLogin handler:nil closure:nil];
 }
 
-- (void)initVRLib {
-   EndPointConfig *cfg = [mCfgMgr getSelectedConfig];
-   if (cfg) {
-
-      [mCtrlEndPoint setTitle:[cfg getUrl]];
-      if ([VR destroyAsync:mCallbackDestroy handler:nil closure:nil]) {
-         [self setLocalizedStatusMsg:@"DestroyVRLib"];
-      } else {
-         if ([VR initAsync:[cfg getUrl] apiKey:[cfg getApiKey] callback:mCallbackInit handler:nil closure:nil]) {
-            [self setLocalizedStatusMsg:@"InitVRLib"];
-         } else {
-            [self setLocalizedStatusMsg:@"Failure"];
-         }
-      }
-   } else {
-      [self setLocalizedStatusMsg:@"NoEPConfigured"];
-      [mCtrlEndPoint setTitle:NSLocalizedString(@"NoEPConfigured", nil)];
-   }
-   
-}
-
 - (void)onLoad {
    [super onLoad];
 
+
    DgApp *dgApp = [DgApp getDgInstance];
+   [[dgApp getAppUILibCallback].mSubCallbacks addObject:self];
    [dgApp setUser:nil];
+
    mCfgMgr = [dgApp getEndPointCfgMgr];
-   mCallbackInit = [[CallbackInit alloc] initWith:self];
-   mCallbackDestroy = [[CallbackDestroy alloc] initWith:self];
-   mCallbackLogin = [[CallbackLogin alloc] initWith:self];
+   mCallbackInit = [[FormUILibCallbackInit alloc] initWith:self];
+   mCallbackDestroy = [[FormUILibCallbackDestroy alloc] initWith:self];
+   mCallbackLogin = [[FormUILibCallbackLogin alloc] initWith:self];
    
    NSView *root = [self view];
+   mCtrlLoginPanel = [AppUtil findViewById:root identifier:@"ctrlLoginPanel"];
+   mCtrlWaitPanel = [AppUtil findViewById:root identifier:@"ctrlWaitPanel"];
+   mCtrlWaitProgressIndicator = (NSProgressIndicator *)[AppUtil findViewById:root identifier:@"ctrlWaitProgressIndicator"];
+
    mCtrlLogin = [AppUtil setActionHandler:root identifier:@"ctrlLogin" target:self action:@selector(onCtrlLoginClick)];
    mCtrlStatusMsg = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlStatusMsg"];
    mCtrlUsername = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlUsername"];
    mCtrlPassword = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlPassword"];
    mCtrlEndPoint = (NSButton *)[AppUtil setActionHandler:root identifier:@"ctrlEndPoint" target:self action:@selector(onCtrlEndPointClick)];
-   [self initVRLib];
+
+   [self hideWaitPanel];
+
+   EndPointConfig *cfg = [mCfgMgr getSelectedConfig];
+   if (cfg) {
+
+      [mCtrlEndPoint setTitle:[cfg getUrl]];
+      if ([UILib initWith:[cfg getUrl] serverApiKey:[cfg getApiKey] ssoAppId:@"" ssoAppSecret:@"" httpPlugin:nil callback:[[DgApp getDgInstance] getAppUILibCallback] handler:nil closure:nil]) {
+         [self showWaitPanel];
+         [self setLocalizedStatusMsg:@"InitVRLib"];
+      } else {
+         [self setLocalizedStatusMsg:@"Failure"];
+      }
+   } else {
+      [self setLocalizedStatusMsg:@"NoEPConfigured"];
+      [mCtrlEndPoint setTitle:NSLocalizedString(@"NoEPConfigured", nil)];
+   }
+
+}
+
+- (void)onUnload {
+   [super onUnload];
+   [AppUtil removeAllSubViews:mCtrlLoginPanel];
+   DgApp *dgApp = [DgApp getDgInstance];
+   [[dgApp getAppUILibCallback].mSubCallbacks removeObject:self];
 }
 
 - (NSTextField *)getStatusMsgCtrl {
@@ -114,11 +161,11 @@
 
 @end
 
-@implementation CallbackLogin {
-   CtFormLogin *mForm;
+@implementation FormUILibCallbackLogin {
+   CtFormUILibLogin *mForm;
 }
 
-- (id)initWith:(CtFormLogin *)form {
+- (id)initWith:(CtFormUILibLogin *)form {
    mForm = form;
    return [super init];
 }
@@ -152,11 +199,11 @@
 @end
 
 
-@implementation CallbackInit {
-   CtFormLogin *mForm;
+@implementation FormUILibCallbackInit {
+   CtFormUILibLogin *mForm;
 }
 
-- (id)initWith:(CtFormLogin *)form {
+- (id)initWith:(CtFormUILibLogin *)form {
    mForm = form;
    return [super init];
 }
@@ -173,11 +220,11 @@
 
 @end
 
-@implementation CallbackDestroy {
-   CtFormLogin *mForm;
+@implementation FormUILibCallbackDestroy {
+   CtFormUILibLogin *mForm;
 }
 
-- (id)initWith:(CtFormLogin *)form {
+- (id)initWith:(CtFormUILibLogin *)form {
    mForm = form;
    return [super init];
 }
@@ -190,8 +237,9 @@
 - (void)onSuccess:(Object)closure {
    NSLog(@"VR Destroy success %@", closure);
    [mForm setLocalizedStatusMsg:@"Success"];
-   [mForm initVRLib];
-   
 }
+
+
+
 
 @end

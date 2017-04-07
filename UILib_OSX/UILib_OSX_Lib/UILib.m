@@ -24,7 +24,6 @@
 #import "UILibCtFormLogin.h"
 
 #import <SDKLib/HttpPlugin_RequestFactory_Impl.h>
-
 #import <Cocoa/Cocoa.h>
 
 static Handler sMainHandler = NULL;
@@ -46,16 +45,16 @@ static Handler sMainHandler = NULL;
 
 @interface UILib_Impl : NSObject
 
-@property(nonatomic, readonly) Object mLock;
-@property(nonatomic) int mId;
-@property(nonatomic) id<UILib_Callback> mCallback;
-@property(nonatomic) Handler mHandler;
-@property(nonatomic) Object mClosure;
-@property(nonatomic) id<HttpPlugin_RequestFactory> mHttpPlugin;
-@property(nonatomic) UILibCtFormLogin *mFormLogin;
-@property(nonatomic) NSString *mServerApiKey;
-@property(nonatomic) NSString *mServerEndPoint;
-@property(nonatomic) bool mVRLibInitialized;
+@property(readonly) Object mLock;
+@property int mId;
+@property id<UILib_Callback> mCallback;
+@property Handler mHandler;
+@property Object mClosure;
+@property id<HttpPlugin_RequestFactory> mHttpPlugin;
+@property UILibCtFormLogin *mFormLogin;
+@property NSString *mServerApiKey;
+@property NSString *mServerEndPoint;
+@property bool mVRLibInitialized;
 
 @end
 
@@ -67,7 +66,7 @@ static Handler sMainHandler = NULL;
 @interface CallbackNotifier : Runnable
 
 - (id)initWith:(UILib_Impl *)uiLibImpl;
-- (void)onRun:(id<UILib_Callback>)callback closure:(Object)closure;
+- (void)onRun:(UILib_Impl *)uiLibimpl callback:(id<UILib_Callback>)callback closure:(Object)closure;
 
 @end
 
@@ -96,7 +95,7 @@ static Handler sMainHandler = NULL;
    if (mMyId != activeId || !callback) {
       return;
    }
-   [self onRun:callback closure:closure];
+   [self onRun:mUILibImpl callback:callback closure:closure];
 }
 
 @end
@@ -113,9 +112,10 @@ static Handler sMainHandler = NULL;
 
 - (id)initWith:(UILib_Impl *)uiLibImpl status:(bool)status {
    mStatus = status;
+   return [super initWith:uiLibImpl];
 }
 
-- (void)onRun:(id<UILib_Callback>)callback closure:(Object)closure {
+- (void)onRun:(UILib_Impl *)uiLibImpl callback:(id<UILib_Callback>)callback closure:(Object)closure {
    [callback onLibInitStatus:closure status:mStatus];
 }
 
@@ -123,6 +123,25 @@ static Handler sMainHandler = NULL;
 
 static UILib_Impl *sUILibImpl = NULL;
 static NSBundle *sResBundle = NULL;
+
+@interface UILibVRInitCallback : NSObject<VR_Result_Init>
+@end
+
+@implementation UILibVRInitCallback
+
+- (void)onSuccess:(Object)closure {
+   UILib_Impl *impl = sUILibImpl;
+   impl.mVRLibInitialized = true;
+   [[[InitStatusNotifier alloc] initWith:impl status:true] postSelf:impl.mHandler];
+}
+
+- (void)onFailure:(Object)closure status:(int)status {
+   UILib_Impl *impl = sUILibImpl;
+   [[[InitStatusNotifier alloc] initWith:impl status:false] postSelf:impl.mHandler];
+}
+
+@end
+
 
 @interface InitRunnable : Runnable<VR_Result_Destroy>
 @end
@@ -139,7 +158,7 @@ static NSBundle *sResBundle = NULL;
 
 - (id)initWith:(NSString *)serverEndPoint serverApiKey:(NSString *)serverApiKey ssoAppId:(NSString *)ssoAppId
   ssoAppSecret:(NSString *)ssoAppSecret httpPlugin:(id<HttpPlugin_RequestFactory>)httpPlugin callback:(id<UILib_Callback>)callback
-       handler:(Handler)handler closure:(Object)closure {
+  handler:(Handler)handler closure:(Object)closure {
 
    mClosure = closure;
    mHandler = handler;
@@ -187,7 +206,7 @@ static NSBundle *sResBundle = NULL;
       return;
    }
 
-   onSuccess(NULL);
+   [self onSuccess:nil];
 }
 
 - (void)onFailure:(Object)closure status:(int)status {
@@ -203,19 +222,84 @@ static NSBundle *sResBundle = NULL;
    impl.mFormLogin.mSSOAppId = mSSOAppId;
    impl.mFormLogin.mSSOAppSecret = mSSOAppSecret;
 
-   //if ([VR initAsync:impl.mServerEndPoint serverApiKey:impl.mServerApiKey httpPlugin:impl.mHttpPlugin  new VRInitCallback(), sMainHandler, mClosure)) {
-   //      new InitStatusNotifier(impl, false).postSelf(impl.mHandler);
-   //   }
+
+   if ([VR initAsync:impl.mServerEndPoint apiKey:impl.mServerApiKey factory:impl.mHttpPlugin  callback:[[UILibVRInitCallback alloc] init] handler:sMainHandler closure:mClosure]) {
+      [[[InitStatusNotifier alloc] initWith:impl status:false] postSelf:impl.mHandler];
+   }
 
 }
 
 @end
 
-@implementation UILib
 
-static NSWindow *mTemp;
-static NSWindowController *mTemp2;
-static UILibCtFormLogin *mFormLogin;
+@interface ShowLoginUINotifier : CallbackNotifier
+@end
+
+@implementation ShowLoginUINotifier
+
+- (id)initWith:(UILib_Impl *)uiLibImpl {
+   return [super initWith:uiLibImpl];
+}
+
+- (void)onRun:(UILib_Impl *)uiLibImpl callback:(id<UILib_Callback>)callback closure:(Object)closure {
+   [callback showLoginUI:[uiLibImpl.mFormLogin view] closure:uiLibImpl.mClosure];
+}
+
+@end
+
+@interface LoginRunnable : Runnable
+@end
+
+@implementation LoginRunnable
+
+- (void)showLoginUI {
+   UILib_Impl *impl = sUILibImpl;
+   [impl.mFormLogin toLoginPage];
+   [[[ShowLoginUINotifier alloc] initWith:impl] postSelf:impl.mHandler];
+}
+
+- (void)main {
+   [self showLoginUI];
+}
+
+@end
+
+/*
+internal class LoginRunnable : Runnable, SDKLib.VR.Result.GetUserBySessionToken.If {
+
+   public override void run() {
+      UILibImpl impl = sUILib;
+      string userId = UILibSettings.Default.userId;
+      string userSessionToken = UILibSettings.Default.userSessionToken;
+      if (null != userId && null != userSessionToken &&
+          SDKLib.VR.getUserBySessionToken(userId, userSessionToken, this, sMainHandler, null)) {
+         return;
+      }
+      showLoginUI();
+   }
+
+   private void showLoginUI() {
+
+   }
+
+   public void onFailure(object closure, int status) {
+      showLoginUI();
+   }
+
+   public void onSuccess(object closure, SDKLib.User.If user) {
+      sUILib.onLoginSuccessInternal(user, false);
+   }
+
+   public void onCancelled(object closure) {
+   }
+
+   public void onException(object closure, Exception ex) {
+      showLoginUI();
+   }
+}
+*/
+
+@implementation UILib
 
 static NSObject *sLock = NULL;
 
@@ -226,6 +310,8 @@ static NSObject *sLock = NULL;
    sUILibImpl = [[UILib_Impl alloc] init];
    sResBundle = [NSBundle bundleWithPath:@"Res.bundle"];
 }
+
+/*
 
 + (void)test {
    NSRect contentSize = NSMakeRect(500.0, 500.0, 1000.0, 1000.0);
@@ -249,15 +335,19 @@ static NSObject *sLock = NULL;
       [mFormLogin onLoad];
    }
 }
-
-+ (bool)init:(NSString *)serverEndPoint serverApiKey:(NSString *)serverApiKey ssoAppId:(NSString *)ssoAppId
+*/
++ (bool)initWith:(NSString *)serverEndPoint serverApiKey:(NSString *)serverApiKey ssoAppId:(NSString *)ssoAppId
    ssoAppSecret:(NSString *)ssoAppSecret httpPlugin:(id<HttpPlugin_RequestFactory>)httpPlugin
-   callback:(id<UILib_Callback>)callback handler:(Handler)handler                     closure:(Object)closure {
+   callback:(id<UILib_Callback>)callback handler:(Handler)handler closure:(Object)closure {
 
    [[[InitRunnable alloc] initWith:serverEndPoint serverApiKey:serverApiKey ssoAppId:ssoAppId  ssoAppSecret:ssoAppSecret httpPlugin:httpPlugin
                           callback:callback handler:handler closure:closure] postSelf:sMainHandler];
    return true;
 }
 
++ (bool)login {
+   [[[LoginRunnable alloc] init] postSelf:sMainHandler];
+   return true;
+}
 
 @end

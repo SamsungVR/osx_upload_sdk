@@ -75,6 +75,11 @@
 static const NSString *sLoginUrl = @"https://account.samsung.com/mobile/account/check.do";
 static const NSString *sLocalhost = @"localhost";
 
+- (void)viewWillAppear {
+   [super viewWillAppear];
+   [self onLoad];
+}
+
 - (void)showSSOLoginProgress {
    [mCtrlWebView setHidden:YES];
    [mCtrlSSOProgress setHidden:NO];
@@ -154,7 +159,6 @@ static const NSString *sLocalhost = @"localhost";
                   }
                }
             }
-
          }
       }
       [self toLoginPage];

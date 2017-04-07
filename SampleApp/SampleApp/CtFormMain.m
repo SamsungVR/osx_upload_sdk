@@ -32,7 +32,8 @@
 - (void)windowDidLoad {
    mMainWindow = [self window];
    [mMainWindow setDelegate:self];
-   [self setForm:[[CtFormLogin alloc] initWithNibName:@"FormLogin" bundle:nil]];
+
+   [[DgApp getDgInstance] showLoginForm];
 }
 
 - (bool)unloadCurrentForm:(NSSize *)size {
