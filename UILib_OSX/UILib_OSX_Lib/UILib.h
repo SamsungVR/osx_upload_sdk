@@ -21,7 +21,20 @@
  */
 
 
-#import <Foundation/Foundation.h>
+#import <SDKLib/User.h>
+#import <AppKit/AppKit.h>
+
+@protocol UILib_Callback
+
+- (void)onLibInitStatus:(Object)closure status:(bool)status;
+- (void)onLibDestroyStatus:(Object)closure status:(bool)status;
+
+- (void)onLoginSuccess:(id<User>)user closure:(Object)closure;
+- (void)onLoginFailure:(Object)closure;
+
+- (void)showLoginUI:(NSView *)loginUI closure:(Object)closure;
+
+@end
 
 @interface UILib : NSObject
 
