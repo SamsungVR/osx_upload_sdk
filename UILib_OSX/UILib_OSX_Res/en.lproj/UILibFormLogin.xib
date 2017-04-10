@@ -63,7 +63,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tH-zz-Qpq">
+                <textField identifier="ctrlVRUsername" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7tH-zz-Qpq">
                     <rect key="frame" x="20" y="213" width="360" height="23"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" drawsBackground="YES" id="2vH-u5-VcH">
@@ -72,7 +72,7 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <outlet property="nextKeyView" destination="HOA-V0-bD5" id="4Ii-Lq-pnl"/>
+                        <outlet property="nextKeyView" destination="vEv-wg-Xoj" id="d9T-FZ-Xnu"/>
                     </connections>
                 </textField>
                 <textField autoresizesSubviews="NO" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hfK-Qv-mFZ">
@@ -84,24 +84,12 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HOA-V0-bD5">
-                    <rect key="frame" x="19" y="155" width="360" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" drawsBackground="YES" id="7OL-wN-NTc">
-                        <font key="font" metaFont="system" size="16"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <outlet property="nextKeyView" destination="enP-cf-q07" id="q3E-zU-2l2"/>
-                    </connections>
-                </textField>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="enP-cf-q07">
+                <button identifier="ctrlShowPassword" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="enP-cf-q07">
                     <rect key="frame" x="18" y="131" width="180" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show password" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="lI4-hZ-FdS">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system" size="16"/>
+                        <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
                         <outlet property="nextKeyView" destination="pZo-l6-m3O" id="3iv-aq-vw0"/>
@@ -124,9 +112,6 @@
                     <webPreferences key="preferences" defaultFontSize="16" defaultFixedFontSize="13" minimumFontSize="0" plugInsEnabled="NO" javaEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO">
                         <nil key="identifier"/>
                     </webPreferences>
-                    <connections>
-                        <outlet property="nextKeyView" destination="7tH-zz-Qpq" id="voR-58-7pd"/>
-                    </connections>
                 </webView>
                 <textField identifier="ctrlLoginStatus" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n82-Fi-ujS">
                     <rect key="frame" x="17" y="20" width="365" height="45"/>
@@ -138,7 +123,7 @@
                     </textFieldCell>
                 </textField>
                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="31i-s7-B5e">
-                    <rect key="frame" x="19" y="71" width="360" height="4"/>
+                    <rect key="frame" x="19" y="71" width="360" height="5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
                 <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="lnM-Lt-3So">
@@ -153,6 +138,18 @@
                     <rect key="frame" x="184" y="424" width="32" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </progressIndicator>
+                <textField identifier="ctrlVRPassword" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vEv-wg-Xoj">
+                    <rect key="frame" x="20" y="161" width="360" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" drawsBackground="YES" id="lAf-Dp-Oht">
+                        <font key="font" metaFont="system" size="16"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <outlet property="nextKeyView" destination="enP-cf-q07" id="5rp-c2-M1g"/>
+                    </connections>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="98" y="148"/>
         </customView>

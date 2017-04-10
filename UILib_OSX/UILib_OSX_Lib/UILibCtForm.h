@@ -30,5 +30,6 @@
 - (NSTextField *)getStatusMsgCtrl;
 - (void)setStatusMsg:(NSString *)msg;
 - (void)setLocalizedStatusMsg:(NSString *)msg;
+- (id)initWith:(NSString *)xibName bundle:(NSBundle *)bundle;
 
 @end

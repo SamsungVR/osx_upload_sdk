@@ -35,6 +35,7 @@
 #import "UILibCtFormLogin.h"
 #import "UILib.h"
 #import "UILibUtil.h"
+#import "UILibImpl.h"
 
 @interface UILibCallbackInit : NSObject<VR_Result_Init>
 
@@ -48,7 +49,7 @@
 
 @end
 
-@interface UILibCallbackLogin : NSObject<VR_Result_Login>
+@interface UILibCallbackVRLogin : NSObject<VR_Result_Login>
 
 - (id)initWith:(UILibCtFormLogin *)form;
 
@@ -62,18 +63,27 @@
 
 @implementation UILibCtFormLogin {
    NSControl *mCtrlHome, *mCtrlBack, *mCtrlVRLogin;
-   NSButton *mCtrlEndPoint, *mCtrlTest;
+   NSButton *mCtrlEndPoint, *mCtrlTest, *mCtrlShowPassword;
    NSTextField *mCtrlLoginStatus, *mCtrlVRUsername, *mCtrlVRPassword;
    NSProgressIndicator *mCtrlSSOProgress;
+
+   UILibImpl *mUILibImpl;
+
    WebView *mCtrlWebView;
    UILibCallbackInit *mCallbackInit;
    UILibCallbackDestroy *mCallbackDestroy;
-   UILibCallbackLogin *mCallbackLogin;
+   UILibCallbackVRLogin *mCallbackVRLogin;
    UILibCallbackSSOLogin *mCallbackSSOLogin;
 }
 
 static const NSString *sLoginUrl = @"https://account.samsung.com/mobile/account/check.do";
 static const NSString *sLocalhost = @"localhost";
+
+
+- (id)initWith:(UILibImpl *)uiLibImpl bundle:(NSBundle *)bundle {
+   mUILibImpl = uiLibImpl;
+   return [super initWith:@"UILibFormLogin" bundle:bundle];
+}
 
 - (void)viewWillAppear {
    [super viewWillAppear];
@@ -104,10 +114,6 @@ static const NSString *sLocalhost = @"localhost";
    [request setHTTPMethod:@"POST"];
    [request setHTTPBody:[requestBody dataUsingEncoding:NSUTF8StringEncoding]];
    [[mCtrlWebView mainFrame] loadRequest:request];
-}
-
-- (void)onCtrlVRLoginClick {
-
 }
 
 - (id)webView:(WebView *)sender identifierForInitialRequest:(NSURLRequest *)request fromDataSource:(WebDataSource *)dataSource {
@@ -180,21 +186,51 @@ static const NSString *sLocalhost = @"localhost";
    [mCtrlWebView goBack];
 }
 
+- (void)onCtrlVRLoginClick {
+   if ([VR login:[mCtrlVRUsername stringValue] password:[mCtrlVRPassword stringValue] callback:mCallbackVRLogin handler:nil closure:nil]) {
+      // what here?
+   } else {
+      [self setLocalizedStatusMsg:@"FailedToEnqueue"];
+   }
+}
+
+- (void)onCtrlShowPasswordClick {
+   NSString *text = [mCtrlVRPassword stringValue];
+
+   switch ([mCtrlShowPassword state]) {
+      case NSOffState:
+         [mCtrlVRPassword selectCell:[[NSSecureTextFieldCell alloc] initTextCell:text]];
+         break;
+      case NSOnState:
+         [mCtrlVRPassword selectCell:[[NSTextFieldCell alloc] initTextCell:text]];
+         break;
+   }
+   [mCtrlVRPassword drawCell:[mCtrlVRPassword cell]];
+}
+
 - (void)onLoad {
    [super onLoad];
 
    NSView *root = [self view];
+
    mCallbackSSOLogin = [[UILibCallbackSSOLogin alloc] initWith:self];
-   mCtrlWebView = (WebView *)[UILibUtil findViewById:root identifier:@"ctrlWebView"];
+   mCallbackVRLogin = [[UILibCallbackVRLogin alloc] initWith:self];
+
    mCtrlSSOProgress = (NSProgressIndicator *)[UILibUtil findViewById:root identifier:@"ctrlSSOProgress"];
    mCtrlLoginStatus = (NSTextField *)[UILibUtil findViewById:root identifier:@"ctrlLoginStatus"];
+   mCtrlVRUsername = (NSTextField *)[UILibUtil findViewById:root identifier:@"ctrlVRUsername"];
+   mCtrlVRPassword = (NSTextField *)[UILibUtil findViewById:root identifier:@"ctrlVRPassword"];
+   //mCtrlShowPassword = [UILibUtil setActionHandler:root identifier:@"ctrlShowPassword" target:self action:@selector(onCtrlShowPasswordClick)];
 
+   mCtrlWebView = (WebView *)[UILibUtil findViewById:root identifier:@"ctrlWebView"];
    [mCtrlWebView setResourceLoadDelegate:self];
    [mCtrlWebView setFrameLoadDelegate:self];
+
    mCtrlVRLogin = [UILibUtil setActionHandler:root identifier:@"ctrlVRLogin" target:self action:@selector(onCtrlVRLoginClick)];
    mCtrlHome = [UILibUtil setActionHandler:root identifier:@"ctrlHome" target:self action:@selector(onCtrlHomeClick)];
    mCtrlBack = [UILibUtil setActionHandler:root identifier:@"ctrlBack" target:self action:@selector(onCtrlBackClick)];
 
+   //[self onCtrlShowPasswordClick];
    [self toLoginPage];
 }
 
@@ -203,9 +239,13 @@ static const NSString *sLocalhost = @"localhost";
    return mCtrlLoginStatus;
 }
 
+- (UILibImpl *)getUILibImpl {
+   return mUILibImpl;
+}
+
 @end
 
-@implementation UILibCallbackLogin {
+@implementation UILibCallbackVRLogin {
    UILibCtFormLogin *mForm;
 }
 
@@ -223,9 +263,8 @@ static const NSString *sLocalhost = @"localhost";
 
 - (void)onSuccess:(Object)closure result:(id)result {
    id<User> user = result;
-   NSString *tmpl = NSLocalizedString(@"LoggedInAs", nil);
-   NSString *msg = [NSString stringWithFormat:tmpl, [user getName]];
-   [mForm setStatusMsg:msg];
+   [[mForm getUILibImpl] onLoginSuccessInternal:user save:YES];
+   [mForm setLocalizedStatusMsg:@"Success"];
 }
 
 - (void)onException: (Object)closure  exception:(Exception)exception {
@@ -256,10 +295,11 @@ static const NSString *sLocalhost = @"localhost";
 }
 
 - (void)onSuccess:(Object)closure result:(id)result {
+   [mForm hideSSOLoginProgress];
+
    id<User> user = result;
-   NSString *tmpl = NSLocalizedString(@"LoggedInAs", nil);
-   NSString *msg = [NSString stringWithFormat:tmpl, [user getName]];
-   [mForm setStatusMsg:msg];
+   [[mForm getUILibImpl] onLoginSuccessInternal:user save:YES];
+   [mForm setLocalizedStatusMsg:@"Success"];
 }
 
 - (void)onException: (Object)closure  exception:(Exception)exception {

@@ -25,6 +25,27 @@
 		2590C8281E81F29500E59D80 /* FormEndPointConfig.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2590C8261E81F29500E59D80 /* FormEndPointConfig.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		253408231E9435900020B105 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = folder.stickers;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# actool\n";
+		};
+		253408241E94359A0020B105 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = sourcecode.metal;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# metal\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
 		256BF5C21E8063FE006DF17C /* SampleAppIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleAppIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		256BF5C61E8063FE006DF17C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -144,6 +165,8 @@
 				256BF5C01E8063FE006DF17C /* Resources */,
 			);
 			buildRules = (
+				253408241E94359A0020B105 /* PBXBuildRule */,
+				253408231E9435900020B105 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);

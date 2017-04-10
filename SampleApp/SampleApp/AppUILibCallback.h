@@ -22,7 +22,7 @@
 
 #import "UILib_OSX_Lib/UILib.h"
 
-@interface AppUILibCallback : NSObject<UILib_Callback>
+@interface AppUILibCallback : NSObject<UILibCallback>
 
 @property NSMutableArray *mSubCallbacks;
 

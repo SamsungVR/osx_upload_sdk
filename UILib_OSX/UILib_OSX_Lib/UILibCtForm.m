@@ -25,6 +25,7 @@
 
 @implementation UILibCtForm {
    bool mIsLoaded;
+   NSBundle *mBundle;
 }
 
 - (void)onLoad {
@@ -39,12 +40,20 @@
    return mIsLoaded;
 }
 
+- (id)initWith:(NSString *)xibName bundle:(NSBundle *)bundle {
+   mBundle = bundle;
+   return [super initWithNibName:xibName bundle:bundle];
+}
+
+- (NSBundle *)getBundle {
+   return mBundle;
+}
 
 - (void)setLocalizedStatusMsg:(NSString *)msg {
    if ([self isLoaded]) {
       NSTextField *statusCtrl = [self getStatusMsgCtrl];
       if (statusCtrl) {
-         NSString *realMsg = NSLocalizedString(msg, nil);
+         NSString *realMsg = NSLocalizedStringFromTableInBundle(msg, @"Localizable", mBundle, nil);
          [statusCtrl setStringValue:realMsg];
       }
    }

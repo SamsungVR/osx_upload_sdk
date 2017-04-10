@@ -84,6 +84,14 @@
 }
 
 - (void)onLoginSuccess:(id<User>)user closure:(Object)closure {
+   NSString *tmpl = NSLocalizedString(@"LoggedInAs", nil);
+   NSString *msg = [NSString stringWithFormat:tmpl, [user getName]];
+   [self setStatusMsg:msg];
+
+   DgApp *dgApp = [DgApp getDgInstance];
+   [dgApp setUser:user];
+   [dgApp showForm:[CtFormLoggedIn alloc] nibName:@"FormLoggedIn"];
+
 }
 
 - (void)onLoginFailure:(Object)closure {
@@ -135,7 +143,7 @@
    if (cfg) {
 
       [mCtrlEndPoint setTitle:[cfg getUrl]];
-      if ([UILib initWith:[cfg getUrl] serverApiKey:[cfg getApiKey] ssoAppId:@"" ssoAppSecret:@"" httpPlugin:nil callback:[[DgApp getDgInstance] getAppUILibCallback] handler:nil closure:nil]) {
+      if ([UILib initWith:[cfg getUrl] serverApiKey:[cfg getApiKey] ssoAppId:@"jm1ag8bg08" ssoAppSecret:@"1FE10659309B3CF150B479995CC13DA1" httpPlugin:nil callback:[[DgApp getDgInstance] getAppUILibCallback] handler:nil closure:nil]) {
          [self showWaitPanel];
          [self setLocalizedStatusMsg:@"InitVRLib"];
       } else {
@@ -195,7 +203,6 @@
    
 }
 
-
 @end
 
 
@@ -238,8 +245,5 @@
    NSLog(@"VR Destroy success %@", closure);
    [mForm setLocalizedStatusMsg:@"Success"];
 }
-
-
-
 
 @end

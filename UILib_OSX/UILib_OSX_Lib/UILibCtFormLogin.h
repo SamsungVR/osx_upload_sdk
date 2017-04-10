@@ -26,6 +26,9 @@
 
 #import "UILibCtForm.h"
 
+@class UILibImpl;
+
+
 @interface UILibCtFormLogin : UILibCtForm<WebFrameLoadDelegate, WebResourceLoadDelegate>
 
 @property NSString * mSSOAppId;
@@ -34,5 +37,7 @@
 @property NSString * mServerEndPoint;
 
 - (void)toLoginPage;
+- (id)initWith:(UILibImpl *)uiLibImpl bundle:(NSBundle *)bundle;
+- (NSBundle *)getBundle;
 
 @end

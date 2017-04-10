@@ -20,18 +20,9 @@
  * THE SOFTWARE.
  */
 
-
-#import <SDKLib/User.h>
-#import <AppKit/AppKit.h>
-
-#import "UILibCallback.h"
-
-@interface UILib : NSObject
-
-+ (bool)initWith:(NSString *)serverEndPoint serverApiKey:(NSString *)serverApiKey ssoAppId:(NSString *)ssoAppId
-    ssoAppSecret:(NSString *)ssoAppSecret httpPlugin:(id<HttpPlugin_RequestFactory>)httpPlugin
-        callback:(id<UILibCallback>)callback handler:(Handler)handler closure:(Object)closure;
-
-+ (bool)login;
-
-@end
+"FileOpenSaveDialogTitle"="Open/Save";
+"FileOpenSaveDialogMsg"="Open or Save";
+"Success"="Success";
+"Failure"="Failure";
+"FailureWithStatusCode"="Failure (Code: %d)";
+"FailedToEnqueue"="Failed to enqueue request";

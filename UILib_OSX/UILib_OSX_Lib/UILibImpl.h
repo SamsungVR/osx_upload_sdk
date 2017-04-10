@@ -21,17 +21,42 @@
  */
 
 
-#import <SDKLib/User.h>
-#import <AppKit/AppKit.h>
+#import "SDKLib/VR.h"
 
 #import "UILibCallback.h"
+#import "UILibCtFormLogin.h"
 
-@interface UILib : NSObject
 
-+ (bool)initWith:(NSString *)serverEndPoint serverApiKey:(NSString *)serverApiKey ssoAppId:(NSString *)ssoAppId
-    ssoAppSecret:(NSString *)ssoAppSecret httpPlugin:(id<HttpPlugin_RequestFactory>)httpPlugin
-        callback:(id<UILibCallback>)callback handler:(Handler)handler closure:(Object)closure;
+@interface UILibImpl : NSObject
 
-+ (bool)login;
+@property(readonly) Object mLock;
+@property int mId;
+@property id<UILibCallback> mCallback;
+@property Handler mHandler;
+@property Object mClosure;
+@property id<HttpPlugin_RequestFactory> mHttpPlugin;
+@property UILibCtFormLogin *mFormLogin;
+@property NSString *mServerApiKey;
+@property NSString *mServerEndPoint;
+@property bool mVRLibInitialized;
 
+- (void)onLoginSuccessInternal:(id<User>)user save:(bool)save;
+
+@end
+
+@interface Runnable : NSOperation
+
+- (void)postSelf:(Handler)handler;
+
+@end
+
+@interface CallbackNotifier : Runnable
+
+- (id)initWith:(UILibImpl *)uiLibImpl;
+- (void)onRun:(UILibImpl *)uiLibimpl callback:(id<UILibCallback>)callback closure:(Object)closure;
+
+@end
+
+
+@interface LoginSuccessNotifier : CallbackNotifier
 @end

@@ -24,6 +24,6 @@
 #import "CtForm.h"
 #import "UILib_OSX_Lib/UILib.h"
 
-@interface CtFormUILibLogin : CtForm<UILib_Callback>
+@interface CtFormUILibLogin : CtForm<UILibCallback>
 
 @end

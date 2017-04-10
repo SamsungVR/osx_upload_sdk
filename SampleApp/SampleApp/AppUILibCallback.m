@@ -31,31 +31,31 @@
 }
 
 - (void)onLibInitStatus:(Object)closure status:(bool)status {
-   for (id<UILib_Callback> callback in _mSubCallbacks) {
+   for (id<UILibCallback> callback in _mSubCallbacks) {
       [callback onLibInitStatus:closure status:status];
    }
 }
 
 - (void)onLibDestroyStatus:(Object)closure status:(bool)status {
-   for (id<UILib_Callback> callback in _mSubCallbacks) {
+   for (id<UILibCallback> callback in _mSubCallbacks) {
       [callback onLibDestroyStatus:closure status:status];
    }
 }
 
 - (void)onLoginSuccess:(id<User>)user closure:(Object)closure {
-   for (id<UILib_Callback> callback in _mSubCallbacks) {
+   for (id<UILibCallback> callback in _mSubCallbacks) {
       [callback onLoginSuccess:user closure:closure];
    }
 }
 
 - (void)onLoginFailure:(Object)closure {
-   for (id<UILib_Callback> callback in _mSubCallbacks) {
+   for (id<UILibCallback> callback in _mSubCallbacks) {
       [callback onLoginFailure:closure];
    }
 }
 
 - (void)showLoginUI:(NSView *)loginUI closure:(Object)closure {
-   for (id<UILib_Callback> callback in _mSubCallbacks) {
+   for (id<UILibCallback> callback in _mSubCallbacks) {
       [callback showLoginUI:loginUI closure:closure];
    }
 }

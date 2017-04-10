@@ -20,18 +20,17 @@
  * THE SOFTWARE.
  */
 
-
-#import <SDKLib/User.h>
 #import <AppKit/AppKit.h>
+#import <SDKLib/Compat_Defs.h>
 
-#import "UILibCallback.h"
+@protocol UILibCallback
 
-@interface UILib : NSObject
+- (void)onLibInitStatus:(Object)closure status:(bool)status;
+- (void)onLibDestroyStatus:(Object)closure status:(bool)status;
 
-+ (bool)initWith:(NSString *)serverEndPoint serverApiKey:(NSString *)serverApiKey ssoAppId:(NSString *)ssoAppId
-    ssoAppSecret:(NSString *)ssoAppSecret httpPlugin:(id<HttpPlugin_RequestFactory>)httpPlugin
-        callback:(id<UILibCallback>)callback handler:(Handler)handler closure:(Object)closure;
+- (void)onLoginSuccess:(id<User>)user closure:(Object)closure;
+- (void)onLoginFailure:(Object)closure;
 
-+ (bool)login;
+- (void)showLoginUI:(NSView *)loginUI closure:(Object)closure;
 
 @end

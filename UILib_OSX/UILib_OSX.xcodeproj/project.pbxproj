@@ -13,7 +13,6 @@
 		25BC06371E95A35400B090DA /* ic_check_circle_white_36dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BC062F1E95A33200B090DA /* ic_check_circle_white_36dp.png */; };
 		25BC06381E95A35400B090DA /* ic_home_black_36dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BC06301E95A33200B090DA /* ic_home_black_36dp.png */; };
 		25BC06391E95A35400B090DA /* ic_home_white_36dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 25BC06311E95A33200B090DA /* ic_home_white_36dp.png */; };
-		25BC063A1E95A35400B090DA /* UILibFormLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC06321E95A33200B090DA /* UILibFormLogin.xib */; };
 		25BC06441E95A38600B090DA /* UILibCtForm.h in Headers */ = {isa = PBXBuildFile; fileRef = 25BC063E1E95A38600B090DA /* UILibCtForm.h */; };
 		25BC06451E95A38600B090DA /* UILibCtForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BC063F1E95A38600B090DA /* UILibCtForm.m */; };
 		25BC06461E95A38600B090DA /* UILibCtFormLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 25BC06401E95A38600B090DA /* UILibCtFormLogin.h */; };
@@ -23,6 +22,11 @@
 		25BC06591E95AACC00B090DA /* Res.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 25BC06261E95A2A400B090DA /* Res.bundle */; };
 		25BC065C1E95B18600B090DA /* UILibUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 25BC065A1E95B18600B090DA /* UILibUtil.h */; };
 		25BC065D1E95B18600B090DA /* UILibUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BC065B1E95B18600B090DA /* UILibUtil.m */; };
+		25BC06861E9BEFA300B090DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 25BC06831E9BEF5E00B090DA /* Localizable.strings */; };
+		25BC06871E9BEFA300B090DA /* UILibFormLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25BC06801E9BEF3E00B090DA /* UILibFormLogin.xib */; };
+		25BC068A1E9C19F800B090DA /* UILibImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = 25BC06881E9C19F800B090DA /* UILibImpl.h */; };
+		25BC068B1E9C19F800B090DA /* UILibImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = 25BC06891E9C19F800B090DA /* UILibImpl.m */; };
+		25BC068D1E9C1AF000B090DA /* UILibCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 25BC068C1E9C1AF000B090DA /* UILibCallback.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +49,6 @@
 		25BC062F1E95A33200B090DA /* ic_check_circle_white_36dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_check_circle_white_36dp.png; sourceTree = "<group>"; };
 		25BC06301E95A33200B090DA /* ic_home_black_36dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_black_36dp.png; sourceTree = "<group>"; };
 		25BC06311E95A33200B090DA /* ic_home_white_36dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_home_white_36dp.png; sourceTree = "<group>"; };
-		25BC06321E95A33200B090DA /* UILibFormLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UILibFormLogin.xib; sourceTree = "<group>"; };
 		25BC063E1E95A38600B090DA /* UILibCtForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILibCtForm.h; sourceTree = "<group>"; };
 		25BC063F1E95A38600B090DA /* UILibCtForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILibCtForm.m; sourceTree = "<group>"; };
 		25BC06401E95A38600B090DA /* UILibCtFormLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILibCtFormLogin.h; sourceTree = "<group>"; };
@@ -55,6 +58,11 @@
 		25BC06541E95A91100B090DA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		25BC065A1E95B18600B090DA /* UILibUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILibUtil.h; sourceTree = "<group>"; };
 		25BC065B1E95B18600B090DA /* UILibUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILibUtil.m; sourceTree = "<group>"; };
+		25BC06811E9BEF3E00B090DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = UILibFormLogin.xib; sourceTree = "<group>"; };
+		25BC06841E9BEF5E00B090DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		25BC06881E9C19F800B090DA /* UILibImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILibImpl.h; sourceTree = "<group>"; };
+		25BC06891E9C19F800B090DA /* UILibImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILibImpl.m; sourceTree = "<group>"; };
+		25BC068C1E9C1AF000B090DA /* UILibCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILibCallback.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +113,9 @@
 				25BC06411E95A38600B090DA /* UILibCtFormLogin.m */,
 				25BC06421E95A38600B090DA /* UILib.h */,
 				25BC06431E95A38600B090DA /* UILib.m */,
+				25BC06881E9C19F800B090DA /* UILibImpl.h */,
+				25BC06891E9C19F800B090DA /* UILibImpl.m */,
+				25BC068C1E9C1AF000B090DA /* UILibCallback.h */,
 			);
 			name = Lib;
 			path = UILib_OSX_Lib;
@@ -113,13 +124,13 @@
 		25BC06271E95A2A400B090DA /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				25BC067F1E9BEF3E00B090DA /* en.lproj */,
 				25BC062C1E95A33200B090DA /* ic_arrow_back_black_36dp.png */,
 				25BC062D1E95A33200B090DA /* ic_arrow_back_white_36dp.png */,
 				25BC062E1E95A33200B090DA /* ic_check_circle_black_36dp.png */,
 				25BC062F1E95A33200B090DA /* ic_check_circle_white_36dp.png */,
 				25BC06301E95A33200B090DA /* ic_home_black_36dp.png */,
 				25BC06311E95A33200B090DA /* ic_home_white_36dp.png */,
-				25BC06321E95A33200B090DA /* UILibFormLogin.xib */,
 				25BC06281E95A2A400B090DA /* Info.plist */,
 			);
 			name = Res;
@@ -134,6 +145,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		25BC067F1E9BEF3E00B090DA /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				25BC06831E9BEF5E00B090DA /* Localizable.strings */,
+				25BC06801E9BEF3E00B090DA /* UILibFormLogin.xib */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -142,9 +162,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				25BC06481E95A38600B090DA /* UILib.h in Headers */,
+				25BC068A1E9C19F800B090DA /* UILibImpl.h in Headers */,
 				25BC06441E95A38600B090DA /* UILibCtForm.h in Headers */,
 				25BC065C1E95B18600B090DA /* UILibUtil.h in Headers */,
 				25BC06461E95A38600B090DA /* UILibCtFormLogin.h in Headers */,
+				25BC068D1E9C1AF000B090DA /* UILibCallback.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,13 +253,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25BC06861E9BEFA300B090DA /* Localizable.strings in Resources */,
+				25BC06871E9BEFA300B090DA /* UILibFormLogin.xib in Resources */,
 				25BC06341E95A35400B090DA /* ic_arrow_back_black_36dp.png in Resources */,
 				25BC06351E95A35400B090DA /* ic_arrow_back_white_36dp.png in Resources */,
 				25BC06361E95A35400B090DA /* ic_check_circle_black_36dp.png in Resources */,
 				25BC06371E95A35400B090DA /* ic_check_circle_white_36dp.png in Resources */,
 				25BC06381E95A35400B090DA /* ic_home_black_36dp.png in Resources */,
 				25BC06391E95A35400B090DA /* ic_home_white_36dp.png in Resources */,
-				25BC063A1E95A35400B090DA /* UILibFormLogin.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25BC06491E95A38600B090DA /* UILib.m in Sources */,
+				25BC068B1E9C19F800B090DA /* UILibImpl.m in Sources */,
 				25BC06471E95A38600B090DA /* UILibCtFormLogin.m in Sources */,
 				25BC06451E95A38600B090DA /* UILibCtForm.m in Sources */,
 				25BC065D1E95B18600B090DA /* UILibUtil.m in Sources */,
@@ -279,6 +303,25 @@
 			targetProxy = 25BC063C1E95A35D00B090DA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		25BC06801E9BEF3E00B090DA /* UILibFormLogin.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25BC06811E9BEF3E00B090DA /* en */,
+			);
+			name = UILibFormLogin.xib;
+			sourceTree = "<group>";
+		};
+		25BC06831E9BEF5E00B090DA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				25BC06841E9BEF5E00B090DA /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		25BC061D1E95A25A00B090DA /* Debug */ = {
@@ -437,6 +480,7 @@
 				25BC06211E95A25A00B090DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		25BC06291E95A2A400B090DA /* Build configuration list for PBXNativeTarget "Res" */ = {
 			isa = XCConfigurationList;
@@ -445,6 +489,7 @@
 				25BC062B1E95A2A400B090DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
