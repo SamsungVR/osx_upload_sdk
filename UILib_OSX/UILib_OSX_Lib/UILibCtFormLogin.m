@@ -109,7 +109,7 @@ static const NSString *sLocalhost = @"localhost";
    [mCtrlVRPassword setStringValue:@""];
    [mCtrlLoginStatus setStringValue:@""];
 
-   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:sLoginUrl]];
+   NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:(NSString *)sLoginUrl]];
    NSString *requestBody = [NSString stringWithFormat:@"serviceID=%@&actionID=StartOAuth2&redirect_uri=http://%@&accessToken=Y", @"jm1ag8bg08", sLocalhost];
 
    [request setHTTPMethod:@"POST"];
@@ -257,8 +257,30 @@ static const NSString *sLocalhost = @"localhost";
 
 - (void)onFailure:(Object)closure status:(NSInteger)status {
    NSLog(@"VR Login failure");
-   NSString *msgStr = NSLocalizedString(@"FailureWithStatusCode", nil);
-   NSString *withStatus = [NSString stringWithFormat:msgStr, status];
+   switch (status) {
+      case VR_RESULT_STATUS_LOGIN_MISSING_EMAIL_OR_PASSWORD:
+         [mForm setStatusMsg:@"vrMissingEmailPassword"];
+         break;
+      case VR_RESULT_STATUS_LOGIN_UNKNOWN_USER:
+         [mForm setStatusMsg:@"vrUnknownUser"];
+         break;
+      case VR_RESULT_STATUS_LOGIN_ACCOUNT_LOCKED_EXCESSIVE_FAILED_ATTEMPTS:
+         [mForm setStatusMsg:@"vrExcessiveLoginAttempts"];
+         break;
+      case VR_RESULT_STATUS_LOGIN_ACCOUNT_NOT_YET_ACTIVATED:
+         [mForm setStatusMsg:@"vrPendingActivation"];
+         break;
+      case VR_RESULT_STATUS_LOGIN_ACCOUNT_WILL_BE_LOCKED_OUT:
+         [mForm setStatusMsg:@"vrAccountLocked"];
+         break;
+      case VR_RESULT_STATUS_LOGIN_LOGIN_FAILED:
+         [mForm setStatusMsg:@"vrLoginFailed"];
+         break;
+      default:
+         break;
+   }
+   NSString *statusMsg = NSLocalizedStringFromTableInBundle(@"failedWithStatus", @"Localizable", [mForm getBundle], nil);
+   NSString *withStatus = [NSString stringWithFormat:statusMsg, status];
    [mForm setStatusMsg:withStatus];
 }
 
@@ -301,14 +323,13 @@ static const NSString *sLocalhost = @"localhost";
       case VR_RESULT_STATUS_LOGINSSO_AUTH_REG_ACCOUNT_ALREADY_EXISTS:
          [mForm setStatusMsg:@"ssoVRAccountAlreadyCreated"];
          break;
-      default: {
-            NSString *statusMsg = NSLocalizedStringFromTableInBundle(@"failedWithStatus", @"Localizable", [mForm getBundle], nil);
-            NSString *withStatus = [NSString stringWithFormat:statusMsg, status];
-            [mForm setStatusMsg:withStatus];
-         }
+      default:
          break;
 
    }
+   NSString *statusMsg = NSLocalizedStringFromTableInBundle(@"failedWithStatus", @"Localizable", [mForm getBundle], nil);
+   NSString *withStatus = [NSString stringWithFormat:statusMsg, status];
+   [mForm setStatusMsg:withStatus];
    
 }
 

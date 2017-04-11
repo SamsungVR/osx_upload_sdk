@@ -20,13 +20,9 @@
  * THE SOFTWARE.
  */
 
-"FileOpenSaveDialogTitle"="Open/Save";
-"FileOpenSaveDialogMsg"="Open or Save";
 "Success"="Success";
 "Failure"="Failure";
-"FailureWithStatusCode"="Failure (Code: %d)";
-"FailedToEnqueue"="Failed to enqueue request";
-
+"failedWithStatus"="Failed with status code %d";
 "ssoInvalidUserNameOrPassword"="Invalid username or password";
 "ssoUnableToVerifyAccount"="Unable to verify Samsung SSO account";
 "ssoVRAccountAlreadyCreated"="Unable to create account; account already created";
