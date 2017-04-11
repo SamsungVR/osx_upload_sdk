@@ -25,7 +25,7 @@
 @interface ObjBase : NSObject
 
 - (id)initWithDict:(NSDictionary *)dict container:(id)container;
-- (id)getLocked:(NSString *)attr;
+- (id)getLocked:(NSString const *)attr;
 - (id)getContainer;
 
 @end

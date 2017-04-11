@@ -37,7 +37,7 @@
     return mContainer;
 }
 
-- (id)getLocked:(NSString *)attr {
+- (id)getLocked:(NSString const *)attr {
     id result;
     @synchronized (self) {
         result = mProperties[attr];

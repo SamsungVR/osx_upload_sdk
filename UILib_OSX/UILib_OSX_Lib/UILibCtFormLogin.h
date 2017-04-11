@@ -38,6 +38,5 @@
 
 - (void)toLoginPage;
 - (id)initWith:(UILibImpl *)uiLibImpl bundle:(NSBundle *)bundle;
-- (NSBundle *)getBundle;
 
 @end

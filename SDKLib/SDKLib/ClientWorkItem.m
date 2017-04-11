@@ -29,7 +29,7 @@
 @implementation ClientWorkItem_CancelledCallbackNotifier
 
 - (void)notify:(Object)callback closure:(Object)closure {
-    id<VR_Result_BaseCallback> pCasted = callback;
+    id<VR_Result_BaseCallback> pCasted = (id<VR_Result_BaseCallback>)callback;
     [pCasted onCancelled:closure];
 }
 
@@ -54,7 +54,7 @@
 }
 
 - (void)notify:(Object)callback closure:(Object)closure {
-    id<VR_Result_BaseCallback> pCasted = callback;
+    id<VR_Result_BaseCallback> pCasted = (id<VR_Result_BaseCallback>)callback;
     [pCasted onException:closure exception:mException];
 }
 
@@ -120,7 +120,7 @@
     [stream close];
 }
 
-- (int)getResponseCode:(id<HttpPlugin_ReadableRequest>)request {
+- (NSInteger)getResponseCode:(id<HttpPlugin_ReadableRequest>)request {
     return [request responseCode];
 }
 
@@ -137,7 +137,7 @@
     [mCallbackHolder setNoLock:other];
 }
 
-- (void)set:(Object)callback handler:(Handler)handler closure:(Object)closure {
+- (void)set:(id)callback handler:(Handler)handler closure:(Object)closure {
     [mCallbackHolder setNoLock:callback handler:handler closure:closure];
 }
 
@@ -175,10 +175,14 @@
     [self dispatchCounted:[[ClientWorkItem_ExceptionCallbackNotifier alloc] initWithOtherAndException:mCallbackHolder exception:exception]];
 }
 
-- (void)dispatchFailure:(int)status {
+- (void)dispatchFailure:(NSInteger)status {
     [self dispatchCounted:[[Util_FailureCallbackNotifier alloc] initWithOtherAndStatus:mCallbackHolder status:status]];
 }
 - (void)onDispatchCounted:(int)count {
+    
+}
+
+- (void)onRun {
     
 }
 

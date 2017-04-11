@@ -96,7 +96,7 @@
 }
 
 + (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def {
-   NSInteger result = jsonObject[key];
+   NSInteger result = (NSInteger)jsonObject[key];
    if (!result) {
       result = def;
    }

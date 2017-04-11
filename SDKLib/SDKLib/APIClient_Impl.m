@@ -76,16 +76,16 @@ static id<AsyncWorkItemType> sTypePerformLogin = nil;
    o[@"email"] = mEmail;
    o[@"password"] = mPassword;
    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:o options:0 error:nil];
-   NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+   //NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
    Headers headers = {
-      HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%d", [jsonData length]],
+      HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%lu", [jsonData length]],
       HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
       HEADER_API_KEY, [[self getApiClient] getApiKey],
       NULL
    };
    request = [self newPostRequest:@"user/authenticate" headers:headers];
    [self writeBytes:request data:jsonData debugMsg:nil];
-   int responseCode = [self getResponseCode:request];
+   NSInteger responseCode = [self getResponseCode:request];
    NSData *response = [self readHttpStream:request debugMsg:nil];
    if (!response) {
       [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
@@ -154,16 +154,16 @@ static id<AsyncWorkItemType> sTypePerformLoginSamsungAccount = nil;
       o[@"auth_server"] = mAuthServer;
    }
    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:o options:0 error:nil];
-   NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+   //NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
    Headers headers = {
-      HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%d", [jsonData length]],
+      HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%lu", [jsonData length]],
       HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
       HEADER_API_KEY, [[self getApiClient] getApiKey],
       NULL
    };
    request = [self newPostRequest:@"user/authenticate" headers:headers];
    [self writeBytes:request data:jsonData debugMsg:nil];
-   int responseCode = [self getResponseCode:request];
+   NSInteger responseCode = [self getResponseCode:request];
    NSData *response = [self readHttpStream:request debugMsg:nil];
    if (!response) {
       [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
@@ -263,7 +263,7 @@ httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory {
          return false;
       }
    }
-   WorkItemPerformLogin *workItem = [mAsyncWorkQueue obtainWorkItem:sTypePerformLogin];
+   WorkItemPerformLogin *workItem = (WorkItemPerformLogin *)[mAsyncWorkQueue obtainWorkItem:sTypePerformLogin];
    [workItem set:email password:password callback:callback handler:handler closure:closure];
    return [mAsyncWorkQueue enqueue:workItem];
 }
@@ -275,7 +275,7 @@ httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory {
          return false;
       }
    }
-   WorkItemPerformLoginSamsungAccount *workItem = [mAsyncWorkQueue obtainWorkItem:sTypePerformLoginSamsungAccount];
+   WorkItemPerformLoginSamsungAccount *workItem = (WorkItemPerformLoginSamsungAccount *)[mAsyncWorkQueue obtainWorkItem:sTypePerformLoginSamsungAccount];
    [workItem set:samsung_sso_token auth_server:auth_server callback:callback handler:handler closure:closure];
    return [mAsyncWorkQueue enqueue:workItem];
 }
@@ -286,6 +286,12 @@ httpRequestFactory:(id<HttpPlugin_RequestFactory>)httpRequestFactory {
 
 - (AsyncWorkQueue *)getAsyncUploadQueue {
    return mAsyncUploadQueue;
+}
+
+- (bool)newUser:(NSString *)name email:(NSString *)email password:(NSString *)password
+       callback:(id<VR_Result_NewUser>)callback handler:(NSOperationQueue *)handler
+        closure:(Object)closure {
+    return false;
 }
 
 @end

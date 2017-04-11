@@ -66,7 +66,7 @@ static NSBundle *sResBundle = NULL;
    [[[InitStatusNotifier alloc] initWith:impl status:true] postSelf:impl.mHandler];
 }
 
-- (void)onFailure:(Object)closure status:(int)status {
+- (void)onFailure:(Object)closure status:(NSInteger)status {
    UILibImpl *impl = sUILibImpl;
    [[[InitStatusNotifier alloc] initWith:impl status:false] postSelf:impl.mHandler];
 }
@@ -123,10 +123,10 @@ static NSBundle *sResBundle = NULL;
    }
 
 
-   bool matches = (currentSSOAppSecret == mSSOAppSecret || currentSSOAppSecret && [currentSSOAppSecret isEqualToString:mSSOAppSecret]) &&
-   (currentSSOAppId == mSSOAppId || !currentSSOAppId && [currentSSOAppId isEqualToString:mSSOAppId]) &&
-   (currentServerEndPoint == mServerEndPoint || currentServerEndPoint && [currentServerEndPoint isEqualToString:mServerEndPoint]) &&
-   (currentServerApiKey == mServerApiKey || currentServerApiKey && [currentServerApiKey isEqualToString:mServerApiKey]);
+   bool matches = (currentSSOAppSecret == mSSOAppSecret || (currentSSOAppSecret && [currentSSOAppSecret isEqualToString:mSSOAppSecret])) &&
+   (currentSSOAppId == mSSOAppId || (currentSSOAppId && [currentSSOAppId isEqualToString:mSSOAppId])) &&
+   (currentServerEndPoint == mServerEndPoint || (currentServerEndPoint && [currentServerEndPoint isEqualToString:mServerEndPoint])) &&
+   (currentServerApiKey == mServerApiKey || (currentServerApiKey && [currentServerApiKey isEqualToString:mServerApiKey]));
 
    if (impl.mVRLibInitialized) {
       if (matches) {
@@ -140,7 +140,7 @@ static NSBundle *sResBundle = NULL;
    [self onSuccess:nil];
 }
 
-- (void)onFailure:(Object)closure status:(int)status {
+- (void)onFailure:(Object)closure status:(NSInteger)status {
    [[[InitStatusNotifier alloc] initWith:sUILibImpl status:false] postSelf:mHandler];
 }
 

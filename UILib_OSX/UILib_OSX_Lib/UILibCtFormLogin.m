@@ -103,6 +103,7 @@ static const NSString *sLocalhost = @"localhost";
    [mCtrlSSOProgress setHidden:YES];
 }
 
+
 - (void)toLoginPage {
    [self showSSOLoginProgress];
    [mCtrlVRPassword setStringValue:@""];
@@ -122,7 +123,7 @@ static const NSString *sLocalhost = @"localhost";
       WebFrame *frame = [mCtrlWebView mainFrame];
       [frame stopLoading];
 
-      NSString *htmlStr = [[NSString alloc] initWithData:[[[mCtrlWebView mainFrame] dataSource] data] encoding:NSUTF8StringEncoding];
+      //NSString *htmlStr = [[NSString alloc] initWithData:[[[mCtrlWebView mainFrame] dataSource] data] encoding:NSUTF8StringEncoding];
       //NSLog(@"Html %@", htmlStr);
       DOMDocument *document = [frame DOMDocument];
       DOMNodeList *inputs = [document getElementsByName:@"code"];
@@ -302,14 +303,13 @@ static const NSString *sLocalhost = @"localhost";
          break;
       default: {
             NSString *statusMsg = NSLocalizedStringFromTableInBundle(@"failedWithStatus", @"Localizable", [mForm getBundle], nil);
-
+            NSString *withStatus = [NSString stringWithFormat:statusMsg, status];
+            [mForm setStatusMsg:withStatus];
          }
          break;
 
    }
-   NSString *msgStr = NSLocalizedString(@"FailureWithStatusCode", nil);
-   NSString *withStatus = [NSString stringWithFormat:msgStr, status];
-   [mForm setStatusMsg:withStatus];
+   
 }
 
 - (void)onSuccess:(Object)closure result:(id)result {

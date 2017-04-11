@@ -98,9 +98,9 @@ static id<AsyncWorkItemType> sTypeCreateLiveEvent = nil;
         jsonParam[@"source"] = temp3;
     }
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonParam options:0 error:nil];
-    NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     Headers headers = {
-        HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%d", [jsonData length]],
+        HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%lu", [jsonData length]],
         HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
         HEADER_API_KEY, [[self getApiClient] getApiKey],
         HEADER_SESSION_TOKEN, [mUser getSessionToken],
@@ -113,7 +113,7 @@ static id<AsyncWorkItemType> sTypeCreateLiveEvent = nil;
         return;
     }
     [self writeBytes:request data:jsonData debugMsg:nil];
-    int responseCode = [self getResponseCode:request];
+    NSInteger responseCode = [self getResponseCode:request];
     NSData *response = [self readHttpStream:request debugMsg:nil];
     if (!response) {
         [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
@@ -192,7 +192,7 @@ static id<AsyncWorkItemType> sTypeQueryLiveEvents = nil;
         [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_NULL_CONNECTION];
         return;
     }
-    int responseCode = [self getResponseCode:request];
+    NSInteger responseCode = [self getResponseCode:request];
     NSData *response = [self readHttpStream:request debugMsg:nil];
     if (!response) {
         [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
@@ -255,7 +255,7 @@ static id<AsyncWorkItemType> sTypeQueryLiveEvents = nil;
             videoStereoscopyType:(UserVideo_VideoStereoscopyType)videoStereoscopyType
             callback:(id<User_Result_CreateLiveEvent>)callback handler:(Handler)handler closure:(Object)closure {
     AsyncWorkQueue *workQueue = [(APIClient_Impl *)[super getContainer] getAsyncWorkQueue];
-    WorkItemCreateLiveEvent *workItem = [workQueue obtainWorkItem:sTypeCreateLiveEvent];
+    WorkItemCreateLiveEvent *workItem = (WorkItemCreateLiveEvent *)[workQueue obtainWorkItem:sTypeCreateLiveEvent];
     [workItem set:self title:title description:description permission:permission source:source videoStereoscopyType:videoStereoscopyType
           callback:callback handler:handler closure:closure];
     return [workQueue enqueue:workItem];
@@ -263,18 +263,18 @@ static id<AsyncWorkItemType> sTypeQueryLiveEvents = nil;
 
 - (bool)queryLiveEvents:(id<User_Result_QueryLiveEvents>)callback handler:(Handler)handler closure:(Object)closure {
     AsyncWorkQueue *workQueue = [(APIClient_Impl *)[super getContainer] getAsyncWorkQueue];
-    WorkItemQueryLiveEvents *workItem = [workQueue obtainWorkItem:sTypeQueryLiveEvents];
+    WorkItemQueryLiveEvents *workItem = (WorkItemQueryLiveEvents *)[workQueue obtainWorkItem:sTypeQueryLiveEvents];
     [workItem set:self callback:callback handler:handler closure:closure];
     return [workQueue enqueue:workItem];
 }
 
-static const NSString const * Str_UserVideo_Permission_UNLISTED = @"Unlisted";
-static const NSString const * Str_UserVideo_Permission_PUBLIC = @"Public";
-static const NSString const * Str_UserVideo_Permission_VR_ONLY = @"VR Only";
-static const NSString const * Str_UserVideo_Permission_WEB_ONLY = @"Web Only";
-static const NSString const * Str_UserVideo_Permission_PRIVATE = @"Private";
+static NSString const * Str_UserVideo_Permission_UNLISTED = @"Unlisted";
+static NSString const * Str_UserVideo_Permission_PUBLIC = @"Public";
+static NSString const * Str_UserVideo_Permission_VR_ONLY = @"VR Only";
+static NSString const * Str_UserVideo_Permission_WEB_ONLY = @"Web Only";
+static NSString const * Str_UserVideo_Permission_PRIVATE = @"Private";
 
-+ (NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission {
++ (const NSString *)userVideoPermissionToStr:(UserVideo_Permission)permission {
     switch (permission) {
 
         case UserVideo_Permission_UNLISTED:
@@ -285,6 +285,8 @@ static const NSString const * Str_UserVideo_Permission_PRIVATE = @"Private";
             return Str_UserVideo_Permission_VR_ONLY;
         case UserVideo_Permission_WEB_ONLY:
             return Str_UserVideo_Permission_WEB_ONLY;
+        case UserVideo_Permission_PRIVATE:
+            break;
     }
     return Str_UserVideo_Permission_PRIVATE;
 }
@@ -306,13 +308,13 @@ static const NSString const * Str_UserVideo_Permission_PRIVATE = @"Private";
     
 }
 
-static const NSString const * Str_UserVideo_VideoStereoscopyType_MONOSCOPIC = @"monoscopic";
-static const NSString const * Str_UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC = @"left-right";
-static const NSString const * Str_UserVideo_VideoStereoscopyType_DUAL_FISHEYE = @"dual-fisheye";
-static const NSString const * Str_UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC = @"top-bottom";
-static const NSString const * Str_UserVideo_VideoStereoscopyType_DEFAULT = NULL;
+static NSString const * Str_UserVideo_VideoStereoscopyType_MONOSCOPIC = @"monoscopic";
+static NSString const * Str_UserVideo_VideoStereoscopyType_LEFT_RIGHT_STEREOSCOPIC = @"left-right";
+static NSString const * Str_UserVideo_VideoStereoscopyType_DUAL_FISHEYE = @"dual-fisheye";
+static NSString const * Str_UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC = @"top-bottom";
+static NSString const * Str_UserVideo_VideoStereoscopyType_DEFAULT = NULL;
 
-+ (NSString *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType {
++ (NSString const *)userVideoStereoscopyTypeToStr:(UserVideo_VideoStereoscopyType)videoStereoscopyType {
     switch (videoStereoscopyType) {
             
         case UserVideo_VideoStereoscopyType_MONOSCOPIC:
@@ -326,6 +328,9 @@ static const NSString const * Str_UserVideo_VideoStereoscopyType_DEFAULT = NULL;
             
         case UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC:
             return Str_UserVideo_VideoStereoscopyType_TOP_BOTTOM_STEREOSCOPIC;
+            
+        case UserVideo_VideoStereoscopyType_DEFAULT:
+            break;
     }
     return Str_UserVideo_VideoStereoscopyType_DEFAULT;
 }
@@ -347,11 +352,11 @@ static const NSString const * Str_UserVideo_VideoStereoscopyType_DEFAULT = NULL;
     
 }
 
-static const NSString const * Str_UserLiveEvent_Source_RTMP = @"rtmp";
-static const NSString const * Str_UserLiveEvent_Source_SEGMENTED_TS = @"segmented_ts";
-static const NSString const * Str_UserLiveEvent_Source_SEGMENTED_MP4 = @"segmented_mp4";
+static NSString const * Str_UserLiveEvent_Source_RTMP = @"rtmp";
+static NSString const * Str_UserLiveEvent_Source_SEGMENTED_TS = @"segmented_ts";
+static NSString const * Str_UserLiveEvent_Source_SEGMENTED_MP4 = @"segmented_mp4";
 
-+ (NSString *)userLiveEventSourceToStr:(UserLiveEvent_Source)source {
++ (NSString const *)userLiveEventSourceToStr:(UserLiveEvent_Source)source {
     switch (source) {
         case UserLiveEvent_Source_RTMP:
             return Str_UserLiveEvent_Source_RTMP;
@@ -377,15 +382,15 @@ static const NSString const * Str_UserLiveEvent_Source_SEGMENTED_MP4 = @"segment
 }
 
 
-static const NSString const * Str_UserLiveEvent_State_UNKNOWN = @"UNKNOWN";
-static const NSString const * Str_UserLiveEvent_State_LIVE_CREATED = @"LIVE_CREATED";
-static const NSString const * Str_UserLiveEvent_State_LIVE_CONNECTED = @"LIVE_CONNECTED";
-static const NSString const * Str_UserLiveEvent_State_LIVE_DISCONNECTED = @"LIVE_DISCONNECTED";
-static const NSString const * Str_UserLiveEvent_State_LIVE_FINISHED_ARCHIVED = @"LIVE_FINISHED_ARCHIVED";
-static const NSString const * Str_UserLiveEvent_State_LIVE_ACTIVE = @"LIVE_ACTIVE";
-static const NSString const * Str_UserLiveEvent_State_LIVE_ARCHIVING = @"LIVE_ARCHIVING";
+static NSString const * Str_UserLiveEvent_State_UNKNOWN = @"UNKNOWN";
+static NSString const * Str_UserLiveEvent_State_LIVE_CREATED = @"LIVE_CREATED";
+static NSString const * Str_UserLiveEvent_State_LIVE_CONNECTED = @"LIVE_CONNECTED";
+static NSString const * Str_UserLiveEvent_State_LIVE_DISCONNECTED = @"LIVE_DISCONNECTED";
+static NSString const * Str_UserLiveEvent_State_LIVE_FINISHED_ARCHIVED = @"LIVE_FINISHED_ARCHIVED";
+static NSString const * Str_UserLiveEvent_State_LIVE_ACTIVE = @"LIVE_ACTIVE";
+static NSString const * Str_UserLiveEvent_State_LIVE_ARCHIVING = @"LIVE_ARCHIVING";
 
-+ (NSString *)userLiveEventStateToStr:(UserLiveEvent_State)state {
++ (const NSString *)userLiveEventStateToStr:(UserLiveEvent_State)state {
     switch (state) {
 
         case UserLiveEvent_State_LIVE_CREATED:
@@ -400,6 +405,8 @@ static const NSString const * Str_UserLiveEvent_State_LIVE_ARCHIVING = @"LIVE_AR
             return Str_UserLiveEvent_State_LIVE_ACTIVE;
         case UserLiveEvent_State_LIVE_ARCHIVING:
             return Str_UserLiveEvent_State_LIVE_ARCHIVING;
+        case UserLiveEvent_State_UNKNOWN:
+            break;
            
     }
     return UserLiveEvent_State_UNKNOWN;
@@ -425,7 +432,7 @@ static const NSString const * Str_UserLiveEvent_State_LIVE_ARCHIVING = @"LIVE_AR
         return UserLiveEvent_State_LIVE_ARCHIVING;
     }
     
-    return Str_UserLiveEvent_State_UNKNOWN;
+    return UserLiveEvent_State_UNKNOWN;
 }
 
 @end

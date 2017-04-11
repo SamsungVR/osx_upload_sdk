@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NSString * __autoreleasing Headers[];
+typedef __const NSString * __const Headers[];
 
 /**
  * Assume class X is your implementation of BaseRequest or any of its descendant interfaces.
@@ -65,7 +65,7 @@ typedef NSString * __autoreleasing Headers[];
  * @return an HTTP resoponse code
  */
 
-- (int)responseCode;
+- (NSInteger)responseCode;
 
 @end
 

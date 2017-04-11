@@ -63,18 +63,18 @@ static const NSString * TRANSFER_ENCODING_CHUNKED = @"chunked";
 
 - (APIClient_Impl *)getApiClient;
 - (void)writeBytes:(id<HttpPlugin_WritableRequest>)request data:(NSData *)data debugMsg:(NSString *)debugMsg;
-- (int)getResponseCode:(id<HttpPlugin_ReadableRequest>)request;
+- (NSInteger)getResponseCode:(id<HttpPlugin_ReadableRequest>)request;
 - (NSData *)readHttpStream:(id<HttpPlugin_ReadableRequest>)request debugMsg:(NSString *)debugMsg;
 - (bool)isHttpSuccess:(NSInteger)statusCode;
 
 - (void)set:(id<ResultCallbackHolder>)other;
-- (void)set:(Object)callback handler:(Handler)handler closure:(Object)closure;
+- (void)set:(id)callback handler:(Handler)handler closure:(Object)closure;
 - (id<ResultCallbackHolder>) getCallbackHolder;
 - (Object)getClosure;
 - (Handler)getHandler;
 
 - (void)dispatchSuccessWithResult:(Object)rf;
 - (void)dispatchSuccess;
-- (void)dispatchFailure:(int)status;
+- (void)dispatchFailure:(NSInteger)status;
 
 @end

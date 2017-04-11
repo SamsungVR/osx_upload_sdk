@@ -63,6 +63,10 @@
    [self onRun:mUILibImpl callback:callback closure:closure];
 }
 
+- (void)onRun:(UILibImpl *)uiLibimpl callback:(id<UILibCallback>)callback closure:(Object)closure {
+    
+}
+
 @end
 
 

@@ -26,7 +26,7 @@
 
 @protocol ResultCallbackHolder
 
-- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure;
+- (id)initWithParams:(id)callback handler:(Handler)handler closure:(Object)closure;
 - (id)initWithOther:(id<ResultCallbackHolder>)other;
 - (id)setNoLock:(Object)callback handler:(Handler)handler closure:(Object)closure;
 - (id)setNoLock:(id<ResultCallbackHolder>)other;

@@ -78,8 +78,8 @@ static id<AsyncWorkItemType> sTypeDeleteLiveEvent = nil;
 }
 
 - (void)onRun {
-    id<HttpPlugin_GetRequest> request = nil;
-    User_Impl *user = [mUserLiveEvent getUser];
+    id<HttpPlugin_DeleteRequest> request = nil;
+    User_Impl *user = (User_Impl *)[mUserLiveEvent getUser];
     Headers headers = {
         HEADER_API_KEY, [[self getApiClient] getApiKey],
         HEADER_SESSION_TOKEN, [user getSessionToken],
@@ -93,7 +93,7 @@ static id<AsyncWorkItemType> sTypeDeleteLiveEvent = nil;
         [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_NULL_CONNECTION];
         return;
     }
-    int responseCode = [self getResponseCode:request];
+    NSInteger responseCode = [self getResponseCode:request];
     if ([self isHttpSuccess:responseCode]) {
         [self dispatchSuccess];
         return;
@@ -116,7 +116,7 @@ static id<AsyncWorkItemType> sTypeDeleteLiveEvent = nil;
 @interface WorkItemFinishLiveEvent : ClientWorkItem
 
 - (id)initWithClient:(APIClient_Impl *)apiClient;
-- (void)set:(UserLiveEvent_Impl *)liveEvent callback:(id<UserLiveEvent_Result_Delete>)callback handler:(Handler)handler closure:(Object)closure;
+- (void)set:(UserLiveEvent_Impl *)liveEvent callback:(id<UserLiveEvent_Result_Finish>)callback handler:(Handler)handler closure:(Object)closure;
 
 @end
 
@@ -149,13 +149,13 @@ static id<AsyncWorkItemType> sTypeFinishLiveEvent = nil;
 
 - (void)onRun {
     id<HttpPlugin_PutRequest> request = nil;
-    User_Impl *user = [mUserLiveEvent getUser];
+    User_Impl *user = (User_Impl *)[mUserLiveEvent getUser];
     NSMutableDictionary *jsonParam = [[NSMutableDictionary alloc] init];
     jsonParam[@"state"] = @"LIVE_FINISHED_ARCHIVED";
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonParam options:0 error:nil];
-    NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //NSString *jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     Headers headers = {
-        HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%d", [jsonData length]],
+        HEADER_CONTENT_LENGTH, [NSString stringWithFormat:@"%lu", [jsonData length]],
         HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
         HEADER_API_KEY, [[self getApiClient] getApiKey],
         HEADER_SESSION_TOKEN, [user getSessionToken],
@@ -171,7 +171,7 @@ static id<AsyncWorkItemType> sTypeFinishLiveEvent = nil;
     }
     
     [self writeBytes:request data:jsonData debugMsg:nil];
-    int responseCode = [self getResponseCode:request];
+    NSInteger responseCode = [self getResponseCode:request];
     if ([self isHttpSuccess:responseCode]) {
         [self dispatchSuccess];
         return;
@@ -269,17 +269,17 @@ static id<AsyncWorkItemType> sTypeFinishLiveEvent = nil;
 }
 
 - (bool)del:(id<UserLiveEvent_Result_Delete>)callback handler:(Handler)handler closure:(Object)closure {
-    User_Impl *user = [self getUser];
+    User_Impl *user = (User_Impl *)[self getUser];
     AsyncWorkQueue *workQueue = [(APIClient_Impl *)[user getContainer] getAsyncWorkQueue];
-    WorkItemDeleteLiveEvent *workItem = [workQueue obtainWorkItem:sTypeDeleteLiveEvent];
+    WorkItemDeleteLiveEvent *workItem = (WorkItemDeleteLiveEvent *)[workQueue obtainWorkItem:sTypeDeleteLiveEvent];
     [workItem set:self callback:callback handler:handler closure:closure];
     return [workQueue enqueue:workItem];
 }
 
 - (bool)finish:(id<UserLiveEvent_Result_Finish>)callback handler:(Handler)handler closure:(Object)closure {
-    User_Impl *user = [self getUser];
+    User_Impl *user = (User_Impl *)[self getUser];
     AsyncWorkQueue *workQueue = [(APIClient_Impl *)[user getContainer] getAsyncWorkQueue];
-    WorkItemFinishLiveEvent *workItem = [workQueue obtainWorkItem:sTypeFinishLiveEvent];
+    WorkItemFinishLiveEvent *workItem = (WorkItemFinishLiveEvent *)[workQueue obtainWorkItem:sTypeFinishLiveEvent];
     [workItem set:self callback:callback handler:handler closure:closure];
     return [workQueue enqueue:workItem];
 }

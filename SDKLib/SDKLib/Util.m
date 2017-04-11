@@ -32,7 +32,7 @@
 }
 
 + (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def {
-    NSInteger result = jsonObject[key];
+    NSInteger result = (NSInteger)jsonObject[key];
     if (!result) {
         result = def;
     }
@@ -47,7 +47,7 @@
 }
 
 
-- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure {
+- (id)initWithParams:(id)callback handler:(Handler)handler closure:(Object)closure {
     mRCHImpl = [[ResultCallbackHolder_Impl alloc] init];
     [mRCHImpl setNoLock:callback handler:handler closure:closure];
     return [super init];
@@ -110,7 +110,7 @@
 @implementation Util_SuccessCallbackNotifier
 
 - (void)notify:(Object)callback closure:(Object)closure {
-    id<VR_Result_SuccessCallback> pCasted = callback;
+    id<VR_Result_SuccessCallback> pCasted = (id<VR_Result_SuccessCallback>)callback;
     [pCasted onSuccess:closure];
 }
 
@@ -120,7 +120,7 @@
     Object mRef;
 }
 
-- (id)initWithParamsAndRef:(Object)callback handler:(Handler)handler closure:(Object)closure ref:(Object)ref {
+- (id)initWithParamsAndRef:(id)callback handler:(Handler)handler closure:(Object)closure ref:(Object)ref {
     mRef = ref;
     return [super initWithParams:callback handler:handler closure:closure];
 }
@@ -131,7 +131,7 @@
 }
 
 - (void)notify:(Object)callback closure:(Object)closure {
-    id<VR_Result_SuccessWithResultCallback> pCasted = callback;
+    id<VR_Result_SuccessWithResultCallback> pCasted = (id<VR_Result_SuccessWithResultCallback>)callback;
     [pCasted onSuccess:closure result:mRef];
 }
 
@@ -153,8 +153,8 @@
     return [super initWithOther:other];
 }
 
-- (void)notify:(Object)callback closure:(Object)closure {
-    id<VR_Result_FailureCallback> pCasted = callback;
+- (void)notify:(id)callback closure:(Object)closure {
+    id<VR_Result_FailureCallback> pCasted = (id<VR_Result_FailureCallback>)callback;
     [pCasted onFailure:closure status:mStatus];
 }
 

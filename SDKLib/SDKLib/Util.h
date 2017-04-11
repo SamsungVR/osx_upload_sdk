@@ -32,7 +32,7 @@
 
 @interface Util_CallbackNotifier : NSOperation<ResultCallbackHolder>
 
-- (void)notify:(Object)callback closure:(Object)closure;
+- (void)notify:(id)callback closure:(Object)closure;
 - (bool)post;
 
 @end
@@ -43,14 +43,14 @@
 
 @interface Util_SuccessWithResultCallbackNotifier : Util_CallbackNotifier
 
-- (id)initWithParamsAndRef:(Object)callback handler:(Handler)handler closure:(Object)closure ref:(Object)ref;
-- (id)initWithOtherAndRef:(id<ResultCallbackHolder>)other ref:(Object)ref;
+- (id)initWithParamsAndRef:(id)callback handler:(Handler)handler closure:(Object)closure ref:(id)ref;
+- (id)initWithOtherAndRef:(id<ResultCallbackHolder>)other ref:(id)ref;
 
 @end
 
 @interface Util_FailureCallbackNotifier : Util_CallbackNotifier
 
-- (id)initWithParamsAndStatus:(Object)callback handler:(Handler)handler closure:(Object)closure status:(NSInteger)status;
+- (id)initWithParamsAndStatus:(id)callback handler:(Handler)handler closure:(Object)closure status:(NSInteger)status;
 - (id)initWithOtherAndStatus:(id<ResultCallbackHolder>)other status:(NSInteger)status;
 
 @end

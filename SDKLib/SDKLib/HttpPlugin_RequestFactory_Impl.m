@@ -74,7 +74,7 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     if (!mInputStream) {
         return;
     }
-    mResponse = pResponse;
+    mResponse = (NSHTTPURLResponse *) pResponse;
 }
 
 - (id)initWithSession:(NSURLSession *)session url:(NSString *)url httpMethod:(NSString *)httpMethod headers:(Headers)headers {
@@ -84,8 +84,8 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     [mRequest setHTTPMethod:httpMethod];
     if (headers) {
         for (int i = 0; headers[i]; i += 2) {
-            NSString *pAttr = headers[i + 0];
-            NSString *pValue = headers[i + 1];
+            NSString *pAttr = (NSString *)headers[i + 0];
+            NSString *pValue = (NSString *)headers[i + 1];
             [mRequest setValue:pValue forHTTPHeaderField:pAttr];
         }
     }
@@ -102,9 +102,12 @@ static const NSString *sLog = @"HttpPlugin_RequestFactory_Impl";
     [self makeRequest];
 }
 
-- (int)responseCode {
+- (NSInteger)responseCode {
     [self makeRequest];
     return mResponse.statusCode;
+}
+
+- (void)destroy {
 }
 
 @end

@@ -31,5 +31,6 @@
 - (void)setStatusMsg:(NSString *)msg;
 - (void)setLocalizedStatusMsg:(NSString *)msg;
 - (id)initWith:(NSString *)xibName bundle:(NSBundle *)bundle;
+- (NSBundle *)getBundle;
 
 @end
