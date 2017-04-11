@@ -26,3 +26,12 @@
 "Failure"="Failure";
 "FailureWithStatusCode"="Failure (Code: %d)";
 "FailedToEnqueue"="Failed to enqueue request";
+
+"ssoInvalidUserNameOrPassword"="Invalid username or password"
+"ssoUnableToVerifyAccount"="Unable to verify Samsung SSO account"
+"ssoVRAccountAlreadyCreated"="Unable to create account; account already created"
+"vrAccountLocked"="Account locked-out or schedule to be"
+"vrExcessiveLoginAttempts"="Excessive / Too many login attempts"
+"vrLoginFailed"="Login failed. Check user id / password"
+"vrMissingEmailPassword"="Missing email or password"
+"vrUnknownUser"="Unknown user"

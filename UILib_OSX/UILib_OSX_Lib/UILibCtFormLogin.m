@@ -289,6 +289,24 @@ static const NSString *sLocalhost = @"localhost";
 
 - (void)onFailure:(Object)closure status:(NSInteger)status {
    NSLog(@"VR Login failure");
+   [mForm toLoginPage];
+   switch (status) {
+      case VR_RESULT_STATUS_LOGINSSO_AUTH_LOGIN_FAILED:
+         [mForm setStatusMsg:@"ssoInvalidUserNameOrPassword"];
+         break;
+      case VR_RESULT_STATUS_LOGINSSO_AUTH_VERIFY_FAILED:
+         [mForm setStatusMsg:@"ssoUnableToVerifyAccount"];
+         break;
+      case VR_RESULT_STATUS_LOGINSSO_AUTH_REG_ACCOUNT_ALREADY_EXISTS:
+         [mForm setStatusMsg:@"ssoVRAccountAlreadyCreated"];
+         break;
+      default: {
+            NSString *statusMsg = NSLocalizedStringFromTableInBundle(@"failedWithStatus", @"Localizable", [mForm getBundle], nil);
+
+         }
+         break;
+
+   }
    NSString *msgStr = NSLocalizedString(@"FailureWithStatusCode", nil);
    NSString *withStatus = [NSString stringWithFormat:msgStr, status];
    [mForm setStatusMsg:withStatus];
