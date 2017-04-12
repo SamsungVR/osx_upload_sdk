@@ -177,8 +177,8 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
       NSString *identifier = cfgBlock[CFG_ID];
       NSString *apiKey = cfgBlock[CFG_API_KEY];
       NSString *endPoint = cfgBlock[CFG_ENDPOINT];
-      //NSString *ssoAppId = cfgBlock[CFG_SSO_APP_ID];
-      //NSString *ssoAppSecret = cfgBlock[CFG_SSO_APP_SECRET];
+      NSString *ssoAppId = cfgBlock[CFG_SSO_APP_ID];
+      NSString *ssoAppSecret = cfgBlock[CFG_SSO_APP_SECRET];
       
       if (identifier && [identifier isEqualToString:selectedId]) {
          mSelectedId = identifier;
@@ -186,7 +186,8 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
       EndPointConfig *epCfg = [[EndPointConfig alloc] initWithId:identifier];
       [epCfg setUrl:endPoint];
       [epCfg setApiKey:apiKey];
-      
+      [epCfg setSSOAppId:ssoAppId];
+      [epCfg setSSOAppSecret:ssoAppSecret];
       [mConfigList addObject:epCfg];
       
    }
@@ -218,6 +219,8 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
       item[CFG_ID] = identifier;
       item[CFG_ENDPOINT] = [epCfg getUrl];
       item[CFG_API_KEY] = [epCfg getApiKey];
+      item[CFG_SSO_APP_ID] = [epCfg getSSOAppId];
+      item[CFG_SSO_APP_SECRET] = [epCfg getSSOAppSecret];
       items[identifier] = item;
    }
    if (!matchedSelectedId) {
@@ -263,6 +266,8 @@ static NSString *CFG_SSO_APP_SECRET = @"ssoappsecret";
       if (existing != config) {
          [existing setApiKey:[config getApiKey]];
          [existing setUrl:[config getUrl]];
+         [existing setSSOAppId:[config getSSOAppId]];
+         [existing setSSOAppSecret:[config getSSOAppSecret]];
       }
    }
    [self onConfigChanged];

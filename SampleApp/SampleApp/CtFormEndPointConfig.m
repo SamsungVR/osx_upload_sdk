@@ -31,7 +31,8 @@
 @implementation CtFormEndPointConfig {
    NSControl *mCtrlBack, *mCtrlCfgSelect, *mCtrlCfgLoad, *mCtrlCfgSave,
       *mCtrlCfgDelete, *mCtrlCfgAdd, *mCtrlCfgEdit;
-   NSTextField *mCtrlCfgURL, *mCtrlStatus, *mCtrlEditCfgURL, *mCtrlEditCfgAPIKey;
+   NSTextField *mCtrlCfgURL, *mCtrlStatus, *mCtrlEditCfgURL, *mCtrlEditCfgAPIKey,
+      *mCtrlEditCfgSSOAppId, *mCtrlEditCfgSSOAppSecret;
    NSTableView *mCtrlConfigList;
    EndPointConfigManager *mCfgMgr;
 }
@@ -66,14 +67,17 @@
 
 - (void)updateEditZone {
    EndPointConfig *selected = [mCfgMgr getSelectedConfig];
+   [mCtrlEditCfgAPIKey setStringValue:@""];
+   [mCtrlEditCfgURL setStringValue:@""];
+   [mCtrlEditCfgSSOAppId setStringValue:@""];
+   [mCtrlEditCfgSSOAppSecret setStringValue:@""];
+   
    if (selected) {
       [mCtrlEditCfgAPIKey setStringValue:[selected getApiKey]];
       [mCtrlEditCfgURL setStringValue:[selected getUrl]];
-   } else {
-      [mCtrlEditCfgAPIKey setStringValue:@""];
-      [mCtrlEditCfgURL setStringValue:@""];
+      [mCtrlEditCfgSSOAppId setStringValue:[selected getSSOAppId]];
+      [mCtrlEditCfgSSOAppSecret setStringValue:[selected getSSOAppSecret]];
    }
-   
 }
 
 - (void)onCtrlCfgLoadClick {
@@ -118,6 +122,7 @@
    EndPointConfig *cfg = [[EndPointConfig alloc] initWithAutoId];
    [cfg setApiKey:[mCtrlEditCfgAPIKey stringValue]];
    [cfg setUrl:[mCtrlEditCfgURL stringValue]];
+   [cfg setSSOAppId:[mCtrlEditCfgSSOAppId stringValue]];
    if ([mCfgMgr addOrUpdateConfig:cfg]) {
       [self updateUI];
    }
@@ -133,6 +138,8 @@
    }
    [cfg setApiKey:[mCtrlEditCfgAPIKey stringValue]];
    [cfg setUrl:[mCtrlEditCfgURL stringValue]];
+   [cfg setSSOAppId:[mCtrlEditCfgSSOAppId stringValue]];
+   [cfg setSSOAppSecret:[mCtrlEditCfgSSOAppSecret stringValue]];
    if ([mCfgMgr addOrUpdateConfig:cfg]) {
       [self updateUI];
    }
@@ -151,6 +158,9 @@
    mCtrlCfgEdit = [AppUtil setActionHandler:root identifier:@"ctrlCfgEdit" target:self action:@selector(onCtrlCfgEditClick)];
    mCtrlEditCfgURL = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlEditCfgURL"];
    mCtrlEditCfgAPIKey = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlEditCfgAPIKey"];
+   mCtrlEditCfgSSOAppId = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlEditCfgSSOAppId"];
+   mCtrlEditCfgSSOAppSecret = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlEditCfgSSOAppSecret"];
+   
    mCtrlCfgURL = (NSTextField *)[AppUtil findViewById:root identifier:@"ctrlCfgURL"];
    
    [mCtrlCfgURL setStringValue:[[mCfgMgr getCurrentCfgURL] absoluteString]];

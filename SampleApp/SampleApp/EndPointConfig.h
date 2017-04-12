@@ -28,8 +28,13 @@
 - (id)initWithAutoId;
 - (void)setUrl:(NSString *)url;
 - (void)setApiKey:(NSString *)apiKey;
+- (void)setSSOAppId:(NSString *)ssoAppId;
+- (void)setSSOAppSecret:(NSString *)ssoAppSecret;
+
 - (NSString *)getId;
 - (NSString *)getUrl;
 - (NSString *)getApiKey;
+- (NSString *)getSSOAppId;
+- (NSString *)getSSOAppSecret;
 
 @end

@@ -23,7 +23,7 @@
 #import "EndPointConfig.h"
 
 @implementation EndPointConfig {
-   NSString *mIdentifier, *mUrl, *mApiKey;
+   NSString *mIdentifier, *mUrl, *mApiKey, *mSSOAppId, *mSSOAppSecret;
 }
 
 - (id)initWithId:(NSString *)identifier {
@@ -44,6 +44,15 @@
    mApiKey = apiKey;
 }
 
+- (void)setSSOAppId:(NSString *)ssoAppId {
+   mSSOAppId = ssoAppId;
+}
+
+- (void)setSSOAppSecret:(NSString *)ssoAppSecret {
+   mSSOAppSecret = ssoAppSecret;
+}
+
+
 - (NSString *)getId {
    return mIdentifier;
 }
@@ -54,6 +63,14 @@
 
 - (NSString *)getApiKey {
    return mApiKey;
+}
+
+- (NSString *)getSSOAppId {
+   return mSSOAppId;
+}
+
+- (NSString *)getSSOAppSecret {
+   return mSSOAppSecret;
 }
 
 @end
