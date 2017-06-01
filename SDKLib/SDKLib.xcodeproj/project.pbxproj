@@ -30,6 +30,8 @@
 		256BF58F1E7893CF006DF17C /* UserLiveEvent_Impl.m in Sources */ = {isa = PBXBuildFile; fileRef = 256BF58D1E7893CF006DF17C /* UserLiveEvent_Impl.m */; };
 		258E264E1E731DCA0006A11F /* ClientWorkItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 258E264C1E731DCA0006A11F /* ClientWorkItem.h */; };
 		258E264F1E731DCA0006A11F /* ClientWorkItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 258E264D1E731DCA0006A11F /* ClientWorkItem.m */; };
+		E29903FE1EDF1BAE00CC9B4D /* ObjectHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = E29903FC1EDF1BAE00CC9B4D /* ObjectHolder.h */; };
+		E29903FF1EDF1BAE00CC9B4D /* ObjectHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = E29903FD1EDF1BAE00CC9B4D /* ObjectHolder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,8 @@
 		256BF58D1E7893CF006DF17C /* UserLiveEvent_Impl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserLiveEvent_Impl.m; path = SDKLib/UserLiveEvent_Impl.m; sourceTree = "<group>"; };
 		258E264C1E731DCA0006A11F /* ClientWorkItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientWorkItem.h; path = SDKLib/ClientWorkItem.h; sourceTree = "<group>"; };
 		258E264D1E731DCA0006A11F /* ClientWorkItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClientWorkItem.m; path = SDKLib/ClientWorkItem.m; sourceTree = "<group>"; };
+		E29903FC1EDF1BAE00CC9B4D /* ObjectHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjectHolder.h; path = SDKLib/ObjectHolder.h; sourceTree = "<group>"; };
+		E29903FD1EDF1BAE00CC9B4D /* ObjectHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ObjectHolder.m; path = SDKLib/ObjectHolder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 		254A546C1E64C5A500BFAC55 = {
 			isa = PBXGroup;
 			children = (
+				E29903FC1EDF1BAE00CC9B4D /* ObjectHolder.h */,
+				E29903FD1EDF1BAE00CC9B4D /* ObjectHolder.m */,
 				256BF58C1E7893CF006DF17C /* UserLiveEvent_Impl.h */,
 				256BF58D1E7893CF006DF17C /* UserLiveEvent_Impl.m */,
 				256BF58B1E788713006DF17C /* UserLiveEvent.h */,
@@ -124,6 +130,7 @@
 				256BF58E1E7893CF006DF17C /* UserLiveEvent_Impl.h in Headers */,
 				256BF5791E772D0B006DF17C /* ObjBase.h in Headers */,
 				254A54B61E67958E00BFAC55 /* HttpPlugin_RequestFactory_Impl.h in Headers */,
+				E29903FE1EDF1BAE00CC9B4D /* ObjectHolder.h in Headers */,
 				254A54791E64C5A500BFAC55 /* VR.h in Headers */,
 				254A54BD1E679F8400BFAC55 /* Util.h in Headers */,
 				254A54BA1E67961100BFAC55 /* HttpPlugin.h in Headers */,
@@ -195,6 +202,7 @@
 				254A547B1E64C5A500BFAC55 /* VR.m in Sources */,
 				258E264F1E731DCA0006A11F /* ClientWorkItem.m in Sources */,
 				254A54BE1E679F8400BFAC55 /* Util.m in Sources */,
+				E29903FF1EDF1BAE00CC9B4D /* ObjectHolder.m in Sources */,
 				254A54CF1E6A00CC00BFAC55 /* ResultCallbackHolder_Impl.m in Sources */,
 				254A54C31E69EE5700BFAC55 /* APIClient_Impl.m in Sources */,
 				256BF57A1E772D0B006DF17C /* ObjBase.m in Sources */,

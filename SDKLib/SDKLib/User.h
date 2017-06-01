@@ -36,6 +36,55 @@ typedef NS_ENUM(NSInteger, User_Result_Status_CreateLiveEvent) {
 
 @end
 
+@protocol User_Result_UploadVideo <VR_Result_BaseCallback, VR_Result_ProgressCallback, VR_Result_SuccessWithResultCallback>
+
+
+/**
+ * Callback delivering results of uploadVideo. Most status codes
+ * are self explanatory. The non-obvious ones are documented.
+ */
+
+typedef NS_ENUM(NSInteger, User_Result_Status_UploadVideo) {
+   
+   STATUS_OUT_OF_UPLOAD_QUOTA = 1,
+   STATUS_BAD_FILE_LENGTH = 3,
+   STATUS_FILE_LENGTH_TOO_LONG = 4,
+   STATUS_INVALID_STEREOSCOPIC_TYPE = 5,
+   STATUS_INVALID_AUDIO_TYPE = 6,
+   
+   STATUS_CHUNK_UPLOAD_FAILED = 101,
+   
+   /**
+    * An attempt to query the url for the next chunk upload failed.
+    */
+   STATUS_SIGNED_URL_QUERY_FAILED = 102,
+   
+   /**
+    * An attempt to schedule the content upload onto a background
+    * thread failed. This may indicate that the system is low on resources.
+    * The user could attempt to kill unwanted services/processess and retry
+    * the upload operation
+    */
+   
+   STATUS_CONTENT_UPLOAD_SCHEDULING_FAILED = 103,
+   
+   /**
+    * The file has been modified while the upload was in progress. This could
+    * be a checksum mismatch or file length mismatch.
+    */
+   
+   STATUS_FILE_MODIFIED_AFTER_UPLOAD_REQUEST = 104
+};
+
+/**
+ * The server issued a video id for this upload.  The contents
+ * of the video may not have been uploaded yet.
+ */
+
+- (void)onVideoIdAvailable:(Object)closure video:(id<UserVideo>)video;
+
+@end
+
 @protocol User_Result_QueryLiveEvents <VR_Result_BaseCallback, VR_Result_SuccessWithResultCallback>
 
 @end
@@ -54,6 +103,15 @@ typedef NS_ENUM(NSInteger, User_Result_Status_CreateLiveEvent) {
    callback:(id<User_Result_CreateLiveEvent>)callback handler:(Handler)handler closure:(Object)closure;
 
 - (bool)queryLiveEvents:(id<User_Result_QueryLiveEvents>)callback handler:(Handler)handler closure:(Object)closure;
+
+
+- (bool)uploadVideo:(NSInputStream *)source length:(long)length title:(NSString *)title description:(NSString *)description
+         permission:(UserVideo_Permission)permission callback:(id<User_Result_UploadVideo>)callback
+            handler:(Handler)handler closure:(Object)closure;
+
+
+- (bool)cancelUploadVideo:(Object)closure;
+
 
 @end
 
