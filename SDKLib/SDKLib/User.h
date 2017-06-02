@@ -30,8 +30,8 @@
 
 typedef NS_ENUM(NSInteger, User_Result_Status_CreateLiveEvent) {
     
-    USER_RESULT_STATUS_INVALID_STEREOSCOPIC_TYPE = 5,
-    USER_RESULT_STATUS_INVALID_AUDIO_TYPE = 6
+    USER_RESULT_STATUS_CREATELIVEEVENT_INVALID_STEREOSCOPIC_TYPE = 5,
+    USER_RESULT_STATUS_CREATELIVEEVENT_INVALID_AUDIO_TYPE = 6
 };
 
 @end
@@ -46,18 +46,18 @@ typedef NS_ENUM(NSInteger, User_Result_Status_CreateLiveEvent) {
 
 typedef NS_ENUM(NSInteger, User_Result_Status_UploadVideo) {
    
-   STATUS_OUT_OF_UPLOAD_QUOTA = 1,
-   STATUS_BAD_FILE_LENGTH = 3,
-   STATUS_FILE_LENGTH_TOO_LONG = 4,
-   STATUS_INVALID_STEREOSCOPIC_TYPE = 5,
-   STATUS_INVALID_AUDIO_TYPE = 6,
+   USER_RESULT_STATUS_UPLOADVIDEO_OUT_OF_UPLOAD_QUOTA = 1,
+   USER_RESULT_STATUS_UPLOADVIDEO_BAD_FILE_LENGTH = 3,
+   USER_RESULT_STATUS_UPLOADVIDEO_FILE_LENGTH_TOO_LONG = 4,
+   USER_RESULT_STATUS_UPLOADVIDEO_INVALID_STEREOSCOPIC_TYPE = 5,
+   USER_RESULT_STATUS_UPLOADVIDEO_INVALID_AUDIO_TYPE = 6,
    
-   STATUS_CHUNK_UPLOAD_FAILED = 101,
+   USER_RESULT_STATUS_UPLOADVIDEO_CHUNK_UPLOAD_FAILED = 101,
    
    /**
     * An attempt to query the url for the next chunk upload failed.
     */
-   STATUS_SIGNED_URL_QUERY_FAILED = 102,
+   USER_RESULT_STATUS_UPLOADVIDEO_SIGNED_URL_QUERY_FAILED = 102,
    
    /**
     * An attempt to schedule the content upload onto a background
@@ -66,14 +66,14 @@ typedef NS_ENUM(NSInteger, User_Result_Status_UploadVideo) {
     * the upload operation
     */
    
-   STATUS_CONTENT_UPLOAD_SCHEDULING_FAILED = 103,
+   USER_RESULT_STATUS_UPLOADVIDEO_CONTENT_UPLOAD_SCHEDULING_FAILED = 103,
    
    /**
     * The file has been modified while the upload was in progress. This could
     * be a checksum mismatch or file length mismatch.
     */
    
-   STATUS_FILE_MODIFIED_AFTER_UPLOAD_REQUEST = 104
+   USER_RESULT_STATUS_UPLOADVIDEO_FILE_MODIFIED_AFTER_UPLOAD_REQUEST = 104
 };
 
 /**

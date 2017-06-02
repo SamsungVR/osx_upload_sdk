@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Samsung Electronics America
+ * Copyright (c) 2017 Samsung Electronics America
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the "Software"),
@@ -20,24 +20,14 @@
  * THE SOFTWARE.
  */
 
-#import "Compat_Defs.h"
-#import "AsyncWorkItem.h"
+#import "UserVideo.h"
+#import "ResultCallbackHolder_Impl.h"
+#import "ObjectHolder.h"
 
-@class APIClient_Impl;
+@interface UserVideo_Impl : NSObject<UserVideo>
 
-@protocol AsyncWorkQueue_IterationObserver
-
-- (bool)onIterate:(AsyncWorkItem *)workItem args:(Object)args;
-
-@end
-
-@interface AsyncWorkQueue : NSOperationQueue
-
-- (void)destroy;
-- (id)initWithAPIClient:(APIClient_Impl *)apiClient;
-- (AsyncWorkItem *)obtainWorkItem:(id<AsyncWorkItemType>)type;
-- (bool)enqueue:(AsyncWorkItem *)workItem;
-- (void)iterateWorkItems:(id<AsyncWorkQueue_IterationObserver>)observer args:(Object)args;
+- (bool)uploadContent:(ObjectHolder *)cancelHolder source:(NSInputStream *)source length:(long)length initialSignedUrl:(NSString *)initialSignedUrl
+       videoId:(NSString *)videoId uploadId:(NSString *)uploadId chunkSize:(long)chunkSize numChunks:(long)numChunks
+       callbackHolder:(id<ResultCallbackHolder>)callbackHolder;
 
 @end
-

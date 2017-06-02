@@ -66,8 +66,26 @@
 }
 
 - (bool)enqueue:(AsyncWorkItem *)workItem {
+   @synchronized (self) {
     [self addOperation:workItem];
     return true;
+   }
+}
+
+- (void) iterateWorkItems:(id<AsyncWorkQueue_IterationObserver>)observer args:(Object)args {
+   @synchronized (self) {
+      NSArray *ops = [self operations];
+      if (!ops) {
+         return;
+      }
+      NSUInteger size = [ops count];
+      for (NSUInteger i = 0; i < size; i += 1) {
+         AsyncWorkItem *op = [ops objectAtIndex:i];
+         if (![observer onIterate:op args:args]) {
+            return;
+         }
+      }
+   }
 }
 
 @end

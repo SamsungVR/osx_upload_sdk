@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef __const NSString * __const Headers[];
+typedef __const NSString * __strong Headers[];
 
 /**
  * Assume class X is your implementation of BaseRequest or any of its descendant interfaces.

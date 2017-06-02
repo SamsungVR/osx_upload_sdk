@@ -20,10 +20,12 @@
  * THE SOFTWARE.
  */
 
+#import "Util.h"
 #import "User_Impl.h"
 #import "ObjectHolder.h"
 #import "ClientWorkItem.h"
 #import "UserLiveEvent_Impl.h"
+#import "UserVideo_Impl.h"
 
 static const NSString
 * const PROP_NAME = @"name",
@@ -39,7 +41,7 @@ static const NSString
 
 - (id)initWithClient:(APIClient_Impl *)apiClient;
 - (void)set:(User_Impl *)user title:(NSString *)title description:(NSString *)description permission:(UserVideo_Permission)permission
-   source:(UserLiveEvent_Source)source videoStereoscopyType:(UserVideo_VideoStereoscopyType)videoStereoscopyType
+     source:(UserLiveEvent_Source)source videoStereoscopyType:(UserVideo_VideoStereoscopyType)videoStereoscopyType
    callback:(id<User_Result_CreateLiveEvent>)callback handler:(Handler)handler closure:(Object)closure;
 
 @end
@@ -129,9 +131,8 @@ static id<AsyncWorkItemType> sTypeCreateLiveEvent = nil;
       
       if (videoId) {
          UserLiveEvent_Impl *eventObj = [[UserLiveEvent_Impl alloc] initWithParams:mUser
-         videoId:videoId title:mTitle description:mDescription permission:mPermission
-                                                                            source:mSource videoSteroscopyType:mVideoStereoscopyType
-                                                                         ingestUrl:ingestUrl viewUrl:viewUrl];
+                                                                           videoId:videoId title:mTitle description:mDescription permission:mPermission
+                                                                            source:mSource videoSteroscopyType:mVideoStereoscopyType ingestUrl:ingestUrl viewUrl:viewUrl];
          [self dispatchSuccessWithResult:eventObj];
          return;
       }
@@ -294,7 +295,6 @@ static id<AsyncWorkItemType> sTypeQueryLiveEvents = nil;
 @interface WorkItemNewVideoUpload : WorkItemVideoUploadBase
 
 - (id)initWithClient:(APIClient_Impl *)apiClient;
-- (void)set:(User_Impl *)user callback:(id<User_Result_UploadVideo>)callback handler:(Handler)handler closure:(Object)closure;
 
 @end
 
@@ -322,7 +322,7 @@ static id<AsyncWorkItemType> sTypeNewVideoUpload = nil;
 }
 
 - (void)set:(User_Impl *)user source:(NSInputStream *)source length:(long)length title:(NSString *)title
-   description:(NSString *)description permission:(UserVideo_Permission)permission
+description:(NSString *)description permission:(UserVideo_Permission)permission
    callback:(id<User_Result_UploadVideo>)callback handler:(Handler)handler closure:(Object)closure {
    [super set:[[ObjectHolder alloc] initWith:[NSNumber numberWithBool:FALSE]] callback:callback handler:handler closure:closure];
    mUser = user;
@@ -335,95 +335,123 @@ static id<AsyncWorkItemType> sTypeNewVideoUpload = nil;
 }
 
 - (void)onRun {
-   /*
-      
-      long length = mLength;
-      
-      string[,] headers0 = new string[,] {
-         {UserImpl.HEADER_SESSION_TOKEN, mUser.getSessionToken()},
-         {APIClientImpl.HEADER_API_KEY, mAPIClient.getApiKey()},
-      };
-      
-      string[,] headers1 = {
-         {HEADER_CONTENT_LENGTH, "0"},
-         {HEADER_CONTENT_TYPE, "application/json" + ClientWorkItem.CONTENT_TYPE_CHARSET_SUFFIX_UTF8},
-         {headers0[0, 0], headers0[0, 1]},
-         {headers0[1, 0], headers0[1, 1]}
-      };
-      
-      JObject jsonParam = new JObject();
-      
-      jsonParam.Add("title", mTitle);
-      jsonParam.Add("description", mDescription);
-      jsonParam.Add("length", length);
-      jsonParam.Add("permission", UserVideo.toString(mPermission));
-      
-      HttpPlugin.PostRequest request = null;
-      string videoId = null;
-      string uploadId = null;
-      string signedUrl = null;
-      int chunkSize = 0;
-      int numChunks = 0;
-      
-      try {
-         string jsonStr = jsonParam.ToString(Newtonsoft.Json.Formatting.None);
-         byte[] data = System.Text.Encoding.UTF8.GetBytes(jsonStr);
-         
-         headers1[0, 1] = data.Length.ToString();
-         request = newPostRequest(string.Format("user/{0}/video", mUser.getUserId()), headers1);
-         if (null == request) {
-            dispatchFailure(VR.Result.STATUS_HTTP_PLUGIN_NULL_CONNECTION);
-            return;
-         }
-         
-         writeBytes(request, data, jsonStr);
-         
-         if (isCancelled()) {
-            dispatchCancelled();
-            return;
-         }
-         
-         HttpStatusCode rsp = getResponseCode(request);
-         string data4 = readHttpStream(request, "code: " + rsp);
-         if (null == data4) {
-            dispatchFailure(VR.Result.STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE);
-            return;
-         }
-         JObject jsonObject = JObject.Parse(data4);
-         
-         if (!isHTTPSuccess(rsp)) {
-            int status = Util.jsonOpt(jsonObject, "status", VR.Result.STATUS_SERVER_RESPONSE_NO_STATUS_CODE);
-            dispatchFailure(status);
-            return;
-         }
-         
-         if (isCancelled()) {
-            dispatchCancelled();
-            return;
-         }
-         
-         videoId = Util.jsonGet<string>(jsonObject, "video_id");
-         uploadId = Util.jsonGet<string>(jsonObject, "upload_id");
-         signedUrl = Util.jsonGet<string>(jsonObject, "signed_url");
-         chunkSize = Util.jsonGet<int>(jsonObject, "chunk_size");
-         numChunks = Util.jsonGet<int>(jsonObject, "chunks");
-         
-         UserVideoImpl userVideo = new UserVideoImpl(mUser, mTitle, mDescription, mPermission);
-         VideoIdAvailableCallbackNotifier notifier = new VideoIdAvailableCallbackNotifier(mCallbackHolder, userVideo);
-         
-         if (!userVideo.uploadContent(getCancelHolder(), mSource, mSource.Length, signedUrl, videoId, uploadId,
-                                      chunkSize, numChunks, mCallbackHolder)) {
-            dispatchUncounted(notifier);
-            dispatchFailure(User.Result.UploadVideo.STATUS_CONTENT_UPLOAD_SCHEDULING_FAILED);
-         } else {
-            dispatchCounted(notifier);
-         }
-         
-      } finally {
-         destroy(request);
-      }
-      */
+   
+   Headers headers0 = {
+      HEADER_API_KEY, [[self getApiClient] getApiKey],
+      HEADER_SESSION_TOKEN, [mUser getSessionToken],
+      NULL
+   };
+   Headers headers1 = {
+      HEADER_CONTENT_LENGTH, @"0",
+      HEADER_CONTENT_TYPE, [NSString stringWithFormat:@"application/json%@", CONTENT_TYPE_CHARSET_SUFFIX_UTF8],
+      headers0[0], headers0[1], headers0[2], headers0[3],
+      NULL
+   };
+   
+   NSMutableDictionary *jsonParam = [[NSMutableDictionary alloc] init];
+   jsonParam[@"title"] = mTitle;
+   jsonParam[@"description"] = mDescription;
+   jsonParam[@"length"] = [NSNumber numberWithInteger:mLength];
+   NSString *temp1 = [User_Impl userVideoPermissionToStr:mPermission];
+   if (temp1) {
+      jsonParam[@"permission"] = temp1;
    }
+   
+   NSString *videoId = nil;
+   NSString *uploadId = nil;
+   NSString *signedUrl = nil;
+   NSNumber *chunkSize = nil;
+   NSNumber *numChunks = nil;
+   
+   NSData *jsonData = [NSJSONSerialization dataWithJSONObject:jsonParam options:0 error:nil];
+   
+   headers1[1] = [NSString stringWithFormat:@"%lu", [jsonData length]];
+   NSString *userId = [mUser getUserId];
+   id<HttpPlugin_PostRequest> request = [self newPostRequest:[NSString stringWithFormat:@"user/%@/video", userId] headers:headers1];
+   if (!request) {
+      [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_NULL_CONNECTION];
+      return;
+   }
+   [self writeBytes:request data:jsonData debugMsg:nil];
+   if ([self isCancelled]) {
+      [self dispatchCancelled];
+      return;
+   }
+   NSInteger responseCode = [self getResponseCode:request];
+   NSData *data4 = [self readHttpStream:request debugMsg:nil];
+   
+   if (!data4) {
+      [self dispatchFailure:VR_RESULT_STATUS_HTTP_PLUGIN_STREAM_READ_FAILURE];
+      return;
+   }
+   NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:data4 options:0 error:nil];
+   if (![self isHttpSuccess:responseCode]) {
+      NSInteger status = [Util jsonOptInt:jsonObject key:@"status" def:VR_RESULT_STATUS_SERVER_RESPONSE_NO_STATUS_CODE];
+      [self dispatchFailure:status];
+      return;
+   }
+   if ([self isCancelled]) {
+      [self dispatchCancelled];
+      return;
+   }
+   
+   videoId = [Util jsonOptObj:jsonObject key:@"video_id" def:NULL];
+   uploadId = [Util jsonOptObj:jsonObject key:@"upload_id" def:NULL];
+   signedUrl = [Util jsonOptObj:jsonObject key:@"signed_url" def:NULL];
+   
+   chunkSize = [Util jsonOptObj:jsonObject key:@"chunk_size" def:NULL];
+   numChunks = [Util jsonOptObj:jsonObject key:@"chunks" def:NULL];
+   
+   UserVideo_Impl *userVideo = nil; //new UserVideo_Impl(mUser, mTitle, mDescription, mPermission);
+   VideoIdAvailableCallbackNotifier *notifier = [[VideoIdAvailableCallbackNotifier alloc] initWithOtherAndVideo:[self getCallbackHolder] video:userVideo];
+   
+   if (![userVideo uploadContent:[self getCancelHolder] source:mSource length:mLength initialSignedUrl:signedUrl videoId:videoId uploadId:uploadId
+                       chunkSize:[chunkSize longValue] numChunks:[numChunks longValue] callbackHolder:[self getCallbackHolder]]) {
+      [self dispatchUncounted:notifier];
+      [self dispatchFailure:USER_RESULT_STATUS_UPLOADVIDEO_CONTENT_UPLOAD_SCHEDULING_FAILED];
+   } else {
+      [self dispatchCounted:notifier];
+   }
+}
+
+@end
+
+@interface UploadVideoCanceller : NSObject<AsyncWorkQueue_IterationObserver>
+   
+- (id)initWithClosure:(Object)closure;
+- (bool)wasFound;
+   
+@end
+
+@implementation UploadVideoCanceller {
+   Object mClosure;
+   bool mFound;
+}
+
+- (id)initWithClosure:(Object)closure {
+   mClosure = closure;
+   mFound = FALSE;
+   
+   return [super init];
+}
+
+- (bool)wasFound {
+   return mFound;
+}
+
+- (bool)onIterate:(AsyncWorkItem *)workItem args:(Object)args {
+   id<AsyncWorkItemType> type = [workItem getType];
+   
+   if (type == sTypeNewVideoUpload) {
+      ClientWorkItem *cWorkItem = (ClientWorkItem *)workItem;
+      Object uploadClosure = [cWorkItem getClosure];
+      if ([Util checkEquals:mClosure b:uploadClosure]) {
+         [workItem cancel];
+         mFound = true;
+      }
+   }
+   return true;
+}
 
 @end
 
@@ -434,6 +462,7 @@ static id<AsyncWorkItemType> sTypeNewVideoUpload = nil;
    sTypeQueryLiveEvents = [[WorkItemTypeQueryLiveEvents alloc] init];
    sTypeNewVideoUpload = [[WorkItemTypeNewVideoUpload alloc] init];
 }
+
 
 - (id)initWith:(APIClient_Impl *)apiClient jsonObject:(NSDictionary *)jsonObject {
    return [super initWithDict:jsonObject container:apiClient];
@@ -474,10 +503,19 @@ static id<AsyncWorkItemType> sTypeNewVideoUpload = nil;
          permission:(UserVideo_Permission)permission callback:(id<User_Result_UploadVideo>)callback handler:(Handler)handler closure:(Object)closure {
    AsyncWorkQueue *workQueue = [(APIClient_Impl *)[super getContainer] getAsyncWorkQueue];
    WorkItemNewVideoUpload *workItem = (WorkItemNewVideoUpload *)[workQueue obtainWorkItem:sTypeNewVideoUpload];
-
+   
    [workItem set:self source:source length:length title:title description:description
       permission:permission callback:callback handler:handler closure:closure];
    return [workQueue enqueue:workItem];
+}
+
+- (bool)cancelUploadVideo:(Object)closure {
+   AsyncWorkQueue *workQueue = [(APIClient_Impl *)[super getContainer] getAsyncWorkQueue];
+   
+   UploadVideoCanceller *canceller = [[UploadVideoCanceller alloc] initWithClosure:closure];
+   [workQueue iterateWorkItems:canceller args:NULL];
+   bool ret = [canceller wasFound];
+   return ret;
 }
 
 - (bool)queryLiveEvents:(id<User_Result_QueryLiveEvents>)callback handler:(Handler)handler closure:(Object)closure {

@@ -178,6 +178,11 @@
 - (void)dispatchFailure:(NSInteger)status {
     [self dispatchCounted:[[Util_FailureCallbackNotifier alloc] initWithOtherAndStatus:mCallbackHolder status:status]];
 }
+
+- (void)dispatchCancelled {
+   [self dispatchCounted:[[Util_CancelledCallbackNotifier alloc] initWithOther:mCallbackHolder]];
+}
+
 - (void)onDispatchCounted:(int)count {
     
 }

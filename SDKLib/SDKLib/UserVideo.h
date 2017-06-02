@@ -20,6 +20,8 @@
  * THE SOFTWARE.
  */
 
+#import "Compat_Defs.h"
+
 typedef NS_ENUM(NSInteger, UserVideo_Permission) {
     UserVideo_Permission_PRIVATE,
     UserVideo_Permission_UNLISTED,

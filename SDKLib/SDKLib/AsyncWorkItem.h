@@ -27,6 +27,7 @@
 @interface AsyncWorkItem : NSOperation
 
 - (id)initWithType:(id<AsyncWorkItemType>)type;
+- (id<AsyncWorkItemType>)getType;
 
 @end
 
@@ -35,5 +36,6 @@
 @protocol AsyncWorkItemType
 
 - (AsyncWorkItem *)newInstance:(APIClient_Impl *)apiClient;
+
 
 @end

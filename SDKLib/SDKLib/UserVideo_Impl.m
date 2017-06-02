@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016 Samsung Electronics America
+ * Copyright (c) 2017 Samsung Electronics America
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the "Software"),
@@ -20,24 +20,24 @@
  * THE SOFTWARE.
  */
 
-#import "Compat_Defs.h"
-#import "AsyncWorkItem.h"
 
-@class APIClient_Impl;
+#import "UserVideo_Impl.h"
 
-@protocol AsyncWorkQueue_IterationObserver
+@implementation UserVideo_Impl
 
-- (bool)onIterate:(AsyncWorkItem *)workItem args:(Object)args;
+- (bool)cancelUpload:(Object)closure {
+   return false;
+}
+
+- (bool)retryUpload:(NSInputStream *)source length:(long)length callback:(id<User_Result_UploadVideo>)callback
+            handler:(Handler)handler closure:(Object)closure {
+   return false;
+}
+
+- (bool)uploadContent:(ObjectHolder *)cancelHolder source:(NSInputStream *)source length:(long)length initialSignedUrl:(NSString *)initialSignedUrl
+              videoId:(NSString *)videoId uploadId:(NSString *)uploadId chunkSize:(long)chunkSize numChunks:(long)numChunks
+       callbackHolder:(id<ResultCallbackHolder>)callbackHolder {
+   return false;
+}
 
 @end
-
-@interface AsyncWorkQueue : NSOperationQueue
-
-- (void)destroy;
-- (id)initWithAPIClient:(APIClient_Impl *)apiClient;
-- (AsyncWorkItem *)obtainWorkItem:(id<AsyncWorkItemType>)type;
-- (bool)enqueue:(AsyncWorkItem *)workItem;
-- (void)iterateWorkItems:(id<AsyncWorkQueue_IterationObserver>)observer args:(Object)args;
-
-@end
-

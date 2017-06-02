@@ -40,6 +40,19 @@
 }
 
 
++ (bool)checkEquals:(Object)a b:(Object)b {
+   if (a == b) {
+      return true;
+   }
+   if (a && TRUE == [a isEqual:b]) {
+      return true;
+   }
+   if (b && TRUE == [b isEqual:a]) {
+      return true;
+   }
+   return false;
+}
+
 @end
 
 @implementation Util_CallbackNotifier {
@@ -156,6 +169,23 @@
 - (void)notify:(id)callback closure:(Object)closure {
     id<VR_Result_FailureCallback> pCasted = (id<VR_Result_FailureCallback>)callback;
     [pCasted onFailure:closure status:mStatus];
+}
+
+@end
+
+@implementation Util_CancelledCallbackNotifier
+
+- (id)initWithParams:(Object)callback handler:(Handler)handler closure:(Object)closure {
+   return [super initWithParams:callback handler:handler closure:closure];
+}
+
+- (id)initWithOther:(id<ResultCallbackHolder>)other {
+   return [super initWithOther:other];
+}
+
+- (void)notify:(id)callback closure:(Object)closure {
+   id<VR_Result_BaseCallback> pCasted = (id<VR_Result_BaseCallback>)callback;
+   [pCasted onCancelled:closure];
 }
 
 @end

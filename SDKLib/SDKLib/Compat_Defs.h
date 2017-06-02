@@ -23,6 +23,8 @@
 #ifndef Compat_Defs_h
 #define Compat_Defs_h
 
+#import <Foundation/Foundation.h>
+
 typedef NSObject * Object;
 typedef NSException * Exception;
 typedef NSOperationQueue * Handler;

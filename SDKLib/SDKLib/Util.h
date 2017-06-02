@@ -27,6 +27,7 @@
 
 + (id)jsonOptObj:(NSDictionary *)jsonObject key:(NSString *)key def:(id)def;
 + (NSInteger)jsonOptInt:(NSDictionary *)jsonObject key:(NSString *)key def:(NSInteger)def;
++ (bool)checkEquals:(Object)a b:(Object)b;
 
 @end
 
@@ -52,6 +53,13 @@
 
 - (id)initWithParamsAndStatus:(id)callback handler:(Handler)handler closure:(Object)closure status:(NSInteger)status;
 - (id)initWithOtherAndStatus:(id<ResultCallbackHolder>)other status:(NSInteger)status;
+
+@end
+
+@interface Util_CancelledCallbackNotifier : Util_CallbackNotifier
+
+- (id)initWithParams:(id)callback handler:(Handler)handler closure:(Object)closure;
+- (id)initWithOther:(id<ResultCallbackHolder>)other;
 
 @end
 
